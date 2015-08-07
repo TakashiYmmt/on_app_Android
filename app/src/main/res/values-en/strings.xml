@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- common -->
+    <string name="app_name">on</string>
+    <string name="close">close</string>
+    <string name="back">back</string>
+    <string name="cancel">キャンセル</string>
+
+    <!-- telephoneActivity => telAct -->
+    <string name="telAct_phoneInputEditText_hint">input your tel number</string>
+    <string name="telAct_telephoneRegistButton_text">send</string>
+    <string name="telAct_eula_full_text">kiyaku agree</string>
+    <string name="telAct_eula_link_text">kiyaku</string>
+    <string name="telAct_InputCheck">input cellular phone number</string>
+    <string name="telAct_AcceptErr">please agree</string>
+
+    <!-- verifyActivity => verifyAct -->
+    <string name="verifyAct_codeInputEditText_hint">input verify code</string>
+    <string name="verifyAct_codeRegistButton_text">verify</string>
+    <string name="verifyAct_InputCheck">input verify code</string>
+    <string name="verifyAct_VerifyError">認証コードが間違っています</string>
+
+    <!-- registProfileActivity => registAct -->
+    <string name="registAct_guide_text">choose youre image</string>
+    <string name="registAct_nameInputEditText_hint">input your name</string>
+    <string name="registAct_profileRegistButton_text">finish regist</string>
+    <string name="profileAct_imageInputCheck">select your image</string>
+    <string name="profileAct_nameInputCheck">input your name</string>
+
+    <!-- homeActivity => homeAct -->
+    <string name="homeAct_onCountZero">誰にもONしてません。</string>
+    <string name="homeAct_onCount">現在%s人に対してON</string>
+    <string name="homeAct_profileCommentHint">例）今○○にいます！(50文字まで)</string>
+    <string name="homeAct_groupHi_confirm">グループ全員にHiを送ります。</string>
+    <string name="homeAct_profileCommentError">コメントは50文字までです。</string>
+
+</resources>

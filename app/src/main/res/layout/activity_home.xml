@@ -1,0 +1,416 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:id = "@+id/mainLayout"
+    tools:context="jp.co.webshark.on2.homeActivity">
+
+    <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+<!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_hight"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/header_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/navigationLogo"
+                    android:src="@drawable/head_logo"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+
+                <ImageButton
+                    android:id="@+id/navigationPrivacyPolicy"
+                    android:onClick="openPrivacyPolicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/head_privacypolicy"
+                    android:layout_gravity="right"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_alignBottom="@+id/navigationLogo"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"/>
+            </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+<!-- === ヘッダ部 ============================================================================== -->
+
+    <ScrollView
+        android:id="@+id/scroll_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_line"
+        android:layout_below="@+id/heade_line" >
+
+        <LinearLayout
+            android:id="@+id/mainList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_profile_hight"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/profile_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_profile_hight">
+
+                <jp.co.webshark.on2.customViews.HttpImageView
+                    android:layout_width="@dimen/home_profile_image"
+                    android:layout_height="@dimen/home_profile_image"
+                    android:id="@+id/profile_image"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_icon_user"
+                    android:background="@color/background_material_dark"
+                    android:layout_centerVertical="true">
+               </jp.co.webshark.on2.customViews.HttpImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:id="@+id/onCount"
+                    android:layout_toRightOf="@+id/profile_image"
+                    android:text="ONした人数だよー"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus/>
+                </TextView>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileCommentEdit"
+                    android:layout_below="@+id/onCount"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/profile_image"
+                    android:textSize="@dimen/activity_input_text_size"
+                    android:singleLine="true"
+                    android:text="ONした人数だよー" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/subject_frame1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_subject_hight"
+                android:background="@color/background_floating_material_light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人から選ぶ"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/subject1"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/friend_select_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_hight"
+                android:onClick="openFriendList">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="　> 友達一覧"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/friends_text"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/friends_switch_icon"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_button_off"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/subject_frame2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_subject_hight"
+                android:background="@color/background_floating_material_light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="グループから選ぶ"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/subject2"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_hight"
+                android:minHeight="@dimen/home_cell_hight">
+            </ListView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/subject_frame3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_subject_hight"
+                android:background="@color/background_floating_material_light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="追加する"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/subject3"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_group_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_hight">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="グループを作る"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/addGroupText"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/sms_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_hight">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SMSで招待する"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/smsText"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+<!-- === フッタ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/footer_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_above="@+id/footer"
+        android:orientation="vertical" >
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_hight"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/button_material_dark" >
+
+        <LinearLayout
+            android:id="@+id/footer1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer1_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabHomeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_home_active"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:id="@+id/tabHomeButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabHomeButton"
+                    android:textColor="@color/color_active_white"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer2"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer2_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabOnImageButton"
+                    android:onClick="openOnList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_on"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ON"
+                    android:id="@+id/tabOnImageButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabOnImageButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer3"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer3_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabFriendButton"
+                    android:onClick="openFriendList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_friend"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Friend"
+                    android:id="@+id/tabFriendButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabFriendButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer4"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer4_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabHiButton"
+                    android:onClick="openHiList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_hi"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi"
+                    android:id="@+id/tabHiButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabHiButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+<!-- === フッタ部 ============================================================================== -->
+
+    </jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout>
+</RelativeLayout>

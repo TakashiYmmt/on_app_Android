@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="@dimen/on_list_cell_hight">
+
+<jp.co.webshark.on2.customViews.HttpImageView
+    android:id="@+id/cellOnProfileImage"
+    android:layout_width="@dimen/on_list_cell_image"
+    android:layout_height="@dimen/on_list_cell_image"
+    android:src="@drawable/list_icon_user"/>
+
+    <TextView
+        android:id="@+id/cellLastOnTime"
+        android:layout_width="@dimen/on_list_cell_image"
+        android:layout_height="wrap_content"
+        android:text="時間"
+        android:layout_below="@+id/cellOnProfileImage"/>
+
+<TextView
+    android:id="@+id/cellOnName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="友達"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_toRightOf="@+id/cellOnProfileImage"
+    android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <TextView
+        android:id="@+id/cellOnComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="コメント"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/cellOnProfileImage"
+        android:layout_below="@+id/cellOnName"/>
+<ImageView
+    android:id="@+id/switch_icon"
+    android:onClick="sendHi"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:src="@drawable/list_button_hi"
+    android:layout_centerVertical="true"/>
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:text=""
+        android:id="@+id/cellHiddenIndex"/>
+</RelativeLayout>

@@ -1,0 +1,219 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:paddingLeft="@dimen/activity_zero_margin"
+android:paddingRight="@dimen/activity_zero_margin"
+android:paddingTop="@dimen/activity_zero_margin"
+android:paddingBottom="@dimen/activity_zero_margin"
+tools:context="jp.co.webshark.on2.friendListActivity">
+
+<!-- === ヘッダ部 ============================================================================== -->
+<LinearLayout
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/navigation_hight"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/header_in"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/navigation_hight"
+            android:text="back"
+            android:id="@+id/linkTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:textSize="@dimen/navigation_text_size"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/navigationLogo"
+            android:src="@drawable/head_logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</LinearLayout>
+<LinearLayout
+    android:id="@+id/heade_line"
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/background_material_dark"
+    android:layout_below="@+id/header"
+    android:orientation="vertical" >
+</LinearLayout>
+<!-- === ヘッダ部 ============================================================================== -->
+<ScrollView
+    android:id="@+id/scroll_body"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/footer_line"
+    android:layout_below="@+id/heade_line" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/hi_list_cell_hight"
+            android:minHeight="@dimen/hi_list_cell_hight">
+        </ListView>
+
+    </LinearLayout>
+</ScrollView>
+
+<!-- === フッタ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/footer_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_above="@+id/footer"
+        android:orientation="vertical" >
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_hight"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/button_material_dark" >
+
+        <LinearLayout
+            android:id="@+id/footer1"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer1_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabHomeButton"
+                    android:onClick="openHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_home"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:id="@+id/tabHomeButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabHomeButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer2"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer2_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabOnImageButton"
+                    android:onClick="openOnList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_on"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ON"
+                    android:id="@+id/tabOnImageButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabOnImageButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer3"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer3_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabFriendButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_friend_active"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Friend"
+                    android:id="@+id/tabFriendButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabFriendButton"
+                    android:textColor="@color/color_active_white"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/footer4"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/footer4_in"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+
+                <ImageButton
+                    android:id="@+id/tabHiButton"
+                    android:onClick="openHiList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/tab_navigation_hi"
+                    android:background="@null"
+                    android:scaleType="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi"
+                    android:id="@+id/tabHiButtonText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tabHiButton"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+<!-- === フッタ部 ============================================================================== -->
+
+</RelativeLayout>

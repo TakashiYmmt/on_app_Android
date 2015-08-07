@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- オブジェクト名などの言語に左右されない文字列の定義 -->
+
+<resources>
+    <string name="app_name">on</string>
+    <string name="api_url">http://210.140.165.80/on/api_android_test.php</string>
+    <string name="ok">OK</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- 画面タイトル？ -->
+    <string name="title_activity_main">mainActivity</string>
+    <string name="title_activity_telephone">telephoneActivity</string>
+    <string name="title_activity_eula">eulaActivity</string>
+
+    <!-- 色の定義 -->
+    <color name="color_active_green">#ff50b524</color>
+    <color name="color_active_white">#ffffffff</color>
+    <color name="color_negative_white">#ffdcdcdc</color>
+    <color name="color_link_green">#a450c81e</color>
+    <string name="color_code_link_green">#a450c81e</string>
+    <string name="title_activity_verify">verifyActivity</string>
+    <string name="title_activity_regist_profile">registProfileActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_privacy_policy">PrivacyPolicyActivity</string>
+    <string name="title_activity_on_list">onListActivity</string>
+    <string name="title_activity_hi_list">hiListActivity</string>
+    <string name="title_activity_friend_list">friendListActivity</string>
+    <string name="title_activity_home_tab">homeTabActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_home2">home2Activity</string>
+
+</resources>

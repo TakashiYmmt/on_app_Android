@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-9df834f82efd2ceda55f1711c1373ba39522a0e8.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/libs/httpcore-4.4.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f5aa318bda4c6c8d688c9d00b90681dcd82ce636">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/httpcore-4.4.1-f6ddb04d92fcb417e1ccf8abbb21625c594cf23b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-3478aa1b1939cc3c4f02257e36e91e948efc5c5b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-9401b43c11127771a7717040a37d80eb5fd49f8e.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/libs/httpmime-4.3.5.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/httpmime-4.3.5-306f0cbac7b61d7bcb9a2379e99a3c1cd9f3ff87.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-3478aa1b1939cc3c4f02257e36e91e948efc5c5b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-ac699476e9bd83fca3f93779d1797135ec793d2c.jar" />
+    </item>
+
+</items>

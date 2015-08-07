@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/hi_list_cell_hight">
+
+    <jp.co.webshark.on2.customViews.HttpImageView
+        android:layout_width="@dimen/hi_list_cell_image"
+        android:layout_height="@dimen/hi_list_cell_image"
+        android:id="@+id/cellHiProfileImage"
+        android:src="@drawable/list_icon_user"/>
+
+    <TextView
+        android:id="@+id/cellHiTime"
+        android:layout_width="@dimen/hi_list_cell_image"
+        android:layout_height="wrap_content"
+        android:text="時間"
+        android:layout_below="@+id/cellHiProfileImage"/>
+
+    <TextView
+        android:id="@+id/cellHiName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="友達"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/cellHiProfileImage"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="コメント"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/cellHiProfileImage"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/cellHiComment"
+        android:layout_below="@+id/cellHiName"/>
+    <ImageView
+        android:id="@+id/switch_icon"
+        android:onClick="sendHi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:src="@drawable/list_button_hi"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:text=""
+        android:id="@+id/cellHiddenIndex"/>
+</RelativeLayout>
