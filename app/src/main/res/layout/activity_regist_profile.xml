@@ -5,6 +5,7 @@
     android:paddingRight="@dimen/activity_zero_margin"
     android:paddingTop="@dimen/activity_zero_margin"
     android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
     tools:context="jp.co.webshark.on2.registProfileActivity">
 
     <ImageView
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/regist_profile"
-        android:layout_marginTop="@dimen/navigation_hight"
+        android:layout_marginTop="@dimen/navigation_height"
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:scaleType="center"/>
@@ -28,15 +29,16 @@
         android:layout_centerHorizontal="true"/>
 
     <EditText
-        android:id="@+id/nameInputEditText"
+        android:id="@+id/idInputEditText"
         android:inputType="text"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_input_text_hight"
-        android:layout_below="@+id/hintTextView"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_height="@dimen/activity_input_text_height"
+        android:layout_above="@+id/profileRegistButton"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:ems="10"
+        android:singleLine="true"
         android:textSize="@dimen/activity_input_text_size"
         android:hint="@string/registAct_nameInputEditText_hint"
         android:background="@drawable/simple_frame"
@@ -47,14 +49,14 @@
         android:id="@+id/profileRegistButton"
         android:onClick="onProfileRegistButtonClick"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/activity_button_hight"
+        android:layout_height="@dimen/activity_button_height"
         android:text="@string/registAct_profileRegistButton_text"
-        android:layout_below="@+id/nameInputEditText"
-        android:layout_alignLeft="@+id/imageButton"
-        android:layout_alignRight="@+id/imageButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/idInputEditText"
+        android:layout_alignRight="@+id/idInputEditText"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_double_margin"
         android:textColor="@drawable/button_design_front"
         android:background="@drawable/button_design_back"/>
 

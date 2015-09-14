@@ -2,56 +2,71 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/home_cell_hight"
-    android:onClick="groupEdit">
-
-    <ImageView
-        android:layout_width="@dimen/home_cell_hight"
-        android:layout_height="@dimen/home_cell_hight"
-        android:id="@+id/group_icon"
-        android:src="@drawable/add_group_icon"/>
-
-    <ImageView
-        android:id="@+id/all_hi"
-        android:onClick="groupHi"
-        android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="@dimen/home_group_all_hi_hight"
-        android:layout_toRightOf="@+id/group_icon"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:src="@drawable/list_button_hi_all"/>
-    <ImageView
-        android:id="@+id/all_hi_indicator"
-        android:tag="all_hi_indicator"
-        android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="@dimen/home_group_all_hi_hight"
-        android:layout_toRightOf="@+id/group_icon"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:src="@drawable/tab_navigation_home"
-        android:visibility="invisible"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="グループ"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_toRightOf="@+id/all_hi"
-        android:id="@+id/cellGroupName"
-        android:layout_centerVertical="true"/>
-
-    <ImageView
-        android:onClick="groupOnOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cellSwitchButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:src="@drawable/list_button_off"
-        android:layout_centerVertical="true"/>
+    android:layout_height="@dimen/home_cell_height"
+    android:onClick="groupEdit"
+    android:background="@color/bg_white">
 
     <TextView
         android:layout_width="1px"
         android:layout_height="1px"
         android:text=""
         android:id="@+id/cellHiddenIndex"/>
+
+    <ImageView
+        android:layout_width="@dimen/home_cell_height"
+        android:layout_height="@dimen/home_cell_height"
+        android:id="@+id/group_icon"
+        android:src="@drawable/add_group_icon"/>
+
+    <jp.co.webshark.on2.customViews.EffectImageView
+        android:id="@+id/all_hi"
+        android:onClick="groupHi"
+        android:layout_width="@dimen/home_group_all_hi_width"
+        android:layout_height="@dimen/home_group_all_hi_height"
+        android:layout_toRightOf="@+id/group_icon"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin_half"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+        android:src="@drawable/list_button_hi_all"/>
+    <ImageView
+        android:id="@+id/all_hi_indicator"
+        android:tag="all_hi_indicator"
+        android:layout_width="@dimen/home_group_all_hi_width"
+        android:layout_height="@dimen/home_group_all_hi_height"
+        android:layout_toRightOf="@+id/group_icon"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+        android:src="@drawable/tab_navigation_home"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/cellGroupName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/home_group_all_hi_height"
+        android:text="グループ0123456789012345678901234567890123456789"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
+        android:maxLines="2"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/home_topic_textsize"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+        android:layout_toLeftOf="@+id/cellSwitchButton"
+        android:layout_toRightOf="@+id/all_hi"
+        android:layout_centerVertical="true"/>
+
+    <ImageView
+        android:id="@+id/cellSwitchButton"
+        android:onClick="groupOnOff"
+        android:layout_width="@dimen/home_cell_on_height"
+        android:layout_height="@dimen/home_cell_on_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:src="@drawable/list_button_off"
+        android:layout_centerVertical="true"/>
+
 </RelativeLayout>

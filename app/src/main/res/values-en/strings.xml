@@ -2,36 +2,113 @@
 <resources>
     <!-- common -->
     <string name="app_name">on</string>
-    <string name="close">close</string>
-    <string name="back">back</string>
-    <string name="cancel">キャンセル</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="complete">Done</string>
+
+    <!-- list common -->
+    <string name="lc_DaysAgo">%d day(s) ago</string>
+    <string name="lc_HoursAgo">%d hour(s) ago</string>
+    <string name="lc_MinitsAgo">%d min(s) ago</string>
+    <string name="lc_SecondsAgo">%d sec(s) ago</string>
+    <string name="lc_JustNow">Just now</string>
 
     <!-- telephoneActivity => telAct -->
-    <string name="telAct_phoneInputEditText_hint">input your tel number</string>
-    <string name="telAct_telephoneRegistButton_text">send</string>
-    <string name="telAct_eula_full_text">kiyaku agree</string>
-    <string name="telAct_eula_link_text">kiyaku</string>
-    <string name="telAct_InputCheck">input cellular phone number</string>
-    <string name="telAct_AcceptErr">please agree</string>
+    <string name="telAct_phoneInputEditText_hint">Input phone number</string>
+    <string name="telAct_InputCheck">Phone number is required.</string>
+    <string name="telAct_telephoneRegistButton_text">Send</string>
+    <string name="telAct_eula_full_text">Lisence Agreement</string>
+    <string name="telAct_eula_link_text">Lisence</string>
+    <string name="telAct_AcceptErr">Check Lisence Agreement</string>
+
 
     <!-- verifyActivity => verifyAct -->
-    <string name="verifyAct_codeInputEditText_hint">input verify code</string>
-    <string name="verifyAct_codeRegistButton_text">verify</string>
-    <string name="verifyAct_InputCheck">input verify code</string>
-    <string name="verifyAct_VerifyError">認証コードが間違っています</string>
+    <string name="verifyAct_codeInputEditText_hint">Enter 4-digit code.</string>
+    <string name="verifyAct_VerifyError">Authentication code is incorrect.</string>
+    <string name="verifyAct_codeRegistButton_text">Authentication</string>
+    <string name="verifyAct_InputCheck">Input Authentication code.</string>
 
     <!-- registProfileActivity => registAct -->
-    <string name="registAct_guide_text">choose youre image</string>
-    <string name="registAct_nameInputEditText_hint">input your name</string>
-    <string name="registAct_profileRegistButton_text">finish regist</string>
-    <string name="profileAct_imageInputCheck">select your image</string>
-    <string name="profileAct_nameInputCheck">input your name</string>
+    <string name="registAct_guide_text">Choose upload source.</string>
+    <string name="registAct_nameInputEditText_hint">Please input your name</string>
+    <string name="profileAct_imageInputCheck">Profile photo is required</string>
+    <string name="profileAct_nameInputCheck">Your name is required.</string>
+    <string name="registAct_profileRegistButton_text">Finish Registration</string>
 
     <!-- homeActivity => homeAct -->
-    <string name="homeAct_onCountZero">誰にもONしてません。</string>
-    <string name="homeAct_onCount">現在%s人に対してON</string>
-    <string name="homeAct_profileCommentHint">例）今○○にいます！(50文字まで)</string>
-    <string name="homeAct_groupHi_confirm">グループ全員にHiを送ります。</string>
-    <string name="homeAct_profileCommentError">コメントは50文字までです。</string>
+    <string name="homeAct_onCountZero">You are not ON with anyone.</string>
+    <string name="homeAct_onCount">You are ON with %s People.</string>
+    <string name="homeAct_profileCommentHint">Ex.) I\'m now _at_. (50 chars max)</string>
+    <string name="homeAct_groupHi_confirm">Send Hi to all group members.</string>
+    <string name="homeAct_allOn_confirm">Send ON to all group members.</string>
+    <string name="homeAct_profileCommentError">Comments are limited to 50 characters.</string>
+
+    <string name="homeAct_subject_friends">Select People</string>
+    <string name="homeAct_subject_group">Select by Group</string>
+    <string name="homeAct_subject_add">Create</string>
+    <string name="homeAct_friend_list">Friends</string>
+    <string name="homeAct_group_add">Create Group</string>
+    <string name="homeAct_qr_add">add by QR-code</string>
+    <string name="homeAct_my_qr">my QR-code</string>
+    <string name="homeAct_invite">Invite via SMS</string>
+
+    <!-- friendListActivity => friendListAct -->
+    <string name="friendListAct_noFriend">You currently have no friends who are ON with you.</string>
+    <string name="friendListAct_offBlock">Unblock</string>
+    <string name="friendListAct_subject">Friends</string>
+
+    <!-- friendProfileActivity => profEditAct -->
+    <string name="friendProfAct_naviTitle">Profile</string>
+    <string name="friendProfAct_doBlock">Block</string>
+    <string name="friendProfAct_deBlock">Unblock</string>
+    <string name="friendProfAct_doSilent">Notifications off</string>
+    <string name="friendProfAct_deSilent">Turn notifications on</string>
+
+    <!-- onListActivity => onListAct -->
+    <string name="onListAct_noFriend">You currently have no ON friends.</string>
+
+    <!-- hiListActivity => hiListAct -->
+    "HiListVC_Nothing" = "所有的好友都没有开启ON状态";
+    <string name="hiListAct_noFriend">There are currently no Hi.</string>
+
+    <!-- profileEditActivity => profEditAct -->
+    <string name="profEditAct_naviTitle">Profile update</string>
+    <string name="profEditAct_listName">Name</string>
+    <string name="profEditAct_listId">ID</string>
+    <string name="profEditAct_listReadQR">Read QR Code</string>
+    <string name="profEditAct_listDrawQR">My QR Code</string>
+    <string name="profEditActName_naviTitle">edit name</string>
+    <string name="profEditActId_naviTitle">edit ID</string>
+    <string name="profEditActReadQr_naviTitle">QR-code reader</string>
+    <string name="profEditActDrawQr_naviTitle">My QR Code</string>
+    <string name="profEditActQrResult_naviTitle">read QR-code</string>
+    <string name="profEditAct_profUpdate">Profile updated</string>
+    <string name="profEditAct_DrawQr_guide">if your friend use this QR-code.\nregist your friend.</string>
+    <string name="profEditAct_QrDefault">Read QR Code</string>
+    <string name="profEditAct_QrRegisted">already your friend</string>
+    <string name="profEditAct_QrAddComplete">add complete</string>
+    <string name="profEditAct_QrLimitOver">security limit over</string>
+    <string name="profEditAct_QrIllegal">illegal QR-code</string>
+
+    <!-- groupEditActivity => groupEditAct -->
+    <string name="groupEditAct_naviTitle">Create new Group</string>
+    <string name="groupEditAct_Delete">Delete Group</string>
+    <string name="groupEditAct_Friends">Select People</string>
+    <string name="groupEditAct_ListSubject">Group Members</string>
+    <string name="groupEditAct_EditViewHint">Group Name</string>
+    <string name="groupEditAct_noMemberWarning">Select a Member</string>
+    <string name="groupEditAct_noTitleWarning">Group Name is not input yet.</string>
+    <string name="groupEditAct_saveConfirm">Save?</string>
+    <string name="groupEditAct_backSaveConfirm">Save?</string>
+    <string name="groupEditAct_deleteConfirm">Are you sure you want to delete this Group?</string>
+
+    <!-- inviteFriendsActivity => inviteFriendsAct -->
+    <string name="inviteFriendsAct_naviTitle">Invite via SMS</string>
+    <string name="inviteFriendsAct_noFriend">You don\'t have any friends to invite to ON.</string>
+    <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
+    <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
+    <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
 
 </resources>

@@ -2,42 +2,105 @@
     <!-- Example customization of dimensions originally defined in res/values/dimens.xml
          (such as screen margins) for screens with more than 820dp of available width. This
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively). -->
-    <dimen name="activity_horizontal_margin">8dp</dimen>
-    <dimen name="activity_vertical_margin">8dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin_half">8dp</dimen>
+    <dimen name="activity_vertical_margin_half">8dp</dimen>
+    <dimen name="activity_horizontal_margin_quarter">4dp</dimen>
+    <dimen name="activity_vertical_margin_quarter">4dp</dimen>
+    <dimen name="activity_nothing_image_top_margin">60dp</dimen>
+    <dimen name="activity_header_textsize">14dp</dimen>
+    <dimen name="activity_double_margin">32dp</dimen>
+    <dimen name="activity_double_triple">48dp</dimen>
 
-    <dimen name="activity_input_text_size">10sp</dimen>
-    <dimen name="activity_input_text_hight">20dp</dimen>
-    <dimen name="activity_button_hight">20dp</dimen>
+    <dimen name="activity_input_text_size">16sp</dimen>
+    <dimen name="activity_input_text_height">40dp</dimen>
+    <dimen name="activity_button_height">40dp</dimen>
 
-    <dimen name="activity_check_hight">16dp</dimen>
+    <dimen name="activity_check_height">32dp</dimen>
 
-    <dimen name="navigation_hight">40dp</dimen>
-    <dimen name="navigation_text_size">15sp</dimen>
+    <dimen name="navigation_height">60dp</dimen>
+    <dimen name="navigation_text_size">16sp</dimen>
 
-    <dimen name="footer_hight">40dp</dimen>
+    <dimen name="footer_height">60dp</dimen>
 
     <!-- homeActivity -->
-    <dimen name="home_profile_hight">50dp</dimen>
-    <dimen name="home_profile_image">40dp</dimen>
-    <dimen name="home_subject_hight">20dp</dimen>
-    <dimen name="home_cell_hight">35dp</dimen>
-    <dimen name="home_group_all_hi_width">24dp</dimen>
-    <dimen name="home_group_all_hi_hight">33dp</dimen>
+    <dimen name="home_profile_height">90dp</dimen>
+    <dimen name="home_profile_image">70dp</dimen>
+    <dimen name="home_subject_height">30dp</dimen>
+    <dimen name="home_cell_height">70dp</dimen>
+    <dimen name="home_cell_on_height">56dp</dimen>
+    <dimen name="home_group_all_hi_width">42dp</dimen>
+    <dimen name="home_group_all_hi_height">62dp</dimen>
+    <dimen name="home_subject_textsize">12dp</dimen>
+    <dimen name="home_topic_textsize">18dp</dimen>
 
     <!-- onListActivity -->
-    <dimen name="on_list_subject_hight">20dp</dimen>
-    <dimen name="on_list_cell_hight">65dp</dimen>
-    <dimen name="on_list_cell_image">35dp</dimen>
+    <dimen name="on_list_subject_height">30dp</dimen>
+    <dimen name="on_list_cell_hi_image">30dp</dimen>
+    <dimen name="on_list_cell_height">110dp</dimen>
+    <dimen name="on_list_cell_image">70dp</dimen>
+    <dimen name="on_list_button_height">56dp</dimen>
+    <dimen name="on_list_cell_silent_height">15dp</dimen>
+    <dimen name="on_list_cell_block_height">30dp</dimen>
+    <dimen name="on_list_cell_name_height">30dp</dimen>
+    <dimen name="on_list_cell_comment_height">76dp</dimen>
+    <dimen name="on_list_cell_time_textsize">12dp</dimen>
+    <dimen name="on_list_cell_name_textsize">15dp</dimen>
+    <dimen name="on_list_cell_comment_textsize">12dp</dimen>
 
     <!-- hiListActivity -->
-    <dimen name="hi_list_subject_hight">20dp</dimen>
-    <dimen name="hi_list_cell_hight">65dp</dimen>
-    <dimen name="hi_list_cell_image">35dp</dimen>
+    <dimen name="hi_list_subject_height">30dp</dimen>
+    <dimen name="hi_list_cell_hi_image">30dp</dimen>
+    <dimen name="hi_list_cell_height">110dp</dimen>
+    <dimen name="hi_list_cell_image">70dp</dimen>
+    <dimen name="hi_list_button_height">56dp</dimen>
+    <dimen name="hi_list_cell_silent_height">15dp</dimen>
+    <dimen name="hi_list_cell_block_height">30dp</dimen>
+    <dimen name="hi_list_cell_name_height">30dp</dimen>
+    <dimen name="hi_list_cell_comment_height">76dp</dimen>
+    <dimen name="hi_list_cell_time_textsize">12dp</dimen>
+    <dimen name="hi_list_cell_name_textsize">15dp</dimen>
+    <dimen name="hi_list_cell_comment_textsize">12dp</dimen>
 
     <!-- friendListActivity -->
-    <dimen name="friend_list_subject_hight">20dp</dimen>
+    <dimen name="friend_list_subject_height">30dp</dimen>
     <dimen name="friend_list_cell_hi_image">30dp</dimen>
-    <dimen name="friend_list_cell_hight">65dp</dimen>
-    <dimen name="friend_list_cell_image">35dp</dimen>
+    <dimen name="friend_list_cell_height">110dp</dimen>
+    <dimen name="friend_list_cell_image">70dp</dimen>
+    <dimen name="friend_list_cell_on_height">60dp</dimen>
+    <dimen name="friend_list_cell_silent_height">15dp</dimen>
+    <dimen name="friend_list_cell_block_height">30dp</dimen>
+    <dimen name="friend_list_cell_name_height">30dp</dimen>
+    <dimen name="friend_list_cell_comment_height">76dp</dimen>
+    <dimen name="friend_list_cell_time_textsize">12dp</dimen>
+    <dimen name="friend_list_cell_name_textsize">15dp</dimen>
+    <dimen name="friend_list_cell_comment_textsize">12dp</dimen>
+
+    <!-- friendProfileActivity -->
+    <dimen name="friend_prof_image_height">250dp</dimen>
+    <dimen name="friend_prof_top_margin">60dp</dimen>
+
+    <!-- profileEditActivity -->
+    <dimen name="profile_edit_image_area_height">300dp</dimen>
+    <dimen name="profile_edit_image_height">250dp</dimen>
+    <dimen name="profile_edit_cell_height">70dp</dimen>
+    <dimen name="profile_edit_qr_height">250dp</dimen>
+
+    <!-- profileEditQrResultActivity -->
+    <dimen name="pe_qr_result_image">150dp</dimen>
+    <dimen name="pe_qr_result_image_top">50dp</dimen>
+    <dimen name="pe_qr_result_button_margin">50dp</dimen>
+
+    <!-- groupActivity -->
+    <dimen name="group_header_height">75dp</dimen>
+    <dimen name="group_image">65dp</dimen>
+    <dimen name="group_subject_height">30dp</dimen>
+    <dimen name="group_cell_height">70dp</dimen>
+
+    <!-- inviteFriendsActivity -->
+    <dimen name="invite_friends_subject_height">30dp</dimen>
+    <dimen name="invite_friends_cell_height">110dp</dimen>
+    <dimen name="invite_friends_cell_image">70dp</dimen>
 
 </resources>

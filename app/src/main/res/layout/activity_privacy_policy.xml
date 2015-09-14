@@ -4,13 +4,25 @@ android:layout_height="match_parent" android:paddingLeft="@dimen/activity_zero_m
 android:paddingRight="@dimen/activity_zero_margin"
 android:paddingTop="@dimen/activity_zero_margin"
 android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
 tools:context="jp.co.webshark.on2.privacyPolicyActivity">
 
-<TextView
-    android:background="@color/background_floating_material_light"
 
+    <TextView
+        android:id="@+id/linkTextView"
+        android:clickable="true"
+        android:onClick="privacyPolicyClose"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/navigation_height"
+        android:text="@string/back"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:textSize="@dimen/navigation_text_size"/>
+
+<TextView
     android:layout_width="wrap_content"
-    android:layout_height="@dimen/navigation_hight"
+    android:layout_height="@dimen/navigation_height"
     android:text="@string/telAct_eula_link_text"
     android:id="@+id/titleTextView"
     android:layout_centerHorizontal="true"
@@ -26,17 +38,5 @@ tools:context="jp.co.webshark.on2.privacyPolicyActivity">
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:layout_marginTop="@dimen/activity_zero_margin" />
-
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/navigation_hight"
-    android:layout_alignBaseline="@+id/titleTextView"
-    android:text="@string/close"
-    android:id="@+id/linkTextView"
-    android:layout_alignParentRight="true"
-    android:textColorLink="@color/color_link_green"
-    android:gravity="center"
-    android:textSize="@dimen/navigation_text_size"/>
 
 </RelativeLayout>

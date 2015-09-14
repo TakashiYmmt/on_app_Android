@@ -1,11 +1,14 @@
 package jp.co.webshark.on2;
 
+import java.util.ArrayList;
+
 /**
  * Created by takashi on 15/07/05.
  */
 public class clsFriendInfo {
     String friend_id;
     String friend_user_id;
+    String flags_friend_id;
     String name;
     String on_flg;
     String image_url;
@@ -15,6 +18,10 @@ public class clsFriendInfo {
     String notification_off_flg;
     String block_flg;
     String time_ago;
+    String tag_id;
+    boolean selected;
+    ArrayList<String> arrPhone;
+    ArrayList<String> arrEMail;
 
     public String getFriendId() {
         return friend_id;
@@ -28,6 +35,13 @@ public class clsFriendInfo {
     }
     public void setFriendUserId(String friend_user_id) {
         this.friend_user_id = friend_user_id;
+    }
+
+    public String getFlagsFriendId() {
+        return flags_friend_id;
+    }
+    public void setFlagsFriendId(String flags_friend_id) {
+        this.flags_friend_id = flags_friend_id;
     }
 
     public String getName() {
@@ -100,5 +114,38 @@ public class clsFriendInfo {
 
     public void setTimeAgo(String time_ago) {
         this.time_ago = time_ago;
+    }
+
+    public String getTagId() {
+        return tag_id;
+    }
+
+    public void setTagId(String tag_id) {
+        this.tag_id = tag_id;
+        if( !tag_id.equals("null") ){
+            this.setSelected(true);
+        }
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public ArrayList<String> getArrPhone() {
+        return arrPhone;
+    }
+    public void setArrPhone(ArrayList<String> arrPhone) {
+        this.arrPhone = arrPhone;
+    }
+
+    public ArrayList<String> getArrEMail() {
+        return arrEMail;
+    }
+    public void setArrEMail(ArrayList<String> arrEMail) {
+        this.arrEMail = arrEMail;
     }
 }

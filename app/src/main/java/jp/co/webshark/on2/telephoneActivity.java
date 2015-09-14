@@ -5,39 +5,28 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
+import android.support.v7.internal.widget.AdapterViewCompat;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import jp.co.webshark.on2.customViews.HttpImageView;
 
 public class telephoneActivity extends Activity {
     private InputMethodManager inputMethodManager;
@@ -52,7 +41,7 @@ public class telephoneActivity extends Activity {
         setContentView(R.layout.activity_telephone);
 
         // 画面上のオブジェクト
-        phoneInputEditText = (EditText) findViewById(R.id.phoneInputEditText); // EditTextオブジェクト
+        phoneInputEditText = (EditText) findViewById(R.id.idInputEditText); // EditTextオブジェクト
         acceptCheck = (CheckBox) findViewById(R.id.checkBox); // 利用規約チェック
 
         //画面全体のレイアウト
@@ -63,6 +52,50 @@ public class telephoneActivity extends Activity {
         setSpannableString(this.getWindow().getDecorView());
 
         setTelSender();
+
+        // 実験
+        ImageView logo = (ImageView) findViewById(R.id.imageView2);
+        registerForContextMenu(logo);
+    }
+
+    // 実験
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        //コンテキストメニューの設定
+        menu.setHeaderTitle("Androidテストアカウントを選ぶ");
+        //Menu.add(int groupId, int itemId, int order, CharSequence title)
+        menu.add(0, 0, 0, "000-0000-1760で");
+        menu.add(0, 1, 0, "000-0000-1761で");
+        menu.add(0, 2, 0, "090-3997-8227で");
+    }
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) item.getMenuInfo();
+        Intent intent;
+        commonFucntion cf = new commonFucntion();
+
+        switch (item.getItemId()) {
+            case 0:
+                cf.setUserID(getApplicationContext(), "329");
+                intent = new Intent(getApplicationContext(),homeActivity.class);
+                startActivity(intent);
+                return true;
+            case 1:
+                cf.setUserID(getApplicationContext(), "330");
+                intent = new Intent(getApplicationContext(),homeActivity.class);
+                startActivity(intent);
+                return true;
+            case 2:
+                cf.setUserID(getApplicationContext(), "4");
+                intent = new Intent(getApplicationContext(),homeActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void setTelSender(){

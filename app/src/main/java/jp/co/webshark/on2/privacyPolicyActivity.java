@@ -1,6 +1,7 @@
 package jp.co.webshark.on2;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -28,7 +29,7 @@ public class privacyPolicyActivity extends Activity {
         webView = (WebView) findViewById(R.id.webView);
         webView.loadUrl("http://210.140.165.80/on/privacy.html");
 
-        setSpannableString(this.getWindow().getDecorView());
+        //setSpannableString(this.getWindow().getDecorView());
     }
 
     // 閉じるリンク作成
@@ -82,6 +83,17 @@ public class privacyPolicyActivity extends Activity {
         }
 
         return ss;
+    }
+
+    // 戻るリンク
+    public void privacyPolicyClose(View view) {
+
+        // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
+        Intent intent = new Intent();
+        setResult(RESULT_CANCELED, intent);
+        intent.putExtra("isUpdate", false);
+        finish();
+
     }
 
     private void close() {

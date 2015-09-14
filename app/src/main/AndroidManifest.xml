@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jp.co.webshark.on2" >
+    package="jp.co.webshark.on2"
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.media.action.IMAGE_CAPTURE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".onGlobal"
         android:allowBackup="true"
-        android:icon="@mipmap/home_icon"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        android:largeHeap="true">
+
+        <service android:name=".GcmIntentService" android:enabled="true"/>
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="jp.co.webshark.on2"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".RegistrationIntentService" android:exported="false">
+        </service>
         <activity
             android:name=".startActivity"
             android:label="@string/app_name" >
@@ -64,12 +88,48 @@
             android:label="@string/title_activity_friend_list" >
         </activity>
         <activity
-            android:name=".homeTabActivity"
-            android:label="@string/title_activity_home_tab" >
-        </activity>
-        <activity
             android:name=".home2Activity"
             android:label="@string/title_activity_home2" >
+        </activity>
+        <activity
+            android:name=".profileEditActivity"
+            android:label="@string/title_activity_profile_edit" >
+        </activity>
+        <activity
+            android:name=".profileEditNameActivity"
+            android:label="@string/title_activity_profil_edit_name" >
+        </activity>
+        <activity
+            android:name=".profileEditIdActivity"
+            android:label="@string/title_activity_profil_edit_id" >
+        </activity>
+        <activity
+            android:name=".profileEditDrawQrActivity"
+            android:label="@string/title_activity_profile_edit_draw_qr" >
+        </activity>
+        <activity
+            android:name=".profileEditReadQrActivity"
+            android:label="@string/title_activity_profile_edit_read_qr" >
+        </activity>
+        <activity
+            android:name=".groupEditActivity"
+            android:label="@string/title_activity_group_edit" >
+        </activity>
+        <activity
+            android:name=".groupMemberSelectActivity"
+            android:label="@string/title_activity_group_member_select" >
+        </activity>
+        <activity
+            android:name=".inviteFriendsActivity"
+            android:label="@string/title_activity_invite_friends" >
+        </activity>
+        <activity
+            android:name=".profileEditQrResult"
+            android:label="@string/title_activity_profile_edit_qr_result" >
+        </activity>
+        <activity
+            android:name=".friendProfileActivity"
+            android:label="@string/title_activity_friend_profile" >
         </activity>
     </application>
 

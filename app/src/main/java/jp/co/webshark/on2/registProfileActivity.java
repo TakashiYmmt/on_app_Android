@@ -9,41 +9,29 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
-import android.util.Base64;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import jp.co.webshark.on2.customViews.HttpImageView;
 
 
 public class registProfileActivity extends Activity {
@@ -55,6 +43,7 @@ public class registProfileActivity extends Activity {
     private Context mContext;
     private String  picPath,ba1;
     private ImageView profileImageView;
+    private boolean drawBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +51,17 @@ public class registProfileActivity extends Activity {
         setContentView(R.layout.activity_regist_profile);
 
         // 画面上のオブジェクト
-        nameInputEditText = (EditText) findViewById(R.id.nameInputEditText); // EditTextオブジェクト
+        nameInputEditText = (EditText) findViewById(R.id.idInputEditText); // EditTextオブジェクト
         profileImageView = (ImageView) findViewById(R.id.imageButton); // ImageButtonオブジェクト
+
+        Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
+        BitmapTrim bitmapTrim = new BitmapTrim(bm.getWidth(), bm.getHeight());
+        bitmapTrim.setAntiAlias(true);
+        bitmapTrim.setTrimCircle(bm.getWidth() / 2, bm.getWidth() / 2, bm.getWidth() / 2);
+        bitmapTrim.drawBitmap(bm, 0, 0);
+        bm = bitmapTrim.getBitmap();
+        profileImageView.setImageBitmap(bm);
+        bm = null;
 
         profileImageView.setDrawingCacheEnabled(true);
 
@@ -72,6 +70,7 @@ public class registProfileActivity extends Activity {
         //キーボード表示を制御するためのオブジェクト
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        drawBitmap = false;
     }
     // APIコールバック定義
     private void setProfileSender(){
@@ -96,6 +95,7 @@ public class registProfileActivity extends Activity {
             commonFucntion.setUserID(this.getApplicationContext(),(String)global.getShareData("user_id"));
 
             Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }
@@ -163,6 +163,10 @@ public class registProfileActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( data == null && requestCode == 0 && resultCode == 0 ){
+            return;
+        }
+
         if (requestCode == 0) {
 
             if (resultCode != RESULT_OK) {
@@ -173,10 +177,88 @@ public class registProfileActivity extends Activity {
                 return;
             }
 
+            try {
+                InputStream istream = null;
+                Bitmap bitmap = null;
+
+                if( data == null ){
+                    //File file = new File(mPictureUri.toString());
+                    //istream = new FileInputStream(file);
+                    istream = getContentResolver().openInputStream(mPictureUri);
+                }else{
+                    istream = getContentResolver().openInputStream(data.getData());
+                }
+
+                // --- 縮小処理 --- //
+
+                // 画像サイズ情報を取得する
+                BitmapFactory.Options imageOptions = new BitmapFactory.Options();
+                imageOptions.inJustDecodeBounds = true;
+                BitmapFactory.decodeStream(istream, null, imageOptions);
+
+                istream.close();
+
+                // もし、画像が大きかったら縮小して読み込む
+                int imageSizeMax = getResources().getDimensionPixelSize(R.dimen.profile_edit_image_height) / 2;
+
+                if( data == null ){
+                    //File file = new File(mPictureUri.toString());
+                    //istream = new FileInputStream(file);
+                    istream = getContentResolver().openInputStream(mPictureUri);
+                }else{
+                    istream = getContentResolver().openInputStream(data.getData());
+                }
+
+                float imageScaleWidth = (float)imageOptions.outWidth / imageSizeMax;
+                float imageScaleHeight = (float)imageOptions.outHeight / imageSizeMax;
+
+                // もしも、縮小できるサイズならば、縮小して読み込む
+                if (imageScaleWidth > 2 && imageScaleHeight > 2) {
+                    BitmapFactory.Options imageOptions2 = new BitmapFactory.Options();
+
+                    // 縦横、小さい方に縮小するスケールを合わせる
+                    int imageScale = (int)Math.floor((imageScaleWidth > imageScaleHeight ? imageScaleHeight : imageScaleWidth));
+
+                    // inSampleSizeには2のべき上が入るべきなので、imageScaleに最も近く、かつそれ以下の2のべき上の数を探す
+                    for (int i = 2; i <= imageScale; i *= 2) {
+                        imageOptions2.inSampleSize = i;
+                    }
+
+                    bitmap = BitmapFactory.decodeStream(istream, null, imageOptions2);
+                } else {
+                    bitmap = BitmapFactory.decodeStream(istream);
+                }
+                istream.close();
+
+                // トリミングして正方形にする
+                int w = bitmap.getWidth();
+                int h = bitmap.getHeight();
+                float scale = Math.max((float)bitmap.getWidth()/w, (float)bitmap.getHeight()/h);
+                int size = Math.min(w, h);
+                Matrix matrix = new Matrix();
+                matrix.postScale(scale, scale);
+                bitmap = Bitmap.createBitmap(bitmap, (w - size) / 2, (h - size) / 2, size, size, matrix, true);
+
+                // 円形にトリミング
+                BitmapTrim bitmapTrim = new BitmapTrim(bitmap.getWidth(), bitmap.getHeight());
+                bitmapTrim.setAntiAlias(true);
+                bitmapTrim.setTrimCircle(bitmap.getWidth() / 2, bitmap.getWidth() / 2, bitmap.getWidth() / 2);
+                bitmapTrim.drawBitmap(bitmap, 0, 0);
+                bitmap = bitmapTrim.getBitmap();
+
+                profileImageView.setImageBitmap(bitmap);
+                drawBitmap = true;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            /*
             // 画像を取得
             Uri result = (data == null) ? mPictureUri : data.getData();
             //ImageView button = (ImageView) findViewById(R.id.imageButton);
             profileImageView.setImageURI(result);
+            */
 
             // サイズ調整
             ViewGroup.LayoutParams params = profileImageView.getLayoutParams();
@@ -222,6 +304,7 @@ public class registProfileActivity extends Activity {
             body.put("user_id", (String)global.getShareData("user_id"));
 
             //サーバーにアップロード //action: updateUserinfo
+            /*
             String[] pojo = { MediaStore.MediaColumns.DATA };
 
             Cursor cursor = getApplicationContext().getContentResolver().query(mPictureUri, pojo, null, null, null);
@@ -231,7 +314,9 @@ public class registProfileActivity extends Activity {
                 cursor.moveToFirst();
                 picPath = cursor.getString(columnIndex);
             }
+            */
 
+            if( drawBitmap ){/*
             if (picPath != null &&
                     (
                             picPath.endsWith(".png") ||
@@ -265,6 +350,32 @@ public class registProfileActivity extends Activity {
                 // API通信のPOST処理
                 profileSender.setParams(strURL,body,"image.jpg",ba);
                 profileSender.execute();
+            */
+
+                Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
+                ByteArrayOutputStream bao = new ByteArrayOutputStream();
+                if( picPath == null ){
+                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+                }else{
+                    if(picPath.endsWith(".jpg")||picPath.endsWith(".JPG")) {
+
+                        bm.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+                    }
+                    else  if(picPath.endsWith(".png")||picPath.endsWith(".PNG"))
+                    {
+
+                        bm.compress(Bitmap.CompressFormat.PNG, 100, bao);
+
+                    }else {
+                        bm.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+                    }
+                }
+                byte[] ba = bao.toByteArray();
+
+                // API通信のPOST処理
+                profileSender.setParams(strURL,body,"image.jpg",ba);
+                profileSender.execute();
+                drawBitmap = false;
             } else {
                 Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
             }

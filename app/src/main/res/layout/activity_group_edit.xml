@@ -1,0 +1,230 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.groupEditActivity"
+    android:id = "@+id/mainLayout">
+
+    <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+<!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:clickable="true"
+                android:onClick="groupEditClose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textSize="@dimen/navigation_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigationTitle"
+                android:text="@string/groupEditAct_naviTitle"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/navigation_text_size" />
+
+            <TextView
+                android:id="@+id/saveTextView"
+                android:clickable="true"
+                android:onClick="saveGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/save"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textSize="@dimen/navigation_text_size"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+<!-- === ヘッダ部 ============================================================================== -->
+
+    <ScrollView
+        android:id="@+id/scroll_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_line"
+        android:layout_below="@+id/heade_line" >
+
+        <LinearLayout
+            android:id="@+id/mainList"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/group_header_height"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/profile_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_header_height">
+
+                <ImageView
+                    android:id="@+id/group_image"
+                    android:onClick="openLibrary"
+                    android:layout_width="@dimen/group_image"
+                    android:layout_height="@dimen/group_image"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:src="@drawable/add_group_icon"
+                    android:background="@color/background_material_dark"
+                    android:layout_centerVertical="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+                    <requestFocus/>
+                </ImageView>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/groupNameEdit"
+                    android:layout_below="@+id/onCount"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/group_image"
+                    android:textSize="@dimen/activity_input_text_size"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/groupEditAct_EditViewHint"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_delete_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:onClick="deleteGroup">
+
+                <TextView
+                    android:id="@+id/delete_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/groupEditAct_Delete"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/delete_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/add_group_delete"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/group_delete_line_frame"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/friend_select_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:onClick="memberList">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/groupEditAct_Friends"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/friends_text"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/arrow_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_icon_arrow"
+                    android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/subject_frame2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_subject_height"
+                android:background="@color/background_floating_material_light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/groupEditAct_ListSubject"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/subject2"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:minHeight="@dimen/group_cell_height">
+            </ListView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    </jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout>
+</RelativeLayout>

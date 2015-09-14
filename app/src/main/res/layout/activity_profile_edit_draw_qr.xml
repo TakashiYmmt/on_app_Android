@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.profileEditDrawQrActivity">
+
+<!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:clickable="true"
+                android:onClick="profileDrawQrClose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textSize="@dimen/navigation_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigationTitle"
+                android:text="@string/profEditActDrawQr_naviTitle"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/navigation_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+<!-- === ヘッダ部 ============================================================================== -->
+
+    <jp.co.webshark.on2.customViews.HttpImageView
+        android:id="@+id/qrImageView"
+        android:layout_width="@dimen/profile_edit_qr_height"
+        android:layout_height="@dimen/profile_edit_qr_height"
+        android:layout_below="@+id/heade_line"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/qrGuide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/profEditAct_DrawQr_guide"
+        android:layout_below="@+id/qrImageView"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_alignLeft="@+id/qrImageView"
+        android:layout_alignRight="@+id/qrImageView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -5,13 +5,14 @@ android:paddingLeft="@dimen/activity_zero_margin"
 android:paddingRight="@dimen/activity_zero_margin"
 android:paddingTop="@dimen/activity_zero_margin"
 android:paddingBottom="@dimen/activity_zero_margin"
+android:background="@color/bg_white"
 tools:context="jp.co.webshark.on2.friendListActivity">
 
 <!-- === ヘッダ部 ============================================================================== -->
 <LinearLayout
     android:id="@+id/header"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/navigation_hight"
+    android:layout_height="@dimen/navigation_height"
     android:layout_alignParentTop="true"
     android:orientation="vertical" >
 
@@ -20,15 +21,15 @@ tools:context="jp.co.webshark.on2.friendListActivity">
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-        <TextView
+        <!--TextView
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/navigation_hight"
+            android:layout_height="@dimen/navigation_height"
             android:text="back"
             android:id="@+id/linkTextView"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:gravity="center"
-            android:textSize="@dimen/navigation_text_size"/>
+            android:textSize="@dimen/navigation_text_size"/-->
 
         <ImageView
             android:layout_width="wrap_content"
@@ -50,12 +51,64 @@ tools:context="jp.co.webshark.on2.friendListActivity">
     android:orientation="vertical" >
 </LinearLayout>
 <!-- === ヘッダ部 ============================================================================== -->
-<ScrollView
+
+    <RelativeLayout
+        android:id="@+id/nothingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_line"
+        android:layout_below="@+id/heade_line">
+
+        <ImageView
+            android:id="@+id/nothingImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/member_choice_nothing"
+            android:layout_marginTop="@dimen/activity_nothing_image_top_margin"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/nothingMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friendListAct_noFriend"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_below="@+id/nothingImage"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/subject_frame1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/on_list_subject_height"
+        android:background="@color/background_floating_material_light"
+        android:layout_below="@+id/heade_line">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/friendListAct_subject"
+            android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+            android:id="@+id/subject1"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/subject_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/subject_frame1"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ScrollView
     android:id="@+id/scroll_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/footer_line"
-    android:layout_below="@+id/heade_line" >
+    android:layout_below="@+id/subject_line" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,8 +118,8 @@ tools:context="jp.co.webshark.on2.friendListActivity">
         <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/hi_list_cell_hight"
-            android:minHeight="@dimen/hi_list_cell_hight">
+            android:layout_height="@dimen/hi_list_cell_height"
+            android:minHeight="@dimen/hi_list_cell_height">
         </ListView>
 
     </LinearLayout>
@@ -84,13 +137,15 @@ tools:context="jp.co.webshark.on2.friendListActivity">
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/navigation_hight"
+        android:layout_height="@dimen/navigation_height"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="@color/button_material_dark" >
 
         <LinearLayout
             android:id="@+id/footer1"
+            android:clickable="true"
+            android:onClick="openHome"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -102,13 +157,12 @@ tools:context="jp.co.webshark.on2.friendListActivity">
 
                 <ImageButton
                     android:id="@+id/tabHomeButton"
-                    android:onClick="openHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_home"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,6 +176,8 @@ tools:context="jp.co.webshark.on2.friendListActivity">
 
         <LinearLayout
             android:id="@+id/footer2"
+            android:clickable="true"
+            android:onClick="openOnList"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -133,13 +189,12 @@ tools:context="jp.co.webshark.on2.friendListActivity">
 
                 <ImageButton
                     android:id="@+id/tabOnImageButton"
-                    android:onClick="openOnList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_on"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
 
                 <TextView
@@ -170,7 +225,7 @@ tools:context="jp.co.webshark.on2.friendListActivity">
                     android:src="@drawable/tab_navigation_friend_active"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -185,6 +240,8 @@ tools:context="jp.co.webshark.on2.friendListActivity">
 
         <LinearLayout
             android:id="@+id/footer4"
+            android:clickable="true"
+            android:onClick="openHiList"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
@@ -196,13 +253,12 @@ tools:context="jp.co.webshark.on2.friendListActivity">
 
                 <ImageButton
                     android:id="@+id/tabHiButton"
-                    android:onClick="openHiList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_hi"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
                     android:layout_width="wrap_content"

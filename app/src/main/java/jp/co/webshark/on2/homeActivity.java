@@ -2,14 +2,19 @@ package jp.co.webshark.on2;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.text.Html;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,22 +23,32 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import android.net.Uri;
+import android.widget.Toast;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import android.os.Handler;
-
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
+import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.UrlImageView;
 
 import static java.lang.Thread.sleep;
 
@@ -43,6 +58,8 @@ public class homeActivity extends Activity {
     private ArrayList<clsGroupInfo> groupList;
     private InputMethodManager inputMethodManager;
     private RelativeLayout mainLayout;
+    private LinearLayout footerLayout;
+    private int footerHeight;
     private ListView listView;
     private ScrollView scrollView;
     private EditText editText;
@@ -54,6 +71,10 @@ public class homeActivity extends Activity {
     private AsyncPost groupOnSender;
     private String sendGroupIndex;
     private boolean openKeyBoard;
+    private GoogleCloudMessaging gcm;
+    private ImageView allSwitchButton;
+    private View eventTriggerView;
+    private String refreshOnFlg;
 
 
     @Override
@@ -63,6 +84,8 @@ public class homeActivity extends Activity {
 
         //画面全体のレイアウト
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+        footerLayout = (LinearLayout)findViewById(R.id.footer);
+
         //キーボード表示を制御するためのオブジェクト
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -70,6 +93,7 @@ public class homeActivity extends Activity {
         listView = (ListView) findViewById(R.id.listView1);
         scrollView = (ScrollView) findViewById(R.id.scroll_body);
         editText = (EditText) findViewById(R.id.profileCommentEdit);
+        allSwitchButton = (ImageView)findViewById(R.id.friends_switch_icon);
 
         DetectableKeyboardEventLayout root = (DetectableKeyboardEventLayout)findViewById(R.id.body);
         root.setKeyboardListener(new DetectableKeyboardEventLayout.KeyboardListener() {
@@ -78,19 +102,59 @@ public class homeActivity extends Activity {
             public void onKeyboardShown() {
                 //Log.d(TAG, "keyboard shown");
                 openKeyBoard = true;
+                footerLayout.setVisibility(View.INVISIBLE);
+                ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
+                params.height = 0;
+                footerLayout.setLayoutParams(params);
             }
 
             @Override
             public void onKeyboardHidden() {
-                if( openKeyBoard ){
+                if (openKeyBoard) {
                     checkComment();
                     openKeyBoard = false;
+                    footerLayout.setVisibility(View.VISIBLE);
+                    ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
+                    params.height = getResources().getDimensionPixelSize(R.dimen.footer_height);
+                    footerLayout.setLayoutParams(params);
                 }
             }
         });
-        // 実験
+
+        // GCMに端末IDを登録しておく
+        try{
+            gcm = GoogleCloudMessaging.getInstance(this);
+            registerInBackground();
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),"emurator?", Toast.LENGTH_LONG).show();
+        }
+
+        /*// 実験
         ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        registerForContextMenu(logo);
+        registerForContextMenu(logo);*/
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+
+        this.userInfo = null;
+        this.groupList = null;
+        this.inputMethodManager = null;
+        this.footerLayout = null;
+        this.editText = null;
+        this.profileSender = null;
+        this.profileGetter = null;
+        this.onCountGetter = null;
+        this.groupGetter = null;
+        this.groupHiSender = null;
+        this.groupOnSender = null;
+        this.sendGroupIndex = null;
+        this.listView = null;
+        this.scrollView = null;
+        this.mainLayout = null;
+
+        System.gc();
     }
 
     // 実験
@@ -100,8 +164,7 @@ public class homeActivity extends Activity {
         super.onCreateContextMenu(menu, v, menuInfo);
 
         //コンテキストメニューの設定
-        menu.setHeaderTitle("テスト用");
-        //Menu.add(int groupId, int itemId, int order, CharSequence title)
+        menu.setHeaderTitle("09/09 レイアウト微調整");        //Menu.add(int groupId, int itemId, int order, CharSequence title)
         menu.add(0, 0, 0, "初期登録画面から始める");
         menu.add(0, 1, 0, "標準TABモードを使う");
     }
@@ -185,6 +248,7 @@ public class homeActivity extends Activity {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
                 drawGroupOn();
+                setGroupOnSender();
             }
         });
     }
@@ -205,6 +269,7 @@ public class homeActivity extends Activity {
 
     @Override
     public void onResume(){
+        System.gc();
         super.onResume();
 
         // コールバックの初期化
@@ -246,7 +311,7 @@ public class homeActivity extends Activity {
         HttpImageView profImage = (HttpImageView) findViewById(R.id.profile_image);
         EditText profileCommentEdit = (EditText) findViewById(R.id.profileCommentEdit);
 
-        profImage.setImageUrl(userInfo.getImageURL(), this.getApplicationContext());
+        profImage.setImageUrl(userInfo.getImageURL(), getResources().getDimensionPixelSize(R.dimen.home_profile_image), getApplicationContext(),true);
         profileCommentEdit.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
         profileCommentEdit.setText(userInfo.getComment());
         setProfileGetter();
@@ -270,8 +335,14 @@ public class homeActivity extends Activity {
         TextView onCountText = (TextView) findViewById(R.id.onCount);
         if( countInfo.getCount().equals("0") ){
             onCountText.setText(getResources().getString(R.string.homeAct_onCountZero));
+            onCountText.setTextColor(getResources().getColor(R.color.color_text_gray));
+            allSwitchButton.setImageResource(R.drawable.list_button_off);
+            refreshOnFlg = "off";
         }else{
             onCountText.setText(String.format(getResources().getString(R.string.homeAct_onCount), countInfo.getCount()));
+            onCountText.setTextColor(getResources().getColor(R.color.color_active_green));
+            allSwitchButton.setImageResource(R.drawable.list_button_on);
+            refreshOnFlg = "on";
         }
 
         setCountGetter();
@@ -294,7 +365,7 @@ public class homeActivity extends Activity {
     private void drawGroupInfo(ArrayList<clsGroupInfo> list){
 
         GroupsAdapter adapter = new GroupsAdapter(homeActivity.this);
-        int cellHeight = getResources().getDimensionPixelSize(R.dimen.home_cell_hight);
+        int cellHeight = getResources().getDimensionPixelSize(R.dimen.home_cell_height);
 
         this.groupList = list;
         listView.setAdapter(adapter);
@@ -308,7 +379,7 @@ public class homeActivity extends Activity {
         listView.requestLayout();
 
         adapter.notifyDataSetChanged();
-        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+        //scrollView.fullScroll(ScrollView.FOCUS_UP);
 
         this.setGroupGetter();
     }
@@ -352,6 +423,40 @@ public class homeActivity extends Activity {
         body.put("entity", "setProfileComment");
         body.put("user_id", String.valueOf(user_id));
         body.put("profile_comment", profileComment);
+
+        // API通信のPOST処理
+        groupOnSender.setParams(strURL, body);
+        groupOnSender.execute();
+    }
+
+    private void sendPushNotifyKey(String registId){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity","updateUserinfoSingleColumn");
+        body.put("column_name", "push_notify_key");
+        body.put("column_value",registId);
+        body.put("user_id", String.valueOf(user_id));
+
+        // API通信のPOST処理
+        profileSender.setParams(strURL, body);
+        profileSender.execute();
+    }
+
+    private void updateAll(){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        if( refreshOnFlg.equals("off") ){
+            body.put("entity","SendOnAllFriend");
+        }else{
+            body.put("entity","OffAll");
+        }
+        body.put("user_id", String.valueOf(user_id));
 
         // API通信のPOST処理
         groupOnSender.setParams(strURL, body);
@@ -407,7 +512,7 @@ public class homeActivity extends Activity {
         body.put("on_flg", onFlg);
 
         // API通信のPOST処理
-        groupOnSender.setParams(strURL,body);
+        groupOnSender.setParams(strURL, body);
         groupOnSender.execute();
     }
 
@@ -460,6 +565,18 @@ public class homeActivity extends Activity {
                 switchButton.setImageResource(R.drawable.list_button_on);
             }
 
+            //((UrlImageView)convertView.findViewById(R.id.group_icon)).setImageUrl("file:./group"+groupList.get(position).getTagId()+".jpg");
+
+
+            Bitmap bm = commonFucntion.loadBitmapCache(getApplicationContext(), "group"+groupList.get(position).getTagId()+".jpg");
+            if( bm != null ){
+                ((ImageView)convertView.findViewById(R.id.group_icon)).setImageBitmap(bm);
+                bm = null;
+            }
+
+            EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.all_hi);
+            targetImage.setSwitchEffect(R.drawable.list_button_hi_sending, 2000);
+
             return convertView;
         }
     }
@@ -475,13 +592,16 @@ public class homeActivity extends Activity {
     public void openOnList(View view){
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),onListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        this.finish();
     }
 
     // homeボタン
     public void openHome(View view){
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -489,7 +609,9 @@ public class homeActivity extends Activity {
     public void openHiList(View view){
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),hiListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        this.finish();
     }
 
     // 友達リストボタン
@@ -497,6 +619,7 @@ public class homeActivity extends Activity {
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),friendListActivity.class);
         startActivity(intent);
+        this.finish();
     }
 
     // グループON・OFFボタン
@@ -508,7 +631,7 @@ public class homeActivity extends Activity {
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                if( i == 5 ){
+                if( i == 0 ){
                     TextView hiddenText = (TextView)childview;
                     sendGroupIndex = hiddenText.getText().toString();
                     break;
@@ -518,6 +641,48 @@ public class homeActivity extends Activity {
 
         sendGroupOn(sendGroupIndex);
         sendGroupIndex = null;
+    }
+
+    // 全員ON・OFFボタン
+    public void allOnOff(View view){
+        if( refreshOnFlg.equals("on") ){
+            updateAll();
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_allOn_confirm) );
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            updateAll();
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+
+    }
+
+    // プロフィール画像リンク
+    public void openProfileEdit(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),profileEditActivity.class);
+        startActivity(intent);
     }
 
     // グループを選択
@@ -533,28 +698,25 @@ public class homeActivity extends Activity {
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                selectedName = ((TextView) childview).getText().toString() ;
-                break;
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendGroupIndex = hiddenText.getText().toString();
+                }
             }
         }
 
-        alertDialogBuilder.setMessage( selectedName + "の編集を選択");
-        alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        dialog = null;
-                    }
-                });
-        alertDialogBuilder.setCancelable(false);
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),groupEditActivity.class);
+        intent.putExtra("groupId", groupList.get(Integer.parseInt(sendGroupIndex)).getTagId());
+        intent.putExtra("groupName", groupList.get(Integer.parseInt(sendGroupIndex)).getTagName());
+        startActivityForResult(intent, 0);
     }
 
-    // グループを選一括Hi
+    // グループ一括Hi
+    View effectTargetView;
     public void groupHi(View view){
 
+        effectTargetView = view;
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         //imageViewBase = (ImageView)view;
 
@@ -562,7 +724,7 @@ public class homeActivity extends Activity {
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                if( i == 5 ){
+                if( i == 0 ){
                     TextView hiddenText = (TextView)childview;
                     sendGroupIndex = hiddenText.getText().toString();
                     break;
@@ -570,11 +732,14 @@ public class homeActivity extends Activity {
             }
         }
 
+
         alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_groupHi_confirm) );
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        ((EffectImageView)effectTargetView).doEffect();
+                        effectTargetView = null;
                         sendGroupHi(sendGroupIndex);
                         //imageViewBase = null;
                         //imageViewEfect = null;
@@ -597,6 +762,34 @@ public class homeActivity extends Activity {
         alertDialogBuilder.setCancelable(false);
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+
+    }
+
+    // グループを追加
+    public void addGroup(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),groupEditActivity.class);
+        intent.putExtra("groupId", "");
+        startActivityForResult(intent, 0);
+    }
+    // QRを読み取り
+    public void readQr(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),profileEditReadQrActivity.class);
+        startActivityForResult(intent, 0);
+    }
+    // 自分のQRを表示
+    public void drawQr(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),profileEditDrawQrActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
+    // 招待ボタン
+    public void openInviteFriends(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),inviteFriendsActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -641,4 +834,29 @@ public class homeActivity extends Activity {
         return false;
     }
 
+    private void registerInBackground() throws Exception{
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String strRegId = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    strRegId = gcm.register("544964133972");
+                } catch (Exception ex) {
+                    //msg = "Error :" + ex.getMessage();
+                    //Toast.makeText(getApplicationContext(),"emurator?", Toast.LENGTH_LONG).show();
+                    return "";
+                }
+                return strRegId;
+            }
+
+            @Override
+            protected void onPostExecute(String strRegId) {
+                // GCMを介して得られた端末IDをDBに登録する
+                sendPushNotifyKey(strRegId);
+            }
+        }.execute(null, null, null);
+    }
 }

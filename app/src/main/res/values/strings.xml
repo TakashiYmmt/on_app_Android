@@ -3,7 +3,7 @@
 
 <resources>
     <string name="app_name">on</string>
-    <string name="api_url">http://210.140.165.80/on/api_android_test.php</string>
+    <string name="api_url">http://210.140.165.80/on/api.php</string>
     <string name="ok">OK</string>
 
     <string name="hello_world">Hello world!</string>
@@ -15,10 +15,14 @@
     <string name="title_activity_eula">eulaActivity</string>
 
     <!-- 色の定義 -->
+    <color name="color_clear">#00000000</color>
+    <color name="bg_white">#ffffff</color>
     <color name="color_active_green">#ff50b524</color>
     <color name="color_active_white">#ffffffff</color>
     <color name="color_negative_white">#ffdcdcdc</color>
     <color name="color_link_green">#a450c81e</color>
+    <color name="color_comment_blue">#a4003ec8</color>
+    <color name="color_text_gray">#7e7e7e</color>
     <string name="color_code_link_green">#a450c81e</string>
     <string name="title_activity_verify">verifyActivity</string>
     <string name="title_activity_regist_profile">registProfileActivity</string>
@@ -33,5 +37,16 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_activity_home2">home2Activity</string>
+    <string name="title_activity_profile_edit">profileEditActivity</string>
+    <string name="title_activity_profil_edit_name">profilEditNameActivity</string>
+    <string name="title_activity_profil_edit_id">profilEditIdActivity</string>
+    <string name="title_activity_profile_edit_id">profileEditIdActivity</string>
+    <string name="title_activity_profile_edit_draw_qr">profileEditDrawQrActivity</string>
+    <string name="title_activity_profile_edit_read_qr">profileEditReadQrActivity</string>
+    <string name="title_activity_group_edit">groupEditActivity</string>
+    <string name="title_activity_group_member_select">groupMemberSelectActivity</string>
+    <string name="title_activity_invite_friends">InviteFriendsActivity</string>
+    <string name="title_activity_profile_edit_qr_result">profileEditQrResult</string>
+    <string name="title_activity_friend_profile">friendProfileActivity</string>
 
 </resources>
