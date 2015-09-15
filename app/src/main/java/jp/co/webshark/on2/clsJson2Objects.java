@@ -5,11 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by takashi on 2015/07/23.
- */
 public class clsJson2Objects {
 
     // 汎用の成否判定だけ
@@ -27,6 +25,18 @@ public class clsJson2Objects {
         }else{
             return false;
         }
+    }
+
+    // 特定の結果エレメントだけ
+    public static String getElement(String strJeson, String elementName){
+        String strResult = "";
+        try{
+            JSONObject json = new JSONObject(strJeson);
+            strResult = json.getString(elementName);
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return strResult;
     }
 
     // プロフィール情報(getUserInfo)
@@ -80,7 +90,7 @@ public class clsJson2Objects {
                 grouptInfo.setTagName((String) (json.getJSONArray("tag_name")).get(i));
                 grouptInfo.setStatus((String) (json.getJSONArray("status")).get(i));
                 grouptInfo.setTagCount((String) (json.getJSONArray("tag_count")).get(i));
-                grouptInfo.setTagIconUrl((String) (json.getJSONArray("tag_icon_url")).get(i));
+                //grouptInfo.setTagIconUrl((String) (json.getJSONArray("tag_icon_url")).get(i));
                 grouptInfo.setOnFlg((String) (json.getJSONArray("on_flg")).get(i));
 
                 list.add(grouptInfo);
@@ -113,6 +123,7 @@ public class clsJson2Objects {
                 friendInfo.setOnUpdateTime(row.getString("on_update_time"));
                 friendInfo.setNotificationOffFlg(row.getString("notification_off_flg"));
                 friendInfo.setBlockFlg(row.getString("block_flg"));
+                friendInfo.setTagId(row.getString("tag_id"));
 
                 list.add(friendInfo);
             }
@@ -121,6 +132,25 @@ public class clsJson2Objects {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public static HashMap<String,String> setTelephoneMap(String strJeson) {
+        HashMap<String,String> resultMap = new HashMap<String,String>();
+
+        try{
+            JSONObject json = new JSONObject(strJeson);
+            String strCount = json.getString("count");
+            JSONArray jArray = json.getJSONArray("friends");
+
+            for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
+                JSONObject row = (JSONObject) jArray.get(i);
+                resultMap.put(row.getString("telephone_number"), row.getString("telephone_number"));
+            }
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return resultMap;
     }
 
     public static ArrayList<clsFriendInfo> setHiList(String strJeson) {
@@ -136,6 +166,7 @@ public class clsJson2Objects {
             JSONArray jArrayImageUrl = json.getJSONArray("image_url");
             JSONArray jArrayNOF = json.getJSONArray("notification_off_flg");
             JSONArray jArrayBlockFlg = json.getJSONArray("block_flg");
+            JSONArray jArrayFlagsFriendId = json.getJSONArray("flags_friend_id");
 
             for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
                 clsFriendInfo friendInfo = new clsFriendInfo();
@@ -147,6 +178,7 @@ public class clsJson2Objects {
                 friendInfo.setImageURL(jArrayImageUrl.getString(i));
                 friendInfo.setNotificationOffFlg(jArrayNOF.getString(i));
                 friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
+                friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
 
                 list.add(friendInfo);
             }
@@ -170,6 +202,7 @@ public class clsJson2Objects {
             JSONArray jArrayImageUrl = json.getJSONArray("image_url");
             JSONArray jArrayNOF = json.getJSONArray("notification_off_flg");
             JSONArray jArrayBlockFlg = json.getJSONArray("block_flg");
+            JSONArray jArrayFlagsFriendId = json.getJSONArray("flags_friend_id");
 
             for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
                 clsFriendInfo friendInfo = new clsFriendInfo();
@@ -181,6 +214,7 @@ public class clsJson2Objects {
                 friendInfo.setImageURL(jArrayImageUrl.getString(i));
                 friendInfo.setNotificationOffFlg(jArrayNOF.getString(i));
                 friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
+                friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
 
                 list.add(friendInfo);
             }
