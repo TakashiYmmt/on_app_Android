@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 中国語版のテキスト -->
+<resources>
+    <!-- common -->
+    <string name="app_name">on</string>
+    <string name="close">关闭</string>
+    <string name="back">返回</string>
+    <string name="cancel">取消</string>
+    <string name="save">保存</string>
+    <string name="complete">完成</string>
+
+    <!-- list common -->
+    <string name="lc_DaysAgo">%d天前</string>
+    <string name="lc_HoursAgo">%d小时前</string>
+    <string name="lc_MinitsAgo">%d分钟前</string>
+    <string name="lc_SecondsAgo">%d秒钟前</string>
+    <string name="lc_JustNow">现在</string>
+
+    <!-- telephoneActivity => telAct -->
+    <string name="telAct_phoneInputEditText_hint">请输入手机号码</string>
+    <string name="telAct_InputCheck">手机号码是必填栏目</string>
+
+    <string name="telAct_telephoneRegistButton_text">Send</string>
+    <string name="telAct_eula_full_text">Lisence Agreement</string>
+    <string name="telAct_eula_link_text">Lisence</string>
+    <string name="telAct_AcceptErr">Check Lisence Agreement</string>
+
+    <!-- verifyActivity => verifyAct -->
+    <string name="verifyAct_codeInputEditText_hint">请输入4位验证码</string>
+    <string name="verifyAct_codeRegistButton_text">確認</string>
+    <string name="verifyAct_InputCheck">验证码错误</string>
+
+    <string name="verifyAct_VerifyError">Authentication code is incorrect.</string>
+
+    <!-- registProfileActivity => registAct -->
+    <string name="registAct_guide_text">从哪里上传照片?</string>
+    <string name="registAct_nameInputEditText_hint">请输入姓名</string>
+    <string name="registAct_profileRegistButton_text">完了</string>
+    <string name="profileAct_imageInputCheck">需要上传个人头像</string>
+    <string name="profileAct_nameInputCheck">姓名是必填栏目</string>
+
+    <!-- homeActivity => homeAct -->
+    <string name="homeAct_onCountZero">你没有对任何人开启ON状态!</string>
+    <string name="homeAct_onCount">现在对%s个人开启ON状态</string>
+    <string name="homeAct_profileCommentHint">例) 现在正在XXX！（50个文字以内）</string>
+    <string name="homeAct_profileCommentError">文字限制为50个字</string>
+    <string name="homeAct_subject_friends">选择好友</string>
+    <string name="homeAct_subject_group">选择小组</string>
+    <string name="homeAct_subject_add">新建</string>
+    <string name="homeAct_friend_list">好友列表</string>
+    <string name="homeAct_group_add">新建小组</string>
+    <string name="homeAct_invite">发送SMS邀请</string>
+
+    <string name="homeAct_groupHi_confirm">Send Hi to all group members.</string>
+    <string name="homeAct_allOn_confirm">Send ON to all group members.</string>
+    <string name="homeAct_qr_add">add by QR-code</string>
+    <string name="homeAct_my_qr">my QR-code</string>
+
+    <!-- friendListActivity => friendListAct -->
+    <string name="friendListAct_noFriend">所有的好友都没有开启ON状态</string>
+    <string name="friendListAct_offBlock">解除屏蔽</string>
+    <string name="friendListAct_subject">好友</string>
+
+    <!-- friendProfileActivity => profEditAct -->
+    <string name="friendProfAct_naviTitle">Profile</string>
+    <string name="friendProfAct_doBlock">屏蔽</string>
+    <string name="friendProfAct_deBlock">解除屏蔽</string>
+    <string name="friendProfAct_doSilent">关闭推送</string>
+    <string name="friendProfAct_deSilent">允许推送</string>
+
+    <!-- onListActivity => onListAct -->
+    <string name="onListAct_noFriend">所有的好友都没有开启ON状态</string>
+
+    <!-- hiListActivity => hiListAct -->
+    <string name="hiListAct_noFriend">现在没有人对你发送Hi</string>
+
+    <!-- profileEditActivity => profEditAct -->
+    <string name="profEditAct_naviTitle">Profile update</string>
+    <string name="profEditAct_listName">Name</string>
+    <string name="profEditAct_listId">ID</string>
+    <string name="profEditAct_listReadQR">Read QR Code</string>
+    <string name="profEditAct_listDrawQR">My QR Code</string>
+    <string name="profEditActName_naviTitle">edit name</string>
+    <string name="profEditActId_naviTitle">edit ID</string>
+    <string name="profEditActReadQr_naviTitle">QR-code reader</string>
+    <string name="profEditActDrawQr_naviTitle">My QR Code</string>
+    <string name="profEditActQrResult_naviTitle">read QR-code</string>
+    <string name="profEditAct_profUpdate">Profile updated</string>
+    <string name="profEditAct_DrawQr_guide">if your friend use this QR-code.\nregist your friend.</string>
+    <string name="profEditAct_QrDefault">Read QR Code</string>
+    <string name="profEditAct_QrRegisted">already your friend</string>
+    <string name="profEditAct_QrAddComplete">add complete</string>
+    <string name="profEditAct_QrLimitOver">security limit over</string>
+    <string name="profEditAct_QrIllegal">illegal QR-code</string>
+
+    <!-- groupEditActivity => groupEditAct -->
+    <string name="groupEditAct_naviTitle">添加小组</string>
+    <string name="groupEditAct_Delete">删除小组</string>
+    <string name="groupEditAct_Friends">选择好友</string>
+    <string name="groupEditAct_ListSubject">小组成员</string>
+    <string name="groupEditAct_EditViewHint">小组名</string>
+    <string name="groupEditAct_noMemberWarning">选择成员</string>
+    <string name="groupEditAct_noTitleWarning">小组名未输入</string>
+    <string name="groupEditAct_saveConfirm">确认添加吗?</string>
+    <string name="groupEditAct_backSaveConfirm">确认添加吗?</string>
+    <string name="groupEditAct_deleteConfirm">确定删除此小组?</string>
+
+    <!-- inviteFriendsActivity => inviteFriendsAct -->
+    <string name="inviteFriendsAct_naviTitle">Invite via SMS</string>
+    <string name="inviteFriendsAct_noFriend">没有可以邀请到ON的朋友</string>
+    <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
+    <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
+    <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
+</resources>

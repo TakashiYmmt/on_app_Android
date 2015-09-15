@@ -3,7 +3,9 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_zero_margin"
     android:paddingRight="@dimen/activity_zero_margin"
     android:paddingTop="@dimen/activity_zero_margin"
-    android:paddingBottom="@dimen/activity_zero_margin" tools:context=".startActivity">
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context=".startActivity">
 
     <ImageView
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@
     android:paddingTop="@dimen/activity_zero_margin"
     android:paddingBottom="@dimen/activity_zero_margin"
     android:id = "@+id/mainLayout"
+    android:background="@color/bg_white"
     tools:context="jp.co.webshark.on2.homeActivity">
 
     <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
@@ -19,7 +20,7 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/navigation_hight"
+        android:layout_height="@dimen/navigation_height"
         android:layout_alignParentTop="true"
         android:orientation="vertical" >
 
@@ -72,33 +73,36 @@
         <LinearLayout
             android:id="@+id/mainList"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/home_profile_hight"
+            android:layout_height="@dimen/home_profile_height"
             android:orientation="vertical" >
 
             <RelativeLayout
                 android:id="@+id/profile_frame"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_profile_hight">
+                android:layout_height="@dimen/home_profile_height">
 
                 <jp.co.webshark.on2.customViews.HttpImageView
+                    android:onClick="openProfileEdit"
                     android:layout_width="@dimen/home_profile_image"
                     android:layout_height="@dimen/home_profile_image"
                     android:id="@+id/profile_image"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:src="@drawable/list_icon_user"
-                    android:background="@color/background_material_dark"
                     android:layout_centerVertical="true">
                </jp.co.webshark.on2.customViews.HttpImageView>
 
                 <TextView
+                    android:id="@+id/onCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_active_green"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/onCount"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_alignParentRight="true"
                     android:layout_toRightOf="@+id/profile_image"
-                    android:text="ONした人数だよー"
+                    android:text=""
                     android:focusable="true"
                     android:focusableInTouchMode="true">
 
@@ -106,17 +110,18 @@
                 </TextView>
 
                 <EditText
+                    android:id="@+id/profileCommentEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/profileCommentEdit"
                     android:layout_below="@+id/onCount"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_toRightOf="@+id/profile_image"
                     android:textSize="@dimen/activity_input_text_size"
                     android:singleLine="true"
-                    android:text="ONした人数だよー" />
+                    android:imeOptions="actionDone"
+                    android:text="" />
             </RelativeLayout>
 
             <FrameLayout
@@ -128,15 +133,16 @@
             <RelativeLayout
                 android:id="@+id/subject_frame1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_subject_hight"
+                android:layout_height="@dimen/home_subject_height"
                 android:background="@color/background_floating_material_light">
 
                 <TextView
+                    android:id="@+id/subject1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="人から選ぶ"
+                    android:text="@string/homeAct_subject_friends"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:id="@+id/subject1"
+                    android:textSize="@dimen/home_subject_textsize"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -149,21 +155,33 @@
             <RelativeLayout
                 android:id="@+id/friend_select_frame"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_cell_hight"
+                android:layout_height="@dimen/home_cell_height"
                 android:onClick="openFriendList">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/friends_cell_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="　> 友達一覧"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_arrow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
                     android:id="@+id/friends_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homeAct_friend_list"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_toRightOf="@+id/friends_cell_arrow"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin_half"
                     android:layout_centerVertical="true"/>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/friends_switch_icon"
+                    android:onClick="allOnOff"
+                    android:layout_width="@dimen/home_cell_on_height"
+                    android:layout_height="@dimen/home_cell_on_height"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
@@ -180,15 +198,16 @@
             <RelativeLayout
                 android:id="@+id/subject_frame2"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_subject_hight"
+                android:layout_height="@dimen/home_subject_height"
                 android:background="@color/background_floating_material_light">
 
                 <TextView
+                    android:id="@+id/subject2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="グループから選ぶ"
+                    android:text="@string/homeAct_subject_group"
+                    android:textSize="@dimen/home_subject_textsize"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:id="@+id/subject2"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -201,8 +220,8 @@
             <ListView
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_cell_hight"
-                android:minHeight="@dimen/home_cell_hight">
+                android:layout_height="@dimen/home_cell_height"
+                android:minHeight="@dimen/home_cell_height">
             </ListView>
 
             <FrameLayout
@@ -214,15 +233,16 @@
             <RelativeLayout
                 android:id="@+id/subject_frame3"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_subject_hight"
+                android:layout_height="@dimen/home_subject_height"
                 android:background="@color/background_floating_material_light">
 
                 <TextView
+                    android:id="@+id/subject3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="追加する"
+                    android:text="@string/homeAct_subject_add"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:id="@+id/subject3"
+                    android:textSize="@dimen/home_subject_textsize"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -234,15 +254,88 @@
 
             <RelativeLayout
                 android:id="@+id/add_group_frame"
+                android:onClick="addGroup"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_cell_hight">
+                android:layout_height="@dimen/home_cell_height">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="グループを作る"
+                    android:text="@string/homeAct_group_add"
+                    android:textSize="@dimen/home_topic_textsize"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:id="@+id/addGroupText"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_plus"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/add_qr_frame"
+                android:onClick="readQr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_height">
+
+                <TextView
+                    android:id="@+id/addQrText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homeAct_qr_add"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_plus"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/my_qr_frame"
+                android:onClick="drawQr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_height">
+
+                <TextView
+                    android:id="@+id/myQrText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homeAct_my_qr"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_plus"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -254,15 +347,26 @@
 
             <RelativeLayout
                 android:id="@+id/sms_frame"
+                android:onClick="openInviteFriends"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/home_cell_hight">
+                android:layout_height="@dimen/home_cell_height">
 
                 <TextView
+                    android:id="@+id/smsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SMSで招待する"
+                    android:text="@string/homeAct_invite"
+                    android:textSize="@dimen/home_topic_textsize"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:id="@+id/smsText"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_plus"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
         </LinearLayout>
@@ -280,7 +384,7 @@
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/navigation_hight"
+        android:layout_height="@dimen/navigation_height"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="@color/button_material_dark" >
@@ -303,7 +407,7 @@
                     android:src="@drawable/tab_navigation_home_active"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -318,27 +422,34 @@
 
         <LinearLayout
             android:id="@+id/footer2"
+            android:clickable="true"
+            android:onClick="openOnList"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/footer2_in"
+                android:clickable="true"
+                android:onClick="openOnList"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
                 <ImageButton
                     android:id="@+id/tabOnImageButton"
+                    android:clickable="true"
                     android:onClick="openOnList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_on"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
 
                 <TextView
+                    android:clickable="true"
+                    android:onClick="openOnList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ON"
@@ -350,26 +461,33 @@
 
         <LinearLayout
             android:id="@+id/footer3"
+            android:clickable="true"
+            android:onClick="openFriendList"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/footer3_in"
+                android:clickable="true"
+                android:onClick="openFriendList"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
                 <ImageButton
                     android:id="@+id/tabFriendButton"
+                    android:clickable="true"
                     android:onClick="openFriendList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_friend"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
+                    android:clickable="true"
+                    android:onClick="openFriendList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Friend"
@@ -381,26 +499,33 @@
 
         <LinearLayout
             android:id="@+id/footer4"
+            android:clickable="true"
+            android:onClick="openHiList"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
             <RelativeLayout
                 android:id="@+id/footer4_in"
+                android:clickable="true"
+                android:onClick="openHiList"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent">
 
                 <ImageButton
                     android:id="@+id/tabHiButton"
+                    android:clickable="true"
                     android:onClick="openHiList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/tab_navigation_hi"
                     android:background="@null"
                     android:scaleType="center"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
                     android:layout_centerHorizontal="true"/>
                 <TextView
+                    android:clickable="true"
+                    android:onClick="openHiList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hi"

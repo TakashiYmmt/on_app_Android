@@ -6,6 +6,15 @@
     <string name="close">閉じる</string>
     <string name="back">戻る</string>
     <string name="cancel">キャンセル</string>
+    <string name="save">保存</string>
+    <string name="complete">完了</string>
+
+    <!-- list common -->
+    <string name="lc_DaysAgo">%d日前</string>
+    <string name="lc_HoursAgo">%d時間前</string>
+    <string name="lc_MinitsAgo">%d分前</string>
+    <string name="lc_SecondsAgo">%d秒前</string>
+    <string name="lc_JustNow">たった今</string>
 
     <!-- telephoneActivity => telAct -->
     <string name="telAct_phoneInputEditText_hint">電話番号を入力してください</string>
@@ -33,7 +42,70 @@
     <string name="homeAct_onCount">現在%s人に対してON</string>
     <string name="homeAct_profileCommentHint">例）今○○にいます！(50文字まで)</string>
     <string name="homeAct_groupHi_confirm">グループ全員にHiを送ります。</string>
+    <string name="homeAct_allOn_confirm">友達全員にONを送ります。</string>
     <string name="homeAct_profileCommentError">コメントは50文字までです。</string>
+    <string name="homeAct_subject_friends">人から選ぶ</string>
+    <string name="homeAct_subject_group">グループから選ぶ</string>
+    <string name="homeAct_subject_add">追加する</string>
+    <string name="homeAct_friend_list">友達一覧</string>
+    <string name="homeAct_group_add">グループを作る</string>
+    <string name="homeAct_qr_add">QRコードで友達を追加する</string>
+    <string name="homeAct_my_qr">自分のQRコードを表示する</string>
+    <string name="homeAct_invite">SMSで招待する</string>
 
+    <!-- friendListActivity => friendListAct -->
+    <string name="friendListAct_noFriend">ONを共有している友達がいません。</string>
+    <string name="friendListAct_offBlock">ブロック解除</string>
+    <string name="friendListAct_subject">あなたの友達</string>
 
+    <!-- friendProfileActivity => profEditAct -->
+    <string name="friendProfAct_naviTitle">プロフィール</string>
+    <string name="friendProfAct_doBlock">ブロックする</string>
+    <string name="friendProfAct_deBlock">ブロックを解除する</string>
+    <string name="friendProfAct_doSilent">非通知にする</string>
+    <string name="friendProfAct_deSilent">非通知を解除する</string>
+
+    <!-- onListActivity => onListAct -->
+    <string name="onListAct_noFriend">現在ONの友達はいません。</string>
+
+    <!-- hiListActivity => hiListAct -->
+    <string name="hiListAct_noFriend">現在Hiはありません。</string>
+
+    <!-- profileEditActivity => profEditAct -->
+    <string name="profEditAct_naviTitle">プロフィール変更</string>
+    <string name="profEditAct_listName">名前</string>
+    <string name="profEditAct_listId">ID</string>
+    <string name="profEditAct_listReadQR">QRコードを読み取る</string>
+    <string name="profEditAct_listDrawQR">自分のQRコード</string>
+    <string name="profEditActName_naviTitle">名前を編集する</string>
+    <string name="profEditActId_naviTitle">IDを編集する</string>
+    <string name="profEditActReadQr_naviTitle">QRコードリーダー</string>
+    <string name="profEditActDrawQr_naviTitle">自分のQRコード</string>
+    <string name="profEditActQrResult_naviTitle">QRコードで追加</string>
+    <string name="profEditAct_profUpdate">プロフィールを変更しました</string>
+    <string name="profEditAct_DrawQr_guide">友達がこのQRコードを\nONのQRコードリーダーで\nスキャンすると\nあなたの友達に追加できます。</string>
+    <string name="profEditAct_QrDefault">友達に追加する</string>
+    <string name="profEditAct_QrRegisted">もう友達になっています</string>
+    <string name="profEditAct_QrAddComplete">友達に追加しました！</string>
+    <string name="profEditAct_QrLimitOver">有効期限切れです</string>
+    <string name="profEditAct_QrIllegal">無効なQRコードです</string>
+
+    <!-- groupEditActivity => groupEditAct -->
+    <string name="groupEditAct_naviTitle">グループの追加</string>
+    <string name="groupEditAct_Delete">グループを削除する</string>
+    <string name="groupEditAct_Friends">人から選ぶ</string>
+    <string name="groupEditAct_ListSubject">グループメンバー</string>
+    <string name="groupEditAct_EditViewHint">グループ名</string>
+    <string name="groupEditAct_noMemberWarning">メンバーを選択してください</string>
+    <string name="groupEditAct_noTitleWarning">グループ名が入力されていません。</string>
+    <string name="groupEditAct_saveConfirm">保存しますか？</string>
+    <string name="groupEditAct_backSaveConfirm">編集した内容で保存しますか？</string>
+    <string name="groupEditAct_deleteConfirm">このグループを削除します。\nよろしいですか？</string>
+
+    <!-- inviteFriendsActivity => inviteFriendsAct -->
+    <string name="inviteFriendsAct_naviTitle">SMSでアプリを招待する</string>
+    <string name="inviteFriendsAct_noFriend">ヒマならONに招待できる友達がいません。</string>
+    <string name="inviteFriendsAct_selectMail">メールアドレスを選んでください。</string>
+    <string name="inviteFriendsAct_selectPhone">SMSを送る電話番号を選んでください。</string>
+    <string name="inviteFriendsAct_mailSubject">ヒマならONに招待です</string>
 </resources>
