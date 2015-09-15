@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.profileEditIdActivity">
+
+<!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:clickable="true"
+                android:onClick="profileIdEditClose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textSize="@dimen/navigation_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigationTitle"
+                android:text="@string/profEditActId_naviTitle"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/navigation_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+<!-- === ヘッダ部 ============================================================================== -->
+
+    <EditText
+        android:id="@+id/idInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_input_text_height"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:ems="10"
+        android:textSize="@dimen/activity_input_text_size"
+        android:layout_below="@+id/heade_line"
+        android:autoText="false"
+        android:background="@drawable/simple_frame"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/nameSaveButton"
+        android:onClick="saveButtonClick"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/activity_button_height"
+        android:text="@string/save"
+        android:layout_below="@+id/idInputEditText"
+        android:layout_alignLeft="@+id/idInputEditText"
+        android:layout_alignRight="@+id/idInputEditText"
+        android:layout_alignStart="@+id/idInputEditText"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textColor="@drawable/button_design_front"
+        android:background="@drawable/button_design_back"/>
+
+</RelativeLayout>

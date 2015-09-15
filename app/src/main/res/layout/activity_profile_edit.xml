@@ -1,0 +1,216 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.friendListActivity">
+
+    <!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:clickable="true"
+                android:onClick="profileEditClose"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textSize="@dimen/navigation_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigationTitle"
+                android:text="@string/profEditAct_naviTitle"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/navigation_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+    <!-- === ヘッダ部 ============================================================================== -->
+
+    <RelativeLayout
+        android:id="@+id/profile_image_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/profile_edit_image_area_height"
+        android:orientation="vertical"
+        android:layout_below="@+id/heade_line">
+
+        <jp.co.webshark.on2.customViews.HttpImageView
+            android:onClick="openLibrary"
+            android:layout_width="@dimen/profile_edit_image_height"
+            android:layout_height="@dimen/profile_edit_image_height"
+            android:id="@+id/profile_image"
+            android:src="@drawable/list_icon_user"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true">
+        </jp.co.webshark.on2.customViews.HttpImageView>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/separate_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/profile_image_area"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/profile_image_area" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/name_edit_frame"
+                android:onClick="editName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_edit_cell_height">
+
+                <TextView
+                    android:id="@+id/nameTextLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listName"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listName"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/separate_inner1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/name_edit_frame"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/id_edit_frame"
+                android:onClick="editId"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_edit_cell_height"
+                android:layout_below="@+id/separate_inner1">
+
+                <TextView
+                    android:id="@+id/idTextLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listId"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:id="@+id/idTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listId"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/separate_inner2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/id_edit_frame"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/read_qr_edit_frame"
+                android:onClick="readQr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_edit_cell_height"
+                android:layout_below="@+id/separate_inner2">
+
+                <TextView
+                    android:id="@+id/readQrTextLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listReadQR"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/separate_inner3"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/read_qr_edit_frame"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/draw_qr_edit_frame"
+                android:onClick="drawQr"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_edit_cell_height"
+                android:layout_below="@+id/separate_inner3">
+
+                <TextView
+                    android:id="@+id/drawQrTextLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profEditAct_listDrawQR"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/separate_inner4"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/draw_qr_edit_frame"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
