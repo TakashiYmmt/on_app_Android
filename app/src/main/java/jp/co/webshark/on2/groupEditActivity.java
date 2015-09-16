@@ -54,6 +54,7 @@ public class groupEditActivity extends Activity {
     private boolean openKeyBoard;
     private Uri mPictureUri;
     GroupMemberAdapter adapter;
+    private boolean isChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +110,8 @@ public class groupEditActivity extends Activity {
                 }
             }
         });
+
+        isChanged = false;
     }
 
     @Override
@@ -395,6 +398,26 @@ public class groupEditActivity extends Activity {
 
 
     }
+    public void saveGroupFromBack() {
+        // メンバー・グループ名チェックが通ったら保存処理
+        EditText groupName = (EditText) findViewById(R.id.groupNameEdit);
+        SpannableStringBuilder sp = (SpannableStringBuilder)groupName.getText();
+        inputText = sp.toString();
+        if( groupMember.size() == 0 ){
+            Toast.makeText(this, getResources().getString(R.string.groupEditAct_noMemberWarning), Toast.LENGTH_LONG).show();
+            return;
+        }else if( inputText.isEmpty() ){
+            Toast.makeText(this, getResources().getString(R.string.groupEditAct_noTitleWarning), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // グループIDの有無で新規・更新を分岐
+        if (groupId.isEmpty()) {
+            createGroup(inputText);
+        } else {
+            updateGroup(inputText);
+        }
+    }
 
     // 削除ボタン
     public void deleteGroup(View view) {
@@ -432,11 +455,41 @@ public class groupEditActivity extends Activity {
     // 戻るリンク
     public void groupEditClose(View view) {
 
-        // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
-        Intent intent = new Intent();
-        setResult(RESULT_CANCELED, intent);
-        intent.putExtra("isUpdate", false);
-        finish();
+        if( isChanged ){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            alertDialogBuilder.setMessage(getResources().getString(R.string.groupEditAct_backSaveConfirm));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            saveGroupFromBack();
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            dialog = null;
+
+                            // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
+                            Intent intent = new Intent();
+                            setResult(RESULT_CANCELED, intent);
+                            intent.putExtra("isUpdate", false);
+                            finish();
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
+            Intent intent = new Intent();
+            setResult(RESULT_CANCELED, intent);
+            intent.putExtra("isUpdate", false);
+            finish();
+        }
 
     }
 
@@ -459,6 +512,8 @@ public class groupEditActivity extends Activity {
         // 画面表示用配列から選択インデックス分を削除して再描画
         groupMember.remove(Integer.parseInt(deleteIndex));
         adapter.notifyDataSetChanged();
+
+        isChanged = true;
     }
 
     // 人から選ぶ
@@ -482,6 +537,8 @@ public class groupEditActivity extends Activity {
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),groupMemberSelectActivity.class);
         startActivityForResult(intent, 0);
+
+        isChanged = true;
     }
 
     public void openLibrary(View view){
@@ -613,6 +670,8 @@ public class groupEditActivity extends Activity {
             // 縦幅に合わせる
             params.height = params.width;
             groupImageView.setLayoutParams(params);
+
+            isChanged = true;
         }
     }
 
@@ -643,6 +702,7 @@ public class groupEditActivity extends Activity {
 
         // キーボードが出ていた時はイベントをカット
         if( openKeyBoard ){
+            isChanged = true;
             return false;
         }else {
             return super.dispatchTouchEvent(ev);

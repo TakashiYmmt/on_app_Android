@@ -258,9 +258,14 @@ public class hiListActivity extends Activity {
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.switch_icon);
             targetImage.setSwitchEffect(R.drawable.list_button_hi_sending, 2000);
 
+            //if( friendList.get(position).getNotificationOffFlg().equals("00") ){
+            //    ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
+            //    silentIcon.setVisibility(View.GONE);
+            //}
             if( friendList.get(position).getNotificationOffFlg().equals("00") ){
-                ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
-                silentIcon.setVisibility(View.GONE);
+                ((TextView)convertView.findViewById(R.id.cellHiName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellHiName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_icon_silent, 0);
             }
 
             if( friendList.get(position).getBlockFlg().equals("00") ){

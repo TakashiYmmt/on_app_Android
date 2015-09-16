@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -205,8 +206,9 @@ public class friendListActivity extends Activity {
             }
 
             if( friendList.get(position).getNotificationOffFlg().equals("00") ){
-                ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
-                silentIcon.setVisibility(View.GONE);
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_icon_silent,0);
             }
 
             if( friendList.get(position).getBlockFlg().equals("00") ){
