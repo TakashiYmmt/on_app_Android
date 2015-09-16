@@ -2,6 +2,8 @@ package jp.co.webshark.on2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +35,15 @@ public class profileEditQrResult extends Activity {
         friendImageView = (HttpImageView)findViewById(R.id.profile_image);
         friendNameTextView = (TextView)findViewById(R.id.nameTextView);
         addButton = (Button)findViewById(R.id.addQrFriendButton);
+
+        Bitmap bm = ((BitmapDrawable)friendImageView.getDrawable()).getBitmap();
+        BitmapTrim bitmapTrim = new BitmapTrim(bm.getWidth(), bm.getHeight());
+        bitmapTrim.setAntiAlias(true);
+        bitmapTrim.setTrimCircle(bm.getWidth() / 2, bm.getWidth() / 2, bm.getWidth() / 2);
+        bitmapTrim.drawBitmap(bm, 0, 0);
+        bm = bitmapTrim.getBitmap();
+        friendImageView.setImageBitmap(bm);
+        bm = null;
 
         Intent i = getIntent();
         qrResult = i.getStringExtra("qrResult");
@@ -97,7 +108,7 @@ public class profileEditQrResult extends Activity {
         if( friendName.length() > 0 ){
 
             friendNameTextView.setText(friendName);
-            friendImageView.setImageUrl(friendImageUrl, getResources().getDimensionPixelSize(R.dimen.pe_qr_result_image), this.getApplicationContext());
+            friendImageView.setImageUrl(friendImageUrl, getResources().getDimensionPixelSize(R.dimen.pe_qr_result_image), this.getApplicationContext(),true);
             addButton.setEnabled(true);
 
             // リレーションチェック

@@ -303,55 +303,7 @@ public class registProfileActivity extends Activity {
             body.put("profile_comment","");
             body.put("user_id", (String)global.getShareData("user_id"));
 
-            //サーバーにアップロード //action: updateUserinfo
-            /*
-            String[] pojo = { MediaStore.MediaColumns.DATA };
-
-            Cursor cursor = getApplicationContext().getContentResolver().query(mPictureUri, pojo, null, null, null);
-
-            if (cursor != null) {
-                int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
-                cursor.moveToFirst();
-                picPath = cursor.getString(columnIndex);
-            }
-            */
-
-            if( drawBitmap ){/*
-            if (picPath != null &&
-                    (
-                            picPath.endsWith(".png") ||
-                                    picPath.endsWith(".PNG") ||
-                                    picPath.endsWith(".jpg") ||
-                                    picPath.endsWith(".JPG") ||
-                                    picPath.endsWith(".webp") ||
-                                    picPath.endsWith(".WEBP")
-                    )
-                    )
-            {
-                Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream bao = new ByteArrayOutputStream();
-                if(picPath.endsWith(".jpg")||picPath.endsWith(".JPG")) {
-
-                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bao);
-                }
-                else  if(picPath.endsWith(".png")||picPath.endsWith(".PNG"))
-                {
-
-                    bm.compress(Bitmap.CompressFormat.PNG, 100, bao);
-
-                }
-                else if(picPath.endsWith(".webp")||picPath.endsWith(".WEBP"))
-                {
-                    bm.compress(Bitmap.CompressFormat.WEBP, 100, bao);
-
-                }
-                byte[] ba = bao.toByteArray();
-
-                // API通信のPOST処理
-                profileSender.setParams(strURL,body,"image.jpg",ba);
-                profileSender.execute();
-            */
-
+            if( drawBitmap ){
                 Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
                 ByteArrayOutputStream bao = new ByteArrayOutputStream();
                 if( picPath == null ){
@@ -377,7 +329,21 @@ public class registProfileActivity extends Activity {
                 profileSender.execute();
                 drawBitmap = false;
             } else {
-                Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                alertDialogBuilder.setMessage(getResources().getString(R.string.profileAct_imageInputCheck));
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                dialog = null;
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         }
     }

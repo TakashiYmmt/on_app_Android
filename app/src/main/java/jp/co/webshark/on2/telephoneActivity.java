@@ -54,8 +54,8 @@ public class telephoneActivity extends Activity {
         setTelSender();
 
         // 実験
-        ImageView logo = (ImageView) findViewById(R.id.imageView2);
-        registerForContextMenu(logo);
+        //ImageView logo = (ImageView) findViewById(R.id.imageView2);
+        //registerForContextMenu(logo);
     }
 
     // 実験

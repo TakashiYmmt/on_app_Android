@@ -129,9 +129,9 @@ public class homeActivity extends Activity {
             Toast.makeText(getApplicationContext(),"emurator?", Toast.LENGTH_LONG).show();
         }
 
-        /*// 実験
-        ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        registerForContextMenu(logo);*/
+        // 実験
+        //ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
+        //registerForContextMenu(logo);
     }
 
     @Override
@@ -262,6 +262,7 @@ public class homeActivity extends Activity {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
                 //drawGroupOn();
+                setProfileSender();
             }
         });
     }
