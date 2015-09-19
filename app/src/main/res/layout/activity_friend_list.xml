@@ -212,7 +212,8 @@ tools:context="jp.co.webshark.on2.friendListActivity">
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/color_select_tab_gray">
             <RelativeLayout
                 android:id="@+id/footer3_in"
                 android:layout_height="match_parent"

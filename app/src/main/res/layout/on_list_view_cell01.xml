@@ -31,26 +31,26 @@ android:background="@color/bg_white">
             android:layout_marginTop="@dimen/activity_vertical_margin_half"
             android:layout_below="@+id/cellOnProfileImage"/>
 
-    <TextView
-        android:id="@+id/cellOnName"
+    <RelativeLayout
+        android:id="@+id/cellOnNameFrame"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/on_list_cell_name_height"
-        android:text="友達"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/cellOnProfileImage"
-        android:layout_toLeftOf="@+id/cellIconSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+        android:layout_toLeftOf="@+id/switch_icon"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half">
 
-    <ImageView
-        android:id="@+id/cellIconSilent"
-        android:layout_width="@dimen/on_list_cell_silent_height"
-        android:layout_height="@dimen/on_list_cell_silent_height"
-        android:src="@drawable/list_icon_silent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_toLeftOf="@+id/switch_icon"/>
+        <TextView
+            android:id="@+id/cellOnName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/hi_list_cell_name_height"
+            android:text="友達"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/list_icon_silent"
+            android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+    </RelativeLayout>
 
     <jp.co.webshark.on2.customViews.WrapTextView
         android:id="@+id/cellOnComment"
@@ -65,7 +65,7 @@ android:background="@color/bg_white">
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
         android:layout_toRightOf="@+id/cellOnProfileImage"
         android:layout_toLeftOf="@+id/switch_icon"
-        android:layout_below="@+id/cellOnName"/>
+        android:layout_below="@+id/cellOnNameFrame"/>
 
     <jp.co.webshark.on2.customViews.EffectImageView
         android:id="@+id/switch_icon"
@@ -87,7 +87,7 @@ android:background="@color/bg_white">
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellOnName"
+        android:layout_below="@+id/cellOnNameFrame"
         android:layout_toRightOf="@+id/cellOnProfileImage"
         android:layout_alignParentRight="true"
         android:textColor="@drawable/button_design_front"

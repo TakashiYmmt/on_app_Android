@@ -43,26 +43,26 @@
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_below="@+id/cellFriendProfileImage"/>
 
-    <TextView
-        android:id="@+id/cellFriendName"
+    <RelativeLayout
+        android:id="@+id/cellFriendNameFrame"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/friend_list_cell_name_height"
-        android:text="友達"
-        android:textSize="@dimen/friend_list_cell_name_textsize"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/cellFriendHiButton"
-        android:layout_toLeftOf="@+id/cellIconSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_toLeftOf="@+id/cellSwitchButton">
 
-    <ImageView
-        android:id="@+id/cellIconSilent"
-        android:layout_width="@dimen/friend_list_cell_silent_height"
-        android:layout_height="@dimen/friend_list_cell_silent_height"
-        android:src="@drawable/list_icon_silent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_toLeftOf="@+id/cellSwitchButton"/>
+        <TextView
+            android:id="@+id/cellFriendName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/friend_list_cell_name_height"
+            android:text="友達ああああああああああああああああ"
+            android:textSize="@dimen/friend_list_cell_name_textsize"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/list_icon_silent"
+            android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+    </RelativeLayout>
 
     <jp.co.webshark.on2.customViews.WrapTextView
         android:id="@+id/cellFriendComment"
@@ -98,7 +98,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellFriendName"
+        android:layout_below="@+id/cellFriendNameFrame"
         android:layout_toRightOf="@+id/cellFriendProfileImage"
         android:layout_alignParentRight="true"
         android:textColor="@drawable/button_design_front"

@@ -3,7 +3,7 @@
 
 <resources>
     <string name="app_name">on</string>
-    <string name="api_url">http://210.140.165.80/on/api.php</string>
+    <string name="api_url">http://210.140.165.80/on/1.5/api_yamamoto.php</string>
     <string name="ok">OK</string>
 
     <string name="hello_world">Hello world!</string>
@@ -23,6 +23,8 @@
     <color name="color_link_green">#a450c81e</color>
     <color name="color_comment_blue">#a4003ec8</color>
     <color name="color_text_gray">#7e7e7e</color>
+    <color name="color_select_tab_gray">#373d41</color>
+
     <string name="color_code_link_green">#a450c81e</string>
     <string name="title_activity_verify">verifyActivity</string>
     <string name="title_activity_regist_profile">registProfileActivity</string>

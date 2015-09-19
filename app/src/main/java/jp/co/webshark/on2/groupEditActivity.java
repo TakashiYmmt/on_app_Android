@@ -8,11 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -112,6 +115,9 @@ public class groupEditActivity extends Activity {
         });
 
         isChanged = false;
+
+        // イベントリスナーの登録
+        ((EditText) findViewById(R.id.groupNameEdit)).addTextChangedListener(new UITextWatcher ());
     }
 
     @Override
@@ -659,6 +665,15 @@ public class groupEditActivity extends Activity {
                 }
                 istream.close();
 
+                // トリミングして正方形にする
+                int w = bitmap.getWidth();
+                int h = bitmap.getHeight();
+                float scale = Math.max((float)bitmap.getWidth()/w, (float)bitmap.getHeight()/h);
+                int size = Math.min(w, h);
+                Matrix matrix = new Matrix();
+                matrix.postScale(scale, scale);
+                bitmap = Bitmap.createBitmap(bitmap, (w - size) / 2, (h - size) / 2, size, size, matrix, true);
+
                 //groupImageView.setImageURI(result);
                 groupImageView.setImageBitmap(bitmap);
             } catch (IOException e) {
@@ -702,7 +717,6 @@ public class groupEditActivity extends Activity {
 
         // キーボードが出ていた時はイベントをカット
         if( openKeyBoard ){
-            isChanged = true;
             return false;
         }else {
             return super.dispatchTouchEvent(ev);
@@ -719,4 +733,12 @@ public class groupEditActivity extends Activity {
         return false;
     }
 
+    // EdeiText用のOverride
+    public class UITextWatcher implements TextWatcher {
+        public void afterTextChanged(Editable arg) {
+            isChanged = true;
+        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    }
 }

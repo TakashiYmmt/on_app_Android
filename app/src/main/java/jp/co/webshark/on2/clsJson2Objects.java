@@ -62,6 +62,22 @@ public class clsJson2Objects {
         return userInfo;
     }
 
+    // システム情報(getSysInfo)
+    public static clsSystemInfo setSysInfo(String strJeson) {
+        clsSystemInfo sysInfo = new clsSystemInfo();
+        try{
+            JSONObject json = new JSONObject(strJeson);
+
+            sysInfo.setNewestVersion(json.getString("newestVersion"));
+            sysInfo.setForceUpdateVersion(json.getString("forceUpdateVersion"));
+            sysInfo.setStoreUrl(json.getString("storeUrl"));
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return sysInfo;
+    }
+
     // ONカウント情報(getUserInfo)
     public static clsCountInfo setCountInfo(String strJeson) {
         clsCountInfo countInfo = new clsCountInfo();

@@ -31,26 +31,27 @@
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_below="@+id/cellHiProfileImage"/>
 
-    <TextView
-        android:id="@+id/cellHiName"
+
+    <RelativeLayout
+        android:id="@+id/cellHiNameFrame"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/hi_list_cell_name_height"
-        android:text="友達"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/cellHiProfileImage"
-        android:layout_toLeftOf="@+id/cellIconSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+        android:layout_toLeftOf="@+id/switch_icon"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half">
 
-    <ImageView
-        android:id="@+id/cellIconSilent"
-        android:layout_width="@dimen/hi_list_cell_silent_height"
-        android:layout_height="@dimen/hi_list_cell_silent_height"
-        android:src="@drawable/list_icon_silent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_toLeftOf="@+id/switch_icon"/>
+        <TextView
+            android:id="@+id/cellHiName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/hi_list_cell_name_height"
+            android:text="友達"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/list_icon_silent"
+            android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+    </RelativeLayout>
 
     <jp.co.webshark.on2.customViews.WrapTextView
         android:id="@+id/cellHiComment"
@@ -65,7 +66,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
         android:layout_toRightOf="@+id/cellHiProfileImage"
         android:layout_toLeftOf="@+id/switch_icon"
-        android:layout_below="@+id/cellHiName"/>
+        android:layout_below="@+id/cellHiNameFrame"/>
 
     <jp.co.webshark.on2.customViews.EffectImageView
         android:id="@+id/switch_icon"
@@ -87,7 +88,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellHiName"
+        android:layout_below="@+id/cellHiNameFrame"
         android:layout_toRightOf="@+id/cellHiProfileImage"
         android:layout_alignParentRight="true"
         android:textColor="@drawable/button_design_front"

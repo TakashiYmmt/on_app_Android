@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -63,6 +65,7 @@ public class homeActivity extends Activity {
     private ListView listView;
     private ScrollView scrollView;
     private EditText editText;
+    private AsyncPost sysInfoGetter;
     private AsyncPost profileSender;
     private AsyncPost profileGetter;
     private AsyncPost onCountGetter;
@@ -75,7 +78,8 @@ public class homeActivity extends Activity {
     private ImageView allSwitchButton;
     private View eventTriggerView;
     private String refreshOnFlg;
-
+    private boolean forceUpdate;
+    private clsSystemInfo sysInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +131,14 @@ public class homeActivity extends Activity {
             registerInBackground();
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"emurator?", Toast.LENGTH_LONG).show();
+        }
+
+        onGlobal onGlobal = (onGlobal) this.getApplication();
+        Object checkUpdate = onGlobal.getShareData("checkUpdate");
+        if( checkUpdate != null && checkUpdate.equals("chcked")){
+            forceUpdate = false;
+        }else{
+            forceUpdate = true;
         }
 
         // 実験
@@ -266,6 +278,20 @@ public class homeActivity extends Activity {
             }
         });
     }
+    private void setSysInfoGetter(){
+        // システム情報取得用API通信のコールバック
+        sysInfoGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                sysInfo = clsJson2Objects.setSysInfo(result);
+                checkUpdate(getApplicationContext());
+                setSysInfoGetter();
+            }
+        });
+    }
 
 
     @Override
@@ -280,6 +306,7 @@ public class homeActivity extends Activity {
         this.setGroupHiSender();
         this.setGroupOnSender();
         this.setProfileSender();
+        this.setSysInfoGetter();
 
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getUserInfo();
@@ -291,6 +318,9 @@ public class homeActivity extends Activity {
         //背景にフォーカスを移す
         mainLayout.requestFocus();
 
+        if(forceUpdate) {
+            getSysInfo();
+        }
     }
 
     private void getUserInfo(){
@@ -515,6 +545,17 @@ public class homeActivity extends Activity {
         // API通信のPOST処理
         groupOnSender.setParams(strURL, body);
         groupOnSender.execute();
+    }
+
+    private void getSysInfo(){
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "getSysInfoAndroid");
+
+        // API通信のPOST処理
+        sysInfoGetter.setParams(strURL, body);
+        sysInfoGetter.execute();
     }
 
     private void drawGroupOn(){
@@ -859,5 +900,79 @@ public class homeActivity extends Activity {
                 sendPushNotifyKey(strRegId);
             }
         }.execute(null, null, null);
+    }
+
+    private void checkUpdate(Context context){
+        forceUpdate = false;
+
+        PackageManager pm = context.getPackageManager();
+        int versionCode = 0;
+        try{
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+        }catch(PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        }
+
+        if( versionCode <= sysInfo.getForceUpdateVersion() ){
+            forceUpdate = true;
+            // 強制更新対象に含まれる場合はキャンセルなし
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getResources().getString(R.string.homeAct_ForceUpdate));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent googlePlayIntent = new Intent(Intent.ACTION_VIEW);
+                            googlePlayIntent.setData(Uri.parse(sysInfo.getStoreUrl()));
+                            startActivity(googlePlayIntent);
+
+                            dialog.dismiss();
+                            dialog = null;
+                            finish();
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+        }else if( versionCode < sysInfo.getNewestVersion() ){
+            // 最新ではない
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getResources().getString(R.string.homeAct_ForceUpdate));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent googlePlayIntent = new Intent(Intent.ACTION_VIEW);
+                            googlePlayIntent.setData(Uri.parse(sysInfo.getStoreUrl()));
+                            startActivity(googlePlayIntent);
+
+                            dialog.dismiss();
+                            dialog = null;
+                            finish();
+
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onGlobal onGlobal = (onGlobal) getApplication();
+                            onGlobal.setShareData("checkUpdate","chcked");
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+
+        }
     }
 }

@@ -52,6 +52,8 @@
     <string name="homeAct_qr_add">QRコードで友達を追加する</string>
     <string name="homeAct_my_qr">自分のQRコードを表示する</string>
     <string name="homeAct_invite">SMSで招待する</string>
+    <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
+    <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
 
     <!-- friendListActivity => friendListAct -->
     <string name="friendListAct_noFriend">ONを共有している友達がいません。</string>
