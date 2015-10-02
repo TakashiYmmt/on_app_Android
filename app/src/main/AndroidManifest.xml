@@ -17,6 +17,7 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".onGlobal"

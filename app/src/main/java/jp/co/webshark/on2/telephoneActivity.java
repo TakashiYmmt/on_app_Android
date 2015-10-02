@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,12 @@ public class telephoneActivity extends Activity {
         // 実験
         ImageView logo = (ImageView) findViewById(R.id.imageView2);
         registerForContextMenu(logo);
+
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String telnumber = tm.getLine1Number();
+        if(telnumber != null)
+        Toast.makeText(this, "Phone number: " + telnumber,
+                Toast.LENGTH_LONG).show();
     }
 
     // 実験

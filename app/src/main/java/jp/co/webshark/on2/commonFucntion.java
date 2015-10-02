@@ -293,4 +293,15 @@ public class commonFucntion extends Application{
         cursor.close();
         return result;
     }
+
+    public static String getComment(Application app){
+        onGlobal onGlobal = (onGlobal) app;
+        return (String) onGlobal.getShareData("profile_comment");
+    }
+
+    public static void setComment(Application app, String comment){
+        onGlobal onGlobal = (onGlobal) app;
+        onGlobal.setShareData("profile_comment", comment);
+        return;
+    }
 }

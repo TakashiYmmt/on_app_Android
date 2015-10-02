@@ -342,10 +342,13 @@ public class homeActivity extends Activity {
         HttpImageView profImage = (HttpImageView) findViewById(R.id.profile_image);
         EditText profileCommentEdit = (EditText) findViewById(R.id.profileCommentEdit);
 
-        profImage.setImageUrl(userInfo.getImageURL(), getResources().getDimensionPixelSize(R.dimen.home_profile_image), getApplicationContext(),true);
+        profImage.setImageUrl(userInfo.getImageURL(), getResources().getDimensionPixelSize(R.dimen.home_profile_image), getApplicationContext(), true);
         profileCommentEdit.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
         profileCommentEdit.setText(userInfo.getComment());
         setProfileGetter();
+
+        // pushコメント機能の為にグローバル領域にコメントテキストを保存
+        commonFucntion.setComment(getApplication(), userInfo.getComment());
     }
 
     private void getCountInfo(){
@@ -690,9 +693,21 @@ public class homeActivity extends Activity {
         if( refreshOnFlg.equals("on") ){
             updateAll();
         }else{
+
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-            alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_allOn_confirm) );
+            //alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_allOn_confirm) );
+            alertDialogBuilder.setTitle( getResources().getString(R.string.homeAct_allOn_confirm) );
+
+            if( commonFucntion.getComment(getApplication()).equals("") ){
+                //setViewにてビューを設定します。
+                final EditText editView = new EditText(homeActivity.this);
+                editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                editView.setSingleLine();
+                alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                alertDialogBuilder.setView(editView);
+            }
+
             alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -774,8 +789,16 @@ public class homeActivity extends Activity {
             }
         }
 
+        //alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_groupHi_confirm) );
+        alertDialogBuilder.setTitle(getResources().getString(R.string.homeAct_groupHi_confirm));
 
-        alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_groupHi_confirm) );
+        //setViewにてビューを設定します。
+        final EditText editView = new EditText(homeActivity.this);
+        editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+        editView.setSingleLine();
+        alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+        alertDialogBuilder.setView(editView);
+
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -790,6 +813,9 @@ public class homeActivity extends Activity {
                         dialog.dismiss();
                         dialog = null;
 
+                        //キーボードを隠す
+                        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
                     }
                 });
         alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
@@ -798,6 +824,9 @@ public class homeActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         dialog = null;
+
+                        //キーボードを隠す
+                        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     }
                 });
