@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hi_list_cell_height"
+        android:id="@+id/back"
+        android:tag="back"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/cellHiNameBack"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/hi_list_cell_name_height"
+            android:text="友達"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:drawableRight="@drawable/list_icon_silent"
+            android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+
+        <Button
+            android:id="@+id/swipe_button1"
+            android:onClick="switchSilent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/group_cell_height"
+            android:text="Button 1"/>
+        <Button
+            android:id="@+id/swipe_button2"
+            android:onClick="switchSilent"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/group_cell_height"
+            android:text="Button 2"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

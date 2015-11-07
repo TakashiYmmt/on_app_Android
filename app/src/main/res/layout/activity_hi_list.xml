@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:swipe="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:paddingLeft="@dimen/activity_zero_margin"
@@ -101,13 +102,18 @@ tools:context="jp.co.webshark.on2.hiListActivity">
             android:background="@color/background_material_dark" >
         </FrameLayout>
 
-        <ListView
+        <jp.co.webshark.on2.customViews.SwipeListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/hi_list_cell_height"
             android:minHeight="@dimen/hi_list_cell_height"
-            android:listSelector="@color/color_clear">
-        </ListView>
+            android:listSelector="@color/color_clear"
+            swipe:swipeFrontView="@+id/front"
+            swipe:swipeBackView="@+id/back"
+            swipe:swipeCloseAllItemsWhenMoveList="true"
+            swipe:swipeMode="left"
+            swipe:paddingEnd="250dp">
+        </jp.co.webshark.on2.customViews.SwipeListView>
 
     </LinearLayout>
 </ScrollView>

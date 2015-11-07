@@ -13,8 +13,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="jp.co.webshark.on2.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -24,21 +27,27 @@
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <service
+            android:name=".GcmIntentService"
+            android:enabled="true" />
 
-        <service android:name=".GcmIntentService" android:enabled="true"/>
         <receiver
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="jp.co.webshark.on2"/>
+
+                <category android:name="jp.co.webshark.on2" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".RegistrationIntentService" android:exported="false">
+        <service
+            android:name=".RegistrationIntentService"
+            android:exported="false" >
         </service>
+
         <activity
             android:name=".startActivity"
             android:label="@string/app_name" >
@@ -132,6 +141,12 @@
             android:name=".friendProfileActivity"
             android:label="@string/title_activity_friend_profile" >
         </activity>
+        <activity
+            android:name=".fbLoginActivity"
+            android:label="@string/title_activity_fb_login" >
+        </activity>
+        <activity android:name="com.facebook.LoginActivity" />
+        <meta-data android:value="@string/fb_app_id" android:name="com.facebook.sdk.ApplicationId" />
     </application>
 
 </manifest>

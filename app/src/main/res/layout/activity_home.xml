@@ -197,6 +197,7 @@
 
             <RelativeLayout
                 android:id="@+id/subject_frame2"
+                android:onClick="groupOpenClose"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_subject_height"
                 android:background="@color/background_floating_material_light">

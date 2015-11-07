@@ -8,7 +8,7 @@
     android:paddingBottom="@dimen/activity_zero_margin"
     android:background="@color/bg_white"
     tools:context="jp.co.webshark.on2.groupEditActivity"
-    android:id = "@+id/mainLayout">
+    android:id="@+id/mainLayout">
 
     <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
         android:id="@+id/body"
@@ -220,7 +220,8 @@
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/group_cell_height"
-                android:minHeight="@dimen/group_cell_height">
+                android:minHeight="@dimen/group_cell_height"
+                >
             </ListView>
 
         </LinearLayout>

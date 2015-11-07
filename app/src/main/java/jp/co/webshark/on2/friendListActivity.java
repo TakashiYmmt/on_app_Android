@@ -1,11 +1,14 @@
 package jp.co.webshark.on2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -15,8 +18,10 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -48,7 +53,9 @@ public class friendListActivity extends Activity {
     private AsyncPost flgSender;
     private String sendIndex;
     private View eventTriggerView;
+    private View tempView;
     private String refreshOnFlg;
+    private String profileComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -365,6 +372,7 @@ public class friendListActivity extends Activity {
         body.put("entity", "sendHiFronFL");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         hiSender.setParams(strURL,body);
@@ -373,7 +381,7 @@ public class friendListActivity extends Activity {
 
     // Hiボタン
     public void sendHi(View view){
-
+        tempView = view;
         RelativeLayout cell = (RelativeLayout)view.getParent();
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
@@ -386,9 +394,41 @@ public class friendListActivity extends Activity {
             }
         }
 
-        ((EffectImageView)view).doEffect();
-        sendHi(sendIndex);
-        sendIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(friendListActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(),profileComment);
+
+                            ((EffectImageView)tempView).doEffect();
+                            sendHi(sendIndex);
+                            sendIndex = null;
+                            profileComment = null;
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            ((EffectImageView)view).doEffect();
+            sendHi(sendIndex);
+            sendIndex = null;
+        }
     }
 
     private void sendON(String sendIndex){
@@ -412,6 +452,7 @@ public class friendListActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
         body.put("on_flg", onFlg);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         onSender.setParams(strURL, body);
@@ -451,8 +492,40 @@ public class friendListActivity extends Activity {
 
         eventTriggerView = view;
 
-        sendON(sendIndex);
-        sendIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String onFlg = friendList.get(Integer.parseInt(sendIndex)).getOnFlg();
+
+        if( commonFucntion.getComment(getApplication()).equals("") && onFlg.equals("0") ){
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(friendListActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(), profileComment);
+
+                            sendON(sendIndex);
+                            sendIndex = null;
+                            profileComment = null;
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            sendON(sendIndex);
+            sendIndex = null;
+        }
     }
 
     // ブロック解除ボタン

@@ -5,6 +5,7 @@
     <string name="app_name">on</string>
     <string name="api_url">http://210.140.165.80/on/1.5/api_yamamoto.php</string>
     <string name="ok">OK</string>
+    <string name="fb_app_id">1627585374168002</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -50,5 +51,6 @@
     <string name="title_activity_invite_friends">InviteFriendsActivity</string>
     <string name="title_activity_profile_edit_qr_result">profileEditQrResult</string>
     <string name="title_activity_friend_profile">friendProfileActivity</string>
+    <string name="title_activity_fb_login">fbLoginActivity</string>
 
 </resources>

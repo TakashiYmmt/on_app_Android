@@ -76,6 +76,7 @@ public class startActivity extends Activity {
     class splashHandlerRegist implements Runnable {
         public void run() {
             Intent intent = new Intent(getApplication(), telephoneActivity.class);
+            //Intent intent = new Intent(getApplication(), fbLoginActivity.class);
             startActivity(intent);
             startActivity.this.finish();
         }
@@ -83,6 +84,7 @@ public class startActivity extends Activity {
     class splashHandlerMain implements Runnable {
         public void run() {
             Intent intent = new Intent(getApplication(), homeActivity.class);
+            //Intent intent = new Intent(getApplication(), fbLoginActivity.class);
             startActivity(intent);
             startActivity.this.finish();
         }

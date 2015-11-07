@@ -39,6 +39,7 @@ import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.SwipeListView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
 public class groupEditActivity extends Activity {
@@ -347,6 +348,7 @@ public class groupEditActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = layoutInflater.inflate(R.layout.group_view_cell01,parent,false);
+            //convertView = layoutInflater.inflate(R.layout.group_view_cell02,parent,false);
 
             ((HttpImageView)convertView.findViewById(R.id.member_image)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
             ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());

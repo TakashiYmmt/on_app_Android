@@ -156,28 +156,6 @@ public class commonFucntion extends Application{
         return null;
     }
 
-    /*
-    public static HashMap getLocalAddressList(Context context){
-
-        String[] Projection = { "display_name", ContactsContract.CommonDataKinds.Phone.DATA };
-        HashMap returnMap = new HashMap();
-
-        Cursor managedQuery = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,Projection, null, null, null);
-        while (managedQuery.moveToNext()) {
-            // japan-only
-            if( managedQuery.getString(1).substring(0,3).equals("090")
-                    || managedQuery.getString(1).substring(0,3).equals("080")){
-                clsFriendInfo cfl = new clsFriendInfo();
-                cfl.setName(managedQuery.getString(0));
-                cfl.setTelephoneNumber(managedQuery.getString(1).replace("-", ""));
-                returnMap.put(cfl.getTelephoneNumber(),cfl);
-            }
-        }
-
-        return returnMap;
-    }
-    */
-
     public void setMyAddress(Context context){
         try{
             onGlobal onGlobal = (onGlobal) context.getApplicationContext();

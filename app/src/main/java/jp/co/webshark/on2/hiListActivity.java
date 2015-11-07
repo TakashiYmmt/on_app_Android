@@ -1,15 +1,22 @@
 package jp.co.webshark.on2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -20,6 +27,7 @@ import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.SwipeListView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 import jp.co.webshark.on2.customViews.WrapTextView;
 
@@ -28,13 +36,16 @@ public class hiListActivity extends Activity {
 
     private RelativeLayout mainLayout;
     private ArrayList<clsFriendInfo> hiList;
-    private ListView listView;
+    //private ListView listView;
+    private SwipeListView listView;
     private ScrollView scrollView;
     private RelativeLayout nothingView;
     private AsyncPost hiGetter;
     private AsyncPost hiSender;
     private AsyncPost flgSender;
     private String sendHiIndex;
+    private String profileComment;
+    private View tempView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +56,8 @@ public class hiListActivity extends Activity {
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
 
         // 画面上のオブジェクト
-        listView = (ListView) findViewById(R.id.listView1);
+        //listView = (ListView) findViewById(R.id.listView1);
+        listView = (SwipeListView) findViewById(R.id.listView1);
         scrollView = (ScrollView) findViewById(R.id.scroll_body);
         nothingView = (RelativeLayout) findViewById(R.id.nothingLayout);
 
@@ -146,6 +158,7 @@ public class hiListActivity extends Activity {
         body.put("entity", "sendHi");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         hiSender.setParams(strURL, body);
@@ -160,6 +173,54 @@ public class hiListActivity extends Activity {
         HashMap<String,String> body = new HashMap<String,String>();
 
         body.put("entity", "blockOff");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.execute();
+    }
+
+    private void sendDoBlock(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = hiList.get(Integer.parseInt(sendIndex)).getFlagsFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "blockOn");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.execute();
+    }
+
+    private void sendDeSilent(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = hiList.get(Integer.parseInt(sendIndex)).getFlagsFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "notifyOn");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.execute();
+    }
+
+    private void sendDoSilent(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = hiList.get(Integer.parseInt(sendIndex)).getFlagsFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "notifyOff");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
 
@@ -249,6 +310,7 @@ public class hiListActivity extends Activity {
             ((TextView) convertView.findViewById(R.id.cellHiName)).setText(friendList.get(position).getName());
             ((WrapTextView)convertView.findViewById(R.id.cellHiComment)).setText(friendList.get(position).getProfileComment());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
+            ((TextView) convertView.findViewById(R.id.cellHiNameBack)).setText(friendList.get(position).getName());
 
             //HttpImageView profImage = (HttpImageView) convertView.findViewById(R.id.cellHiProfileImage);
             //profImage.setImageUrl(friendList.get(position).getImageURL(), parent.getContext());
@@ -264,18 +326,23 @@ public class hiListActivity extends Activity {
             //}
             if( friendList.get(position).getNotificationOffFlg().equals("00") ){
                 ((TextView)convertView.findViewById(R.id.cellHiName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                ((Button)convertView.findViewById(R.id.swipeSwitchSilent)).setText(parent.getResources().getString(R.string.hiListAct_doSilent));
             }else{
                 ((TextView)convertView.findViewById(R.id.cellHiName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.list_icon_silent, 0);
+                ((Button)convertView.findViewById(R.id.swipeSwitchSilent)).setText(parent.getResources().getString(R.string.hiListAct_deSilent));
             }
 
             if( friendList.get(position).getBlockFlg().equals("00") ){
                 convertView.findViewById(R.id.switch_icon).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.cellHiComment).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchBlock)).setText(parent.getResources().getString(R.string.hiListAct_doBlock));
             }else{
                 convertView.findViewById(R.id.switch_icon).setVisibility(View.INVISIBLE);
                 convertView.findViewById(R.id.cellHiComment).setVisibility(View.GONE);
                 convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.VISIBLE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchBlock)).setText(parent.getResources().getString(R.string.hiListAct_deBlock));
+
             }
 
             return convertView;
@@ -284,6 +351,7 @@ public class hiListActivity extends Activity {
 
     // Hiボタン
     public void sendHi(View view){
+        tempView = view;
         RelativeLayout cell = (RelativeLayout)view.getParent();
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
@@ -296,13 +364,45 @@ public class hiListActivity extends Activity {
             }
         }
 
-        ((EffectImageView)view).doEffect();
-        sendHi(sendHiIndex);
-        sendHiIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(hiListActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(),profileComment);
+
+                            ((EffectImageView)tempView).doEffect();
+                            sendHi(sendHiIndex);
+                            sendHiIndex = null;
+                            profileComment = null;
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            ((EffectImageView)view).doEffect();
+            sendHi(sendHiIndex);
+            sendHiIndex = null;
+        }
     }
 
 
-    // ブロック解除ボタン
+    // ブロック解除ボタン(表)
     public void deBlock(View view){
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
@@ -317,10 +417,65 @@ public class hiListActivity extends Activity {
             }
         }
 
-        sendDeBlock(sendHiIndex);
+        if( hiList.get(Integer.parseInt(sendHiIndex)).getBlockFlg().equals("00") ){
+            sendDoBlock(sendHiIndex);
+        }else{
+            sendDeBlock(sendHiIndex);
+        }
         sendHiIndex = null;
     }
 
+    // ブロック(解除)ボタン(裏)
+    public void swipeSwitchBlock(View view){
+
+        LinearLayout back = (LinearLayout)view.getParent().getParent();
+        FrameLayout frame = (FrameLayout)back.getParent();
+        RelativeLayout cell = (RelativeLayout)frame.getChildAt(1);
+
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendHiIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        if( hiList.get(Integer.parseInt(sendHiIndex)).getBlockFlg().equals("00") ){
+            sendDoBlock(sendHiIndex);
+        }else{
+            sendDeBlock(sendHiIndex);
+        }
+        sendHiIndex = null;
+    }
+
+    // 非通知(解除)ボタン
+    public void swipeSwitchSilent(View view){
+
+        LinearLayout back = (LinearLayout)view.getParent().getParent();
+        FrameLayout frame = (FrameLayout)back.getParent();
+        RelativeLayout cell = (RelativeLayout)frame.getChildAt(1);
+
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendHiIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        if( hiList.get(Integer.parseInt(sendHiIndex)).getNotificationOffFlg().equals("00") ){
+            sendDoSilent(sendHiIndex);
+        }else{
+            sendDeSilent(sendHiIndex);
+        }
+        sendHiIndex = null;
+    }
 
     public void openProfile(View view){
 
@@ -395,4 +550,5 @@ public class hiListActivity extends Activity {
         }
         return super.dispatchKeyEvent(event);
     }
+
 }

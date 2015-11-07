@@ -72,8 +72,11 @@
     <string name="onListAct_noFriend">You currently have no ON friends.</string>
 
     <!-- hiListActivity => hiListAct -->
-    "HiListVC_Nothing" = "所有的好友都没有开启ON状态";
     <string name="hiListAct_noFriend">There are currently no Hi.</string>
+    <string name="hiListAct_doBlock">Block</string>
+    <string name="hiListAct_deBlock">Unblock</string>
+    <string name="hiListAct_doSilent">Notifications off</string>
+    <string name="hiListAct_deSilent">Turn notifications on</string>
 
     <!-- profileEditActivity => profEditAct -->
     <string name="profEditAct_naviTitle">Profile update</string>

@@ -75,6 +75,10 @@
 
     <!-- hiListActivity => hiListAct -->
     <string name="hiListAct_noFriend">现在没有人对你发送Hi</string>
+    <string name="hiListAct_doBlock">屏蔽</string>
+    <string name="hiListAct_deBlock">解除屏蔽</string>
+    <string name="hiListAct_doSilent">关闭推送</string>
+    <string name="hiListAct_deSilent">允许推送</string>
 
     <!-- profileEditActivity => profEditAct -->
     <string name="profEditAct_naviTitle">Profile update</string>

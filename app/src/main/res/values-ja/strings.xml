@@ -72,6 +72,10 @@
 
     <!-- hiListActivity => hiListAct -->
     <string name="hiListAct_noFriend">現在Hiはありません。</string>
+    <string name="hiListAct_doBlock">ブロックする</string>
+    <string name="hiListAct_deBlock">ブロックを解除する</string>
+    <string name="hiListAct_doSilent">非通知にする</string>
+    <string name="hiListAct_deSilent">非通知を解除する</string>
 
     <!-- profileEditActivity => profEditAct -->
     <string name="profEditAct_naviTitle">プロフィール変更</string>
