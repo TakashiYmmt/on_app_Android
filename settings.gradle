@@ -1,1 +1,3 @@
-include ':app','library:actionbarsherlock'
+include ':app'//, ':facebook'//,'library:actionbarsherlock'
+//project(':facebook').projectDir = new File('library/facebook')
+include ':facebookSDK'
