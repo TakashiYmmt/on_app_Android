@@ -130,8 +130,8 @@ public class homeActivity extends Activity {
         }
 
         // 実験
-        ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        registerForContextMenu(logo);
+        //ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
+        //registerForContextMenu(logo);
 
         // サンドボックスでアフィリエイトフ無い時だけブラウザを起動する
         if( commonFucntion.getD064Flg(this.getApplicationContext()).equals("0") ){
