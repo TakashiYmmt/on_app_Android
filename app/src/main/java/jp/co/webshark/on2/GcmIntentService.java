@@ -66,17 +66,19 @@ public class GcmIntentService extends IntentService {
                 String key;
                 String value = (String) extras.get("article");
 
-                // アプリ起動中ならトーストでメッセージを出す
-                if( isActive ){
-                    toastValue = value;
-                    if( toastValue != null ){
-                        Thread service_thread = new Thread(null, task, toastValue);
-                        service_thread.start();
+                int user_id = commonFucntion.getUserID(this.getApplicationContext());
+                if( user_id > 0 ) {
+                    // アプリ起動中ならトーストでメッセージを出す
+                    if( isActive ){
+                        toastValue = value;
+                        if( toastValue != null ){
+                            Thread service_thread = new Thread(null, task, toastValue);
+                            service_thread.start();
+                        }
+                    }else{
+                        //通知バーに表示
+                        sendNotification(value);
                     }
-                }else{
-
-                    //通知バーに表示
-                    sendNotification(value);
                 }
 
             }

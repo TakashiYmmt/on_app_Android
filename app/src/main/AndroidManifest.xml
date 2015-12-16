@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.co.webshark.on2"
     android:versionCode="2"
-    android:versionName="1.1" >
+    android:versionName="1.2" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -70,6 +70,12 @@
         <activity
             android:name=".homeActivity"
             android:label="@string/title_activity_home" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="onapp" android:host="home" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".privacyPolicyActivity"
@@ -78,14 +84,32 @@
         <activity
             android:name=".onListActivity"
             android:label="@string/title_activity_on_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="onapp" android:host="onList" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".hiListActivity"
             android:label="@string/title_activity_hi_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="onapp" android:host="hiList" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".friendListActivity"
             android:label="@string/title_activity_friend_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="onapp" android:host="friendList" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".home2Activity"

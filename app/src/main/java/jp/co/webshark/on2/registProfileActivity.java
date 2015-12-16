@@ -92,7 +92,7 @@ public class registProfileActivity extends Activity {
         if(result){
             // 仮で持っていたユーザIDをローカルに保存する
             onGlobal global = (onGlobal)getApplication();
-            commonFucntion.setUserID(this.getApplicationContext(),(String)global.getShareData("user_id"));
+            commonFucntion.setUserID(this.getApplicationContext(), (String) global.getShareData("user_id"));
 
             Intent intent = new Intent(getApplicationContext(),homeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -129,9 +129,21 @@ public class homeActivity extends Activity {
             Toast.makeText(getApplicationContext(),"emurator?", Toast.LENGTH_LONG).show();
         }
 
-        /*// 実験
+        // 実験
         ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        registerForContextMenu(logo);*/
+        registerForContextMenu(logo);
+
+        // サンドボックスでアフィリエイトフ無い時だけブラウザを起動する
+        if( commonFucntion.getD064Flg(this.getApplicationContext()).equals("0") ){
+            int user_id = commonFucntion.getUserID(this.getApplicationContext());
+            Intent d064Intent = new Intent(Intent.ACTION_VIEW);
+            String d064Url = String.format("https://www.yhvh.jp/app_banner/banner_count.php?order_id=%s&banner_id=1&free_text=",String.valueOf(user_id));
+            //d064Intent.setData(Uri.parse("http://www.go-show.net/banner_count_test.php"));
+            d064Intent.setData(Uri.parse(d064Url));
+            startActivity(d064Intent);
+            commonFucntion.setD064Flg(this.getApplicationContext());
+        }
+
     }
 
     @Override
