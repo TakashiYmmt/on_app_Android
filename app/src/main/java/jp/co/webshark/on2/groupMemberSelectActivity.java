@@ -122,14 +122,14 @@ public class groupMemberSelectActivity extends Activity {
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                if( i == 3 ){
+                if( i == 0 ){
                     TextView hiddenText = (TextView)childview;
                     deleteIndex = hiddenText.getText().toString();
                     groupMember.get(Integer.parseInt(deleteIndex)).setSelected(!groupMember.get(Integer.parseInt(deleteIndex)).getSelected());
                     //break;
                 }
             }else if( childview instanceof ImageView ){
-                if( i == 2 ) {
+                if( i == 3 ) {
                     switchButton = (ImageView)childview;
                 }
             }

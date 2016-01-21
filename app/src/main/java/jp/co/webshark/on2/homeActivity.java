@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -69,12 +71,18 @@ public class homeActivity extends Activity {
     private AsyncPost groupGetter;
     private AsyncPost groupHiSender;
     private AsyncPost groupOnSender;
+    private AsyncPost sysInfoGetter;
+    private AsyncPost messageGetter;
     private String sendGroupIndex;
+    private String inviteMessage;
     private boolean openKeyBoard;
     private GoogleCloudMessaging gcm;
     private ImageView allSwitchButton;
     private View eventTriggerView;
     private String refreshOnFlg;
+    private boolean forceUpdate;
+    private clsSystemInfo sysInfo;
+    //private String profileComment;
 
 
     @Override
@@ -130,20 +138,16 @@ public class homeActivity extends Activity {
         }
 
         // 実験
-        //ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        //registerForContextMenu(logo);
+        ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
+        registerForContextMenu(logo);
 
-        // サンドボックスでアフィリエイトフ無い時だけブラウザを起動する
-        if( commonFucntion.getD064Flg(this.getApplicationContext()).equals("0") ){
-            int user_id = commonFucntion.getUserID(this.getApplicationContext());
-            Intent d064Intent = new Intent(Intent.ACTION_VIEW);
-            String d064Url = String.format("https://www.yhvh.jp/app_banner/banner_count.php?order_id=%s&banner_id=1&free_text=",String.valueOf(user_id));
-            //d064Intent.setData(Uri.parse("http://www.go-show.net/banner_count_test.php"));
-            d064Intent.setData(Uri.parse(d064Url));
-            startActivity(d064Intent);
-            commonFucntion.setD064Flg(this.getApplicationContext());
+        onGlobal onGlobal = (onGlobal) this.getApplication();
+        Object checkUpdate = onGlobal.getShareData("checkUpdate");
+        if( checkUpdate != null && checkUpdate.equals("chcked")){
+            forceUpdate = false;
+        }else{
+            forceUpdate = true;
         }
-
     }
 
     @Override
@@ -278,6 +282,36 @@ public class homeActivity extends Activity {
         });
     }
 
+    private void setSysInfoGetter(){
+        // システム情報取得用API通信のコールバック
+        sysInfoGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                sysInfo = clsJson2Objects.setSysInfo(result);
+                checkUpdate(getApplicationContext());
+                checkD064();
+                setSysInfoGetter();
+            }
+        });
+    }
+    private void setMessageGetter(){
+        // プロフィール取得用API通信のコールバック
+        messageGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                inviteMessage = clsJson2Objects.getElement(result,"article");
+                setMessageGetter();
+                putLine();
+            }
+        });
+    }
 
     @Override
     public void onResume(){
@@ -291,6 +325,8 @@ public class homeActivity extends Activity {
         this.setGroupHiSender();
         this.setGroupOnSender();
         this.setProfileSender();
+        this.setSysInfoGetter();
+        this.setMessageGetter();
 
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getUserInfo();
@@ -302,6 +338,9 @@ public class homeActivity extends Activity {
         //背景にフォーカスを移す
         mainLayout.requestFocus();
 
+        if(forceUpdate) {
+            getSysInfo();
+        }
     }
 
     private void getUserInfo(){
@@ -323,7 +362,7 @@ public class homeActivity extends Activity {
         HttpImageView profImage = (HttpImageView) findViewById(R.id.profile_image);
         EditText profileCommentEdit = (EditText) findViewById(R.id.profileCommentEdit);
 
-        profImage.setImageUrl(userInfo.getImageURL(), getResources().getDimensionPixelSize(R.dimen.home_profile_image), getApplicationContext(),true);
+        profImage.setImageUrl(userInfo.getImageURL(), getResources().getDimensionPixelSize(R.dimen.home_profile_image), getApplicationContext(), true);
         profileCommentEdit.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
         profileCommentEdit.setText(userInfo.getComment());
         setProfileGetter();
@@ -372,6 +411,19 @@ public class homeActivity extends Activity {
         // API通信のPOST処理
         groupGetter.setParams(strURL, body);
         groupGetter.execute();
+    }
+
+    private void getMessage(){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "getSMSInfo");
+
+        // API通信のPOST処理
+        messageGetter.setParams(strURL, body);
+        messageGetter.execute();
     }
 
     private void drawGroupInfo(ArrayList<clsGroupInfo> list){
@@ -449,7 +501,7 @@ public class homeActivity extends Activity {
 
         body.put("entity","updateUserinfoSingleColumn");
         body.put("column_name", "push_notify_key");
-        body.put("column_value",registId);
+        body.put("column_value", registId);
         body.put("user_id", String.valueOf(user_id));
 
         // API通信のPOST処理
@@ -528,6 +580,17 @@ public class homeActivity extends Activity {
         groupOnSender.execute();
     }
 
+    private void getSysInfo(){
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "getSysInfoAndroid");
+
+        // API通信のPOST処理
+        sysInfoGetter.setParams(strURL, body);
+        sysInfoGetter.execute();
+    }
+
     private void drawGroupOn(){
 
         // データ再取得・描画
@@ -587,7 +650,7 @@ public class homeActivity extends Activity {
             }
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.all_hi);
-            targetImage.setSwitchEffect(R.drawable.list_button_hi_sending, 2000);
+            targetImage.setSwitchEffect(R.drawable.loading_hi, 2000);
 
             return convertView;
         }
@@ -790,6 +853,7 @@ public class homeActivity extends Activity {
         Intent intent = new Intent(getApplicationContext(),profileEditReadQrActivity.class);
         startActivityForResult(intent, 0);
     }
+
     // 自分のQRを表示
     public void drawQr(View view){
         // 一方通行で開くだけ
@@ -802,6 +866,26 @@ public class homeActivity extends Activity {
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),inviteFriendsActivity.class);
         startActivity(intent);
+    }
+
+    // LINEを開く
+    public void openLineApp(View view){
+        // 招待メッセージを取得
+        this.getMessage();
+    }
+
+    // リストを広げる・しまう
+    public void groupOpenClose(View view){
+        // 一方通行で開くだけ
+        ListView gl = (ListView)findViewById(R.id.listView1);
+        ImageView iv = (ImageView)findViewById(R.id.groupArrow);
+        if( gl.getVisibility() == View.VISIBLE ){
+            gl.setVisibility(View.GONE);
+            iv.setImageResource(R.drawable.home_icon_arrow_down);
+        }else{
+            gl.setVisibility(View.VISIBLE);
+            iv.setImageResource(R.drawable.home_icon_arrow_up);
+        }
     }
 
     @Override
@@ -870,5 +954,99 @@ public class homeActivity extends Activity {
                 sendPushNotifyKey(strRegId);
             }
         }.execute(null, null, null);
+    }
+
+    private void checkUpdate(Context context){
+        forceUpdate = false;
+
+        PackageManager pm = context.getPackageManager();
+        int versionCode = 0;
+        try{
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+        }catch(PackageManager.NameNotFoundException e){
+            e.printStackTrace();
+        }
+
+        if( versionCode <= sysInfo.getForceUpdateVersion() ){
+            forceUpdate = true;
+            // 強制更新対象に含まれる場合はキャンセルなし
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getResources().getString(R.string.homeAct_ForceUpdate));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent googlePlayIntent = new Intent(Intent.ACTION_VIEW);
+                            googlePlayIntent.setData(Uri.parse(sysInfo.getStoreUrl()));
+                            startActivity(googlePlayIntent);
+
+                            dialog.dismiss();
+                            dialog = null;
+                            finish();
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+        }else if( versionCode < sysInfo.getNewestVersion() ){
+            // 最新ではない
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getResources().getString(R.string.homeAct_ForceUpdate));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent googlePlayIntent = new Intent(Intent.ACTION_VIEW);
+                            googlePlayIntent.setData(Uri.parse(sysInfo.getStoreUrl()));
+                            startActivity(googlePlayIntent);
+
+                            dialog.dismiss();
+                            dialog = null;
+                            finish();
+
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onGlobal onGlobal = (onGlobal) getApplication();
+                            onGlobal.setShareData("checkUpdate","chcked");
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+
+        }
+    }
+
+    private void checkD064(){
+        // サンドボックスでアフィリエイトフ無い時だけブラウザを起動する
+        if( commonFucntion.getD064Flg(this.getApplicationContext()).equals("0") ){
+            commonFucntion.setD064Flg(this.getApplicationContext());
+            int user_id = commonFucntion.getUserID(this.getApplicationContext());
+            Intent d064Intent = new Intent(Intent.ACTION_VIEW);
+            String d064Url = sysInfo.getD064BaseUrl() + String.format(sysInfo.getD064UrlParams(),String.valueOf(user_id));
+            d064Intent.setData(Uri.parse(d064Url));
+            startActivity(d064Intent);
+        }
+    }
+
+    private void putLine(){
+        // 招待メッセージを添えてLINE起動する
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse("line://msg/text/" + this.inviteMessage));
+        startActivity(intent);
     }
 }

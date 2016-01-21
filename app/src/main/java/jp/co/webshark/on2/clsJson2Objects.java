@@ -62,6 +62,24 @@ public class clsJson2Objects {
         return userInfo;
     }
 
+    // システム情報(getSysInfo)
+    public static clsSystemInfo setSysInfo(String strJeson) {
+        clsSystemInfo sysInfo = new clsSystemInfo();
+        try{
+            JSONObject json = new JSONObject(strJeson);
+
+            sysInfo.setNewestVersion(json.getString("newestVersion"));
+            sysInfo.setForceUpdateVersion(json.getString("forceUpdateVersion"));
+            sysInfo.setStoreUrl(json.getString("storeUrl"));
+            sysInfo.setD064BaseUrl(json.getString("d064BaseUrl"));
+            sysInfo.setD064UrlParams(json.getString("d064UrlParams"));
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return sysInfo;
+    }
+
     // ONカウント情報(getUserInfo)
     public static clsCountInfo setCountInfo(String strJeson) {
         clsCountInfo countInfo = new clsCountInfo();
@@ -90,6 +108,8 @@ public class clsJson2Objects {
                 grouptInfo.setTagName((String) (json.getJSONArray("tag_name")).get(i));
                 grouptInfo.setStatus((String) (json.getJSONArray("status")).get(i));
                 grouptInfo.setTagCount((String) (json.getJSONArray("tag_count")).get(i));
+                ////grouptInfo.setNotificationOffFlg((String) (json.getJSONArray("notification_off_flg")).get(i));
+                ////grouptInfo.setMargeNotifyFlg((String) (json.getJSONArray("notify_marge")).get(i));
                 //grouptInfo.setTagIconUrl((String) (json.getJSONArray("tag_icon_url")).get(i));
                 grouptInfo.setOnFlg((String) (json.getJSONArray("on_flg")).get(i));
 
@@ -116,6 +136,7 @@ public class clsJson2Objects {
                 friendInfo.setFriendId(row.getString("friend_id"));
                 friendInfo.setFriendUserId(row.getString("friend_user_id"));
                 friendInfo.setName(row.getString("name"));
+                //friendInfo.setCustomName(row.getString("custom_name"));
                 friendInfo.setOnFlg(row.getString("on_flg"));
                 friendInfo.setImageURL(row.getString("image_url"));
                 friendInfo.setProfileComment(row.getString("profile_comment"));

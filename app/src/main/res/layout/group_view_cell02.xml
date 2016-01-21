@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/group_cell_height"
+    android:background="@color/bg_white">
+
+    <!-- インデックス保存用 -->
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:text=""
+        android:id="@+id/cellHiddenIndex"/>
+
+    <jp.co.webshark.on2.customViews.HttpImageView
+        android:id="@+id/cellFriendProfileImage"
+        android:layout_width="@dimen/friend_list_cell_image"
+        android:layout_height="@dimen/friend_list_cell_image"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+        android:src="@drawable/list_icon_user"/>
+
+    <jp.co.webshark.on2.customViews.EffectImageView
+        android:id="@+id/cellFriendHiButton"
+        android:onClick="sendHi"
+        android:layout_width="@dimen/friend_list_cell_hi_image"
+        android:layout_height="@dimen/friend_list_cell_hi_image"
+        android:layout_toRightOf="@+id/cellFriendProfileImage"
+        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+        android:layout_marginRight="@dimen/activity_vertical_margin_half"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:src="@drawable/list_button_hi_small"/>
+
+    <TextView
+        android:id="@+id/cellLastOnTime"
+        android:layout_width="@dimen/hi_list_cell_image"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/friend_list_cell_time_textsize"
+        android:gravity="center"
+        android:textColor="@color/color_text_gray"
+        android:layout_alignLeft="@+id/cellFriendProfileImage"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_below="@+id/cellFriendProfileImage"/>
+
+    <TextView
+        android:id="@+id/cellFriendName"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/friend_list_cell_name_height"
+        android:text="友達"
+        android:textSize="@dimen/friend_list_cell_name_textsize"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/cellFriendHiButton"
+        android:layout_toLeftOf="@+id/cellIconSilent"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+
+    <ImageView
+        android:id="@+id/cellIconSilent"
+        android:layout_width="@dimen/friend_list_cell_silent_height"
+        android:layout_height="@dimen/friend_list_cell_silent_height"
+        android:src="@drawable/list_icon_silent"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_toLeftOf="@+id/cellSwitchButton"/>
+
+    <ImageView
+        android:id="@+id/cellSwitchButton"
+        android:onClick="sendON"
+        android:layout_width="@dimen/friend_list_cell_on_height"
+        android:layout_height="@dimen/friend_list_cell_on_height"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:src="@drawable/list_button_off"
+        android:layout_centerVertical="true"/>
+
+    <Button
+        android:id="@+id/cellDeBlockButton"
+        android:onClick="deBlock"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/friend_list_cell_block_height"
+        android:text="@string/friendListAct_offBlock"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+        android:layout_below="@+id/cellFriendName"
+        android:layout_toRightOf="@+id/cellFriendProfileImage"
+        android:layout_alignParentRight="true"
+        android:textColor="@drawable/button_design_front"
+        android:background="@drawable/button_design_back" />
+</RelativeLayout>

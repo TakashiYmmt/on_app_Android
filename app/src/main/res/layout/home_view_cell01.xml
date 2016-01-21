@@ -22,23 +22,24 @@
         android:id="@+id/all_hi"
         android:onClick="groupHi"
         android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="@dimen/home_group_all_hi_height"
-        android:layout_toRightOf="@+id/group_icon"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin_half"
-        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
-        android:src="@drawable/list_button_hi_all"/>
-    <ImageView
-        android:id="@+id/all_hi_indicator"
-        android:tag="all_hi_indicator"
-        android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="@dimen/home_group_all_hi_height"
+        android:layout_height="@dimen/home_group_all_hi_width"
         android:layout_toRightOf="@+id/group_icon"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
-        android:src="@drawable/tab_navigation_home"
-        android:visibility="invisible"/>
+        android:layout_marginBottom="@dimen/activity_zero_margin"
+        android:src="@drawable/list_button_hi_all"/>
+    <TextView
+        android:id="@+id/cellGroupHiLabel"
+        android:layout_width="@dimen/home_group_all_hi_width"
+        android:layout_height="wrap_content"
+        android:text="@string/homeAct_all"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="@color/color_active_green"
+        android:textSize="@dimen/hi_list_cell_time_textsize"
+        android:layout_below="@+id/all_hi"
+        android:layout_toRightOf="@+id/group_icon"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
 
     <TextView
         android:id="@+id/cellGroupName"

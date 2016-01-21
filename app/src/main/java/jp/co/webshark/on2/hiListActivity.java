@@ -256,7 +256,7 @@ public class hiListActivity extends Activity {
             profImage.setImageUrl(friendList.get(position).getImageURL(), parent.getResources().getDimensionPixelSize(R.dimen.hi_list_cell_image), parent.getContext(),true);
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.switch_icon);
-            targetImage.setSwitchEffect(R.drawable.list_button_hi_sending, 2000);
+            targetImage.setSwitchEffect(R.drawable.loading_hi, 2000);
 
             if( friendList.get(position).getNotificationOffFlg().equals("00") ){
                 ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);

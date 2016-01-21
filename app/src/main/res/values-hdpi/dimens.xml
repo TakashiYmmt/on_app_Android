@@ -97,6 +97,7 @@
     <dimen name="group_image">65dp</dimen>
     <dimen name="group_subject_height">30dp</dimen>
     <dimen name="group_cell_height">70dp</dimen>
+    <dimen name="group_cell_on_height">60dp</dimen>
 
     <!-- inviteFriendsActivity -->
     <dimen name="invite_friends_subject_height">30dp</dimen>

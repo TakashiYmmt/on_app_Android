@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- common -->
+    <integer name="country_index">0</integer>
     <string name="app_name">on</string>
     <string name="close">Close</string>
     <string name="back">Back</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="complete">Done</string>
+    <string name="blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
 
     <!-- list common -->
     <string name="lc_DaysAgo">%d day(s) ago</string>
@@ -14,6 +16,10 @@
     <string name="lc_MinitsAgo">%d min(s) ago</string>
     <string name="lc_SecondsAgo">%d sec(s) ago</string>
     <string name="lc_JustNow">Just now</string>
+    <string name="listAct_doBlock">ブロックする</string>
+    <string name="listAct_deBlock">ブロックを解除する</string>
+    <string name="listAct_doSilent">非通知にする</string>
+    <string name="listAct_deSilent">非通知を解除する</string>
 
     <!-- telephoneActivity => telAct -->
     <string name="telAct_phoneInputEditText_hint">Input phone number</string>
@@ -22,6 +28,7 @@
     <string name="telAct_eula_full_text">Lisence Agreement</string>
     <string name="telAct_eula_link_text">Lisence</string>
     <string name="telAct_AcceptErr">Check Lisence Agreement</string>
+    <string name="telAct_Restart">Do you restart regist?</string>
 
 
     <!-- verifyActivity => verifyAct -->
@@ -53,6 +60,11 @@
     <string name="homeAct_qr_add">add by QR-code</string>
     <string name="homeAct_my_qr">my QR-code</string>
     <string name="homeAct_invite">Invite via SMS</string>
+    <string name="homeAct_invite_LINE">Invite via LINE</string>
+    <string name="homeAct_invite_SMS">Invite via SMS</string>
+    <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
+    <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
+    <string name="homeAct_all">All</string>
 
     <!-- friendListActivity => friendListAct -->
     <string name="friendListAct_noFriend">You currently have no friends who are ON with you.</string>
@@ -70,8 +82,11 @@
     <string name="onListAct_noFriend">You currently have no ON friends.</string>
 
     <!-- hiListActivity => hiListAct -->
-    "HiListVC_Nothing" = "所有的好友都没有开启ON状态";
     <string name="hiListAct_noFriend">There are currently no Hi.</string>
+    <string name="hiListAct_doBlock">Block</string>
+    <string name="hiListAct_deBlock">Unblock</string>
+    <string name="hiListAct_doSilent">Notifications off</string>
+    <string name="hiListAct_deSilent">Turn notifications on</string>
 
     <!-- profileEditActivity => profEditAct -->
     <string name="profEditAct_naviTitle">Profile update</string>
@@ -110,5 +125,68 @@
     <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
     <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
     <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
+
+    <!-- 国一覧 -->
+    <array name="country_name_list">
+        <item>United States</item>
+        <item>Alaska</item>
+        <item>Canada</item>
+        <item>Jamaica</item>
+        <item>Dominican Republic</item>
+        <item>Guam</item>
+        <item>Saipan</item>
+        <item>Hawaii</item>
+        <item>Russia</item>
+        <item>Egypt</item>
+        <item>South Africa</item>
+        <item>Greece</item>
+        <item>Netherlands</item>
+        <item>France</item>
+        <item>Spain</item>
+        <item>Italy</item>
+        <item>Switzerland</item>
+        <item>Austria</item>
+        <item>United Kingdom</item>
+        <item>Denmark</item>
+        <item>Sweden</item>
+        <item>Germany</item>
+        <item>Peru</item>
+        <item>Mexico</item>
+        <item>Cuba</item>
+        <item>Argentina</item>
+        <item>Brazil</item>
+        <item>Chile</item>
+        <item>Colombia</item>
+        <item>Malaysia</item>
+        <item>Australia</item>
+        <item>Indonesia</item>
+        <item>Philippines</item>
+        <item>New Zealand</item>
+        <item>Singapore</item>
+        <item>Thailand</item>
+        <item>Japan</item>
+        <item>Republic of Korea</item>
+        <item>Viet Nam</item>
+        <item>China</item>
+        <item>India</item>
+        <item>Morocco</item>
+        <item>Tunisia</item>
+        <item>Cote d\'Ivoire</item>
+        <item>Central African Republic</item>
+        <item>Cameroon</item>
+        <item>Sudan</item>
+        <item>Ethiopia</item>
+        <item>Kenya</item>
+        <item>Portugal</item>
+        <item>Finland</item>
+        <item>Papua New Guinea</item>
+        <item>Fiji</item>
+        <item>New Caledonia</item>
+        <item>Hong Kong</item>
+        <item>Taiwan</item>
+        <item>Saudi Arabia</item>
+        <item>Mongolia</item>
+        <item>Nepal</item>
+    </array>
 
 </resources>

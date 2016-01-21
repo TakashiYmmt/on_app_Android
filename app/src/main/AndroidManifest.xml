@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.co.webshark.on2"
     android:versionCode="2"
-    android:versionName="1.2" >
+    android:versionName="1.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,31 +13,41 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="jp.co.webshark.on2.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="jp.co.webshark.on2.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:name=".onGlobal"
         android:allowBackup="true"
         android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <service
+            android:name=".GcmIntentService"
+            android:enabled="true" />
 
-        <service android:name=".GcmIntentService" android:enabled="true"/>
         <receiver
             android:name=".GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="jp.co.webshark.on2"/>
+
+                <category android:name="jp.co.webshark.on2" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".RegistrationIntentService" android:exported="false">
+        <service
+            android:name=".RegistrationIntentService"
+            android:exported="false" >
         </service>
+
         <activity
             android:name=".startActivity"
             android:label="@string/app_name" >
@@ -72,9 +82,13 @@
             android:label="@string/title_activity_home" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="onapp" android:host="home" />
+
+                <data
+                    android:host="home"
+                    android:scheme="onapp" />
             </intent-filter>
         </activity>
         <activity
@@ -84,32 +98,14 @@
         <activity
             android:name=".onListActivity"
             android:label="@string/title_activity_on_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="onapp" android:host="onList" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".hiListActivity"
             android:label="@string/title_activity_hi_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="onapp" android:host="hiList" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".friendListActivity"
             android:label="@string/title_activity_friend_list" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="onapp" android:host="friendList" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".home2Activity"
@@ -154,6 +150,24 @@
         <activity
             android:name=".friendProfileActivity"
             android:label="@string/title_activity_friend_profile" >
+        </activity>
+        <activity
+            android:name=".fbLoginActivity"
+            android:label="@string/title_activity_fb_login" >
+        </activity>
+        <activity android:name="com.facebook.LoginActivity" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/fb_app_id" />
+
+        <activity
+            android:name=".on_list_view_cell01"
+            android:label="@string/title_activity_on_list_view_cell01" >
+        </activity>
+        <activity
+            android:name=".on_list_view_cell02"
+            android:label="@string/title_activity_on_list_view_cell02" >
         </activity>
     </application>
 

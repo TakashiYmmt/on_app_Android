@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_zero_margin"
@@ -197,6 +198,7 @@
 
             <RelativeLayout
                 android:id="@+id/subject_frame2"
+                android:onClick="groupOpenClose"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_subject_height"
                 android:background="@color/background_floating_material_light">
@@ -208,6 +210,16 @@
                     android:text="@string/homeAct_subject_group"
                     android:textSize="@dimen/home_subject_textsize"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/groupArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_arrow_up"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
 
@@ -346,6 +358,37 @@
             </FrameLayout>
 
             <RelativeLayout
+                android:id="@+id/line_frame"
+                android:onClick="openLineApp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_height">
+
+                <TextView
+                    android:id="@+id/lineText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/homeAct_invite_LINE"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/home_icon_plus"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <RelativeLayout
                 android:id="@+id/sms_frame"
                 android:onClick="openInviteFriends"
                 android:layout_width="match_parent"
@@ -355,7 +398,7 @@
                     android:id="@+id/smsText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/homeAct_invite"
+                    android:text="@string/homeAct_invite_SMS"
                     android:textSize="@dimen/home_topic_textsize"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_centerVertical="true"/>
@@ -394,7 +437,8 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/color_select_tab_gray">
             <RelativeLayout
                 android:id="@+id/footer1_in"
                 android:layout_height="match_parent"

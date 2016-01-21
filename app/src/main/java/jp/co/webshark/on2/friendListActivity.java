@@ -197,7 +197,7 @@ public class friendListActivity extends Activity {
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
-            targetImage.setSwitchEffect(R.drawable.list_button_hi_sending, 2000);
+            targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
 
             if( friendList.get(position).getOnFlg().equals("1") ){
                 ImageView switchButton = (ImageView)convertView.findViewById(R.id.cellSwitchButton);

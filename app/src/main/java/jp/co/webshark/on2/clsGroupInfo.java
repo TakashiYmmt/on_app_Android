@@ -10,6 +10,8 @@ public class clsGroupInfo {
     String tag_icon_url;
     String tag_count;
     String count;
+    String notification_off_flg;
+    String marge_notify_flg;
     String on_flg;
 
     public String getTagId() {
@@ -59,5 +61,19 @@ public class clsGroupInfo {
     }
     public void setOnFlg(String on_flg) {
         this.on_flg = on_flg;
+    }
+
+    public String getNotificationOffFlg() {
+        return notification_off_flg;
+    }
+    public void setNotificationOffFlg(String notification_off_flg) {
+        this.notification_off_flg = notification_off_flg;
+    }
+
+    public String getMargeNotifyFlg() {
+        return marge_notify_flg;
+    }
+    public void setMargeNotifyFlg(String marge_notify_flg) {
+        this.marge_notify_flg = marge_notify_flg;
     }
 }

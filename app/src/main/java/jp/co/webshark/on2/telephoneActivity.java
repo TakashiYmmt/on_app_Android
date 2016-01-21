@@ -7,22 +7,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.internal.widget.AdapterViewCompat;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -32,8 +39,12 @@ public class telephoneActivity extends Activity {
     private InputMethodManager inputMethodManager;
     private RelativeLayout mainLayout;
     private EditText phoneInputEditText;
+    private TextView countryCodeView;
     private CheckBox acceptCheck;
     private AsyncPost telSender;
+    private Spinner countrySelector;
+    private String countryCode;
+    private String[] countryCodeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +54,8 @@ public class telephoneActivity extends Activity {
         // 画面上のオブジェクト
         phoneInputEditText = (EditText) findViewById(R.id.idInputEditText); // EditTextオブジェクト
         acceptCheck = (CheckBox) findViewById(R.id.checkBox); // 利用規約チェック
+        countrySelector = (Spinner) findViewById(R.id.countrySelector);
+        countryCodeView = (TextView) findViewById(R.id.countryCodeTextView);
 
         //画面全体のレイアウト
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
@@ -53,9 +66,48 @@ public class telephoneActivity extends Activity {
 
         setTelSender();
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // アダプター用の表示リストを作成
+        String[] countryNameList = getResources().getStringArray(R.array.country_name_list);
+        for (String countryName : countryNameList) {
+            adapter.add(countryName);
+        }
+
+        countryCodeList = getResources().getStringArray(R.array.country_code_list);
+
+        // アダプター設定
+        countrySelector.setAdapter(adapter);
+
+        // スピナーのアイテムが選択された時に呼び出されるコールバックリスナーを登録します
+        countrySelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner spinner = (Spinner) parent;
+                // 選択されたアイテムを取得します
+                countryCode = countryCodeList[(int)spinner.getSelectedItemPosition()];
+                countryCodeView.setText("+"+countryCode);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        // デフォルト選択
+        int defaultIndex = getResources().getInteger(R.integer.country_index);
+        countrySelector.setSelection(defaultIndex);
+
         // 実験
         ImageView logo = (ImageView) findViewById(R.id.imageView2);
         registerForContextMenu(logo);
+
+        //TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        //String telnumber = tm.getLine1Number();
+        //if(telnumber != null)
+        //Toast.makeText(this, "Phone number: " + telnumber,
+        //        Toast.LENGTH_LONG).show();
     }
 
     // 実験
@@ -151,6 +203,7 @@ public class telephoneActivity extends Activity {
                 body.put("push_notify_key","xxxxx");
                 body.put("device_type","2");
                 body.put("telephone_number", inputText);
+                body.put("country_number", countryCode);
 
                 // API通信のPOST処理
                 telSender.setParams(strURL,body);
@@ -238,4 +291,16 @@ public class telephoneActivity extends Activity {
         return ss;
     }
 
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction()==KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_BACK:
+                    // ダイアログ表示など特定の処理を行いたい場合はここに記述
+                    // 親クラスのdispatchKeyEvent()を呼び出さずにtrueを返す
+                    return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
 }

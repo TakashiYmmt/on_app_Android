@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -380,5 +381,44 @@ public class registProfileActivity extends Activity {
                 Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction()==KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_BACK:
+                    // 戻すのではなく仕切り直す
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setMessage(getResources().getString(R.string.telAct_Restart));
+                    alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplication(), telephoneActivity.class);
+                                    startActivity(intent);
+                                    registProfileActivity.this.finish();
+
+                                    dialog.dismiss();
+                                    dialog = null;
+                                    finish();
+
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    dialog = null;
+                                }
+                            });
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                    return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 }

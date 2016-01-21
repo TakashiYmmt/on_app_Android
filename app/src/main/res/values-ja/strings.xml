@@ -2,12 +2,14 @@
 <!-- 日本語版のテキスト -->
 <resources>
     <!-- common -->
+    <integer name="country_index">36</integer>
     <string name="app_name">on</string>
     <string name="close">閉じる</string>
     <string name="back">戻る</string>
     <string name="cancel">キャンセル</string>
     <string name="save">保存</string>
     <string name="complete">完了</string>
+    <string name="blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
 
     <!-- list common -->
     <string name="lc_DaysAgo">%d日前</string>
@@ -15,6 +17,10 @@
     <string name="lc_MinitsAgo">%d分前</string>
     <string name="lc_SecondsAgo">%d秒前</string>
     <string name="lc_JustNow">たった今</string>
+    <string name="listAct_doBlock">ブロックする</string>
+    <string name="listAct_deBlock">ブロックを解除する</string>
+    <string name="listAct_doSilent">非通知にする</string>
+    <string name="listAct_deSilent">非通知を解除する</string>
 
     <!-- telephoneActivity => telAct -->
     <string name="telAct_phoneInputEditText_hint">電話番号を入力してください</string>
@@ -23,6 +29,7 @@
     <string name="telAct_eula_link_text">利用規約</string>
     <string name="telAct_InputCheck">電話番号は必須項目です</string>
     <string name="telAct_AcceptErr">利用規約に同意してください</string>
+    <string name="telAct_Restart">登録を最初からやりなおしますか？</string>
 
     <!-- verifyActivity => verifyAct -->
     <string name="verifyAct_codeInputEditText_hint">4桁のコードを入力してください</string>
@@ -51,7 +58,11 @@
     <string name="homeAct_group_add">グループを作る</string>
     <string name="homeAct_qr_add">QRコードで友達を追加する</string>
     <string name="homeAct_my_qr">自分のQRコードを表示する</string>
-    <string name="homeAct_invite">SMSで招待する</string>
+    <string name="homeAct_invite_LINE">LINEで招待する</string>
+    <string name="homeAct_invite_SMS">SMSで招待する</string>
+    <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
+    <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
+    <string name="homeAct_all">全員に</string>
 
     <!-- friendListActivity => friendListAct -->
     <string name="friendListAct_noFriend">ONを共有している友達がいません。</string>
@@ -64,12 +75,21 @@
     <string name="friendProfAct_deBlock">ブロックを解除する</string>
     <string name="friendProfAct_doSilent">非通知にする</string>
     <string name="friendProfAct_deSilent">非通知を解除する</string>
+    <string name="common_blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
 
     <!-- onListActivity => onListAct -->
     <string name="onListAct_noFriend">現在ONの友達はいません。</string>
+    <string name="onListAct_Subject1">あなたにONしている人</string>
+    <string name="onListAct_Subject2">過去のON一覧</string>
+    <string name="onListAct_noFriend1">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend2">過去にONをした友達はいません。</string>
 
     <!-- hiListActivity => hiListAct -->
     <string name="hiListAct_noFriend">現在Hiはありません。</string>
+    <string name="hiListAct_doBlock">ブロックする</string>
+    <string name="hiListAct_deBlock">ブロックを解除する</string>
+    <string name="hiListAct_doSilent">非通知にする</string>
+    <string name="hiListAct_deSilent">非通知を解除する</string>
 
     <!-- profileEditActivity => profEditAct -->
     <string name="profEditAct_naviTitle">プロフィール変更</string>
@@ -108,4 +128,68 @@
     <string name="inviteFriendsAct_selectMail">メールアドレスを選んでください。</string>
     <string name="inviteFriendsAct_selectPhone">SMSを送る電話番号を選んでください。</string>
     <string name="inviteFriendsAct_mailSubject">ヒマならONに招待です</string>
+
+    <!-- 国一覧 -->
+    <array name="country_name_list">
+        <item>アメリカ合衆国</item>
+        <item>アラスカ</item>
+        <item>カナダ</item>
+        <item>ジャマイカ</item>
+        <item>ドミニカ共和国</item>
+        <item>グアム</item>
+        <item>サイパン</item>
+        <item>ハワイ</item>
+        <item>ロシア</item>
+        <item>エジプト</item>
+        <item>南アフリカ</item>
+        <item>ギリシャ</item>
+        <item>オランダ</item>
+        <item>フランス</item>
+        <item>スペイン</item>
+        <item>イタリア</item>
+        <item>スイス</item>
+        <item>オーストリア</item>
+        <item>イギリス</item>
+        <item>デンマーク</item>
+        <item>スウェーデン</item>
+        <item>ドイツ</item>
+        <item>ペルー</item>
+        <item>メキシコ</item>
+        <item>キューバ</item>
+        <item>アルゼンチン</item>
+        <item>ブラジル</item>
+        <item>チリ</item>
+        <item>コロンビア</item>
+        <item>マレーシア</item>
+        <item>オーストラリア</item>
+        <item>インドネシア</item>
+        <item>フィリピン</item>
+        <item>ニュージーランド</item>
+        <item>シンガポール</item>
+        <item>タイ</item>
+        <item>日本</item>
+        <item>大韓民国</item>
+        <item>ベトナム</item>
+        <item>中華人民共和国</item>
+        <item>インド</item>
+        <item>モロッコ</item>
+        <item>チュニジア</item>
+        <item>コートジボワール</item>
+        <item>中央アフリカ</item>
+        <item>カメルーン</item>
+        <item>スーダン</item>
+        <item>エチオピア</item>
+        <item>ケニア</item>
+        <item>ポルトガル</item>
+        <item>フィンランド</item>
+        <item>パプアニューギニア</item>
+        <item>フィジー</item>
+        <item>ニューカレドニア</item>
+        <item>香港</item>
+        <item>台湾</item>
+        <item>サウジアラビア</item>
+        <item>モンゴル</item>
+        <item>ネパール</item>
+    </array>
+
 </resources>

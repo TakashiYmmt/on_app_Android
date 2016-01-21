@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
+import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
@@ -44,6 +45,9 @@ public class groupEditActivity extends Activity {
     ImageView groupImageView;
     private AsyncPost groupMemberGetter;
     private AsyncPost groupSetter;
+    private AsyncPost onSender;
+    private AsyncPost hiSender;
+    private AsyncPost flgSender;
     private AsyncPost groupMemberSetter;
     ArrayList<clsFriendInfo> groupMember;
     ArrayList<clsFriendInfo> friendAll;
@@ -54,6 +58,9 @@ public class groupEditActivity extends Activity {
     private boolean openKeyBoard;
     private Uri mPictureUri;
     GroupMemberAdapter adapter;
+    private String refreshOnFlg;
+    private View eventTriggerView;
+    private String sendIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +124,9 @@ public class groupEditActivity extends Activity {
         this.setGroupMemberGetter();
         this.setGroupMemberSetter();
         this.setGroupSetter();
+        this.setOnSender();
+        this.setHiSender();
+        this.setFlgSender();
 
         //キーボードを隠す
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -177,6 +187,58 @@ public class groupEditActivity extends Activity {
             public void onCancelled() {}
             public void onPostExecute(String result) {
                 setGroupMemberSetter();
+            }
+        });
+    }
+
+    private void setOnSender(){
+        // ON送信用API通信のコールバック
+        onSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                setOnSender();
+
+                // 変更したフラグに応じてトリガーのボタン画像を差し替え
+                if( refreshOnFlg.equals("0") ){
+                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
+                }else{
+                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
+                }
+                eventTriggerView = null;
+                refreshOnFlg = null;
+            }
+        });
+    }
+    private void setHiSender(){
+        // プロフィール取得用API通信のコールバック
+        hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawHiList(clsJson2Objects.setUserInfo(result));
+                setHiSender();
+            }
+        });
+    }
+    private void setFlgSender(){
+        // ON送信用API通信のコールバック
+        flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                setFlgSender();
+                getGroupMember();
             }
         });
     }
@@ -337,12 +399,35 @@ public class groupEditActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = layoutInflater.inflate(R.layout.group_view_cell01,parent,false);
+            convertView = layoutInflater.inflate(R.layout.group_view_cell02,parent,false);
 
-            ((HttpImageView)convertView.findViewById(R.id.member_image)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
-            ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());
+            ((HttpImageView)convertView.findViewById(R.id.cellFriendProfileImage)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
+            ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
 
+            EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
+            targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
+
+            if( groupMember.get(position).getOnFlg().equals("1") ){
+                ImageView switchButton = (ImageView)convertView.findViewById(R.id.cellSwitchButton);
+                switchButton.setImageResource(R.drawable.list_button_on);
+            }
+
+            if( groupMember.get(position).getNotificationOffFlg().equals("00") ){
+                ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
+                silentIcon.setVisibility(View.GONE);
+            }
+
+            convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+            /*
+            if( groupMember.get(position).getBlockFlg().equals("00") ){
+                convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+            }else{
+                convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.INVISIBLE);
+                convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.VISIBLE);
+            }
+            */
             return convertView;
         }
     }
@@ -400,7 +485,7 @@ public class groupEditActivity extends Activity {
     public void deleteGroup(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        alertDialogBuilder.setMessage( getResources().getString(R.string.groupEditAct_deleteConfirm) );
+        alertDialogBuilder.setMessage(getResources().getString(R.string.groupEditAct_deleteConfirm));
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -440,25 +525,145 @@ public class groupEditActivity extends Activity {
 
     }
 
-    // グループON・OFFボタン
-    public void memberOnOff(View view){
+    // ONボタン
+    public void sendON(View view){
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
         String deleteIndex = "";
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                if( i == 3 ){
+                if( i == 0 ){
                     TextView hiddenText = (TextView)childview;
-                    deleteIndex = hiddenText.getText().toString();
+                    sendIndex = hiddenText.getText().toString();
                     break;
                 }
             }
         }
 
-        // 画面表示用配列から選択インデックス分を削除して再描画
-        groupMember.remove(Integer.parseInt(deleteIndex));
-        adapter.notifyDataSetChanged();
+        eventTriggerView = view;
+
+        sendON(sendIndex);
+        sendIndex = null;
+    }
+    private void sendON(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendIndex)).getFriendId();
+        String onFlg = groupMember.get(Integer.parseInt(sendIndex)).getOnFlg();
+
+        if( onFlg.equals("0") ){
+            onFlg = "1";
+        }else{
+            onFlg = "0";
+        }
+
+        groupMember.get(Integer.parseInt(sendIndex)).setOnFlg(onFlg);
+        refreshOnFlg = onFlg;
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "SendOnPersonal");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+        body.put("on_flg", onFlg);
+
+        // API通信のPOST処理
+        onSender.setParams(strURL, body);
+        onSender.execute();
+    }
+
+    // ブロック解除ボタン
+    public void deBlock(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        sendDeBlock(sendIndex);
+        sendIndex = null;
+    }
+    private void sendDeBlock(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "blockOff");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.execute();
+    }
+
+    // Hiボタン
+    public void sendHi(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        ((EffectImageView)view).doEffect();
+        sendHi(sendIndex);
+        sendIndex = null;
+    }
+    private void sendHi(String sendHiIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendHiIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "sendHiFronFL");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // API通信のPOST処理
+        hiSender.setParams(strURL, body);
+        hiSender.execute();
+    }
+    public void openProfile(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        clsFriendInfo friendInfo = groupMember.get(Integer.parseInt(sendIndex));
+
+        onGlobal onGlobal = (onGlobal) getApplication();
+        onGlobal.setShareData("selectFrined", friendInfo);
+        sendIndex = null;
+
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),friendProfileActivity.class);
+        startActivity(intent);
     }
 
     // 人から選ぶ
