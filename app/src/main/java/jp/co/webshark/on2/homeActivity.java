@@ -83,12 +83,14 @@ public class homeActivity extends Activity {
     private boolean forceUpdate;
     private clsSystemInfo sysInfo;
     //private String profileComment;
+    private boolean commentFlg;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        commentFlg = true;
 
         //画面全体のレイアウト
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
@@ -119,12 +121,15 @@ public class homeActivity extends Activity {
             @Override
             public void onKeyboardHidden() {
                 if (openKeyBoard) {
-                    checkComment();
-                    openKeyBoard = false;
-                    footerLayout.setVisibility(View.VISIBLE);
-                    ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
-                    params.height = getResources().getDimensionPixelSize(R.dimen.footer_height);
-                    footerLayout.setLayoutParams(params);
+                    if( commentFlg ){
+                        checkComment();
+                        openKeyBoard = false;
+                        footerLayout.setVisibility(View.VISIBLE);
+                        ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
+                        params.height = getResources().getDimensionPixelSize(R.dimen.footer_height);
+                        footerLayout.setLayoutParams(params);
+                    }
+                    commentFlg = true;
                 }
             }
         });
@@ -138,8 +143,8 @@ public class homeActivity extends Activity {
         }
 
         // 実験
-        ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
-        registerForContextMenu(logo);
+        //ImageView logo = (ImageView) findViewById(R.id.navigationLogo);
+        //registerForContextMenu(logo);
 
         onGlobal onGlobal = (onGlobal) this.getApplication();
         Object checkUpdate = onGlobal.getShareData("checkUpdate");
@@ -214,6 +219,7 @@ public class homeActivity extends Activity {
             public void onPostExecute(String result) {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 drawUserInfo(clsJson2Objects.setUserInfo(result));
+                setProfileGetter();
             }
         });
     }
@@ -226,6 +232,7 @@ public class homeActivity extends Activity {
             public void onPostExecute(String result) {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 drawCountInfo(clsJson2Objects.setCountInfo(result));
+                setCountGetter();
             }
         });
     }
@@ -238,6 +245,7 @@ public class homeActivity extends Activity {
             public void onPostExecute(String result) {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                setGroupGetter();
             }
         });
     }
@@ -251,6 +259,7 @@ public class homeActivity extends Activity {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
                 drawGroupHi();
+                setGroupHiSender();
             }
         });
     }
@@ -278,6 +287,7 @@ public class homeActivity extends Activity {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
                 //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
                 //drawGroupOn();
+                setProfileSender();
             }
         });
     }
@@ -366,6 +376,9 @@ public class homeActivity extends Activity {
         profileCommentEdit.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
         profileCommentEdit.setText(userInfo.getComment());
         setProfileGetter();
+
+        // pushコメント機能の為にグローバル領域にコメントテキストを保存
+        commonFucntion.setComment(getApplication(), userInfo.getComment());
     }
 
     private void getCountInfo(){
@@ -445,7 +458,7 @@ public class homeActivity extends Activity {
         adapter.notifyDataSetChanged();
         //scrollView.fullScroll(ScrollView.FOCUS_UP);
 
-        this.setGroupGetter();
+        //this.setGroupGetter();
     }
 
     private String profileComment;
@@ -467,14 +480,14 @@ public class homeActivity extends Activity {
                             profileComment = profileComment.substring(0,50);
                             editText.setText(profileComment);
                             sendComment(profileComment);
-                            setProfileSender();
+                            //setProfileSender();
                         }
                     }).setCancelable(false);
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-        }else{
+        } else {
             sendComment(profileComment);
-            this.setProfileSender();
+            //this.setProfileSender();
         }
     }
 
@@ -521,6 +534,7 @@ public class homeActivity extends Activity {
             body.put("entity","OffAll");
         }
         body.put("user_id", String.valueOf(user_id));
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         groupOnSender.setParams(strURL, body);
@@ -537,6 +551,7 @@ public class homeActivity extends Activity {
         body.put("entity", "SendHiGroupID");
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         groupHiSender.setParams(strURL,body);
@@ -574,6 +589,7 @@ public class homeActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
         body.put("on_flg", onFlg);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         groupOnSender.setParams(strURL, body);
@@ -697,29 +713,97 @@ public class homeActivity extends Activity {
         this.finish();
     }
 
-    // グループON・OFFボタン
-    public void groupOnOff(View view){
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-        RelativeLayout cell = (RelativeLayout)view.getParent();
-        for (int i = 0 ; i < cell.getChildCount() ; i++) {
-            View childview = cell.getChildAt(i);
-            if (childview instanceof TextView) {
-                if( i == 0 ){
-                    TextView hiddenText = (TextView)childview;
-                    sendGroupIndex = hiddenText.getText().toString();
-                    break;
-                }
-            }
-        }
-
-        sendGroupOn(sendGroupIndex);
-        sendGroupIndex = null;
-    }
-
     // 全員ON・OFFボタン
     public void allOnOff(View view){
+        profileComment = "";
+
+        if( refreshOnFlg.equals("on") ){
+            updateAll();
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            alertDialogBuilder.setMessage(getResources().getString(R.string.homeAct_allOn_confirm));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //updateAll();
+
+                            if( refreshOnFlg.equals("on") ){
+                                updateAll();
+                            }else{
+
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(homeActivity.this);
+                                //setViewにてビューを設定します。
+                                final EditText editView = new EditText(homeActivity.this);
+
+                                if( commonFucntion.getComment(getApplication()).equals("") ){
+                                    editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                                    editView.setSingleLine();
+                                    alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                                    alertDialogBuilder.setView(editView);
+                                }
+
+                                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                profileComment = editView.getText().toString();
+                                                editText.setText(profileComment);
+                                                commonFucntion.setComment(getApplication(),profileComment);
+
+                                                updateAll();
+                                                profileComment = null;
+
+                                                //キーボードを隠す
+                                                commentFlg = false;
+                                                inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                                //背景にフォーカスを移す
+                                                allSwitchButton.requestFocus();
+
+                                                dialog.dismiss();
+                                                dialog = null;
+
+                                            }
+                                        });
+                                /*
+                                alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                dialog = null;
+
+                                            }
+                                        });
+                                */
+                                alertDialogBuilder.setCancelable(false);
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                            }
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+
+
+
+        /*
         if( refreshOnFlg.equals("on") ){
             updateAll();
         }else{
@@ -750,7 +834,96 @@ public class homeActivity extends Activity {
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
+        */
+    }
 
+    /*
+    // グループON・OFFボタン
+    public void groupOnOff(View view){
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendGroupIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        sendGroupOn(sendGroupIndex);
+        sendGroupIndex = null;
+    }
+    */
+    // グループON・OFFボタン
+    public void groupOnOff(View view){
+        profileComment = "";
+
+        RelativeLayout cell = (RelativeLayout) view.getParent();
+        for (int i = 0; i < cell.getChildCount(); i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if (i == 0) {
+                    TextView hiddenText = (TextView) childview;
+                    sendGroupIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        String onFlg = this.groupList.get(Integer.parseInt(sendGroupIndex)).getOnFlg();
+
+        if( onFlg.equals("1") ){
+            sendGroupOn(sendGroupIndex);
+            sendGroupIndex = null;
+            profileComment = null;
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            if( commonFucntion.getComment(getApplication()).equals("") ){
+                //setViewにてビューを設定します。
+                final EditText editView = new EditText(homeActivity.this);
+                editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                editView.setSingleLine();
+                alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                alertDialogBuilder.setView(editView);
+
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                profileComment = editView.getText().toString();
+                                editText.setText(profileComment);
+                                commonFucntion.setComment(getApplication(), profileComment);
+
+                                sendGroupOn(sendGroupIndex);
+                                sendGroupIndex = null;
+                                profileComment = null;
+
+                                //キーボードを隠す
+                                commentFlg = false;
+                                inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                //背景にフォーカスを移す
+                                listView.requestFocus();
+
+                                dialog.dismiss();
+                                dialog = null;
+
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }else{
+                sendGroupOn(sendGroupIndex);
+                sendGroupIndex = null;
+                profileComment = null;
+            }
+        }
     }
 
     // プロフィール画像リンク
@@ -793,7 +966,6 @@ public class homeActivity extends Activity {
 
         effectTargetView = view;
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        //imageViewBase = (ImageView)view;
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
@@ -807,18 +979,53 @@ public class homeActivity extends Activity {
             }
         }
 
-
         alertDialogBuilder.setMessage( getResources().getString(R.string.homeAct_groupHi_confirm) );
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((EffectImageView)effectTargetView).doEffect();
-                        effectTargetView = null;
-                        sendGroupHi(sendGroupIndex);
-                        //imageViewBase = null;
-                        //imageViewEfect = null;
-                        sendGroupIndex = null;
+
+                        if( commonFucntion.getComment(getApplication()).equals("") ){
+                            //setViewにてビューを設定します。
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(homeActivity.this);
+                            final EditText editView = new EditText(homeActivity.this);
+                            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                            editView.setSingleLine();
+                            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                            alertDialogBuilder.setView(editView);
+
+                            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            profileComment = editView.getText().toString();
+                                            editText.setText(profileComment);
+                                            commonFucntion.setComment(getApplication(), profileComment);
+
+                                            sendGroupHi(sendGroupIndex);
+                                            sendGroupIndex = null;
+                                            profileComment = null;
+
+                                            //キーボードを隠す
+                                            commentFlg = false;
+                                            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                            //背景にフォーカスを移す
+                                            listView.requestFocus();
+
+                                            dialog.dismiss();
+                                            dialog = null;
+
+                                        }
+                                    });
+                            alertDialogBuilder.setCancelable(false);
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }else{
+                            ((EffectImageView)effectTargetView).doEffect();
+                            effectTargetView = null;
+                            sendGroupHi(sendGroupIndex);
+                            sendGroupIndex = null;
+                        }
 
                         dialog.dismiss();
                         dialog = null;
@@ -837,6 +1044,7 @@ public class homeActivity extends Activity {
         alertDialogBuilder.setCancelable(false);
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+        profileComment = null;
 
     }
 

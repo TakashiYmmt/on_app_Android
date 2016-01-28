@@ -1,10 +1,13 @@
 package jp.co.webshark.on2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -14,9 +17,12 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -28,6 +34,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.UrlImageView;
@@ -37,6 +44,7 @@ import jp.co.webshark.on2.customViews.WrapTextView;
 public class friendListActivity extends Activity {
 
     private RelativeLayout mainLayout;
+    private LinearLayout footerLayout;
     private ArrayList<clsFriendInfo> friendList;
     private ListView listView;
     private RelativeLayout nothingView;
@@ -48,6 +56,8 @@ public class friendListActivity extends Activity {
     private String sendIndex;
     private View eventTriggerView;
     private String refreshOnFlg;
+    private InputMethodManager inputMethodManager;
+    private boolean openKeyBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +66,10 @@ public class friendListActivity extends Activity {
 
         //画面全体のレイアウト
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+        footerLayout = (LinearLayout)findViewById(R.id.footer);
+
+        //キーボード表示を制御するためのオブジェクト
+        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 画面上のオブジェクト
         listView = (ListView) findViewById(R.id.listView1);
@@ -63,6 +77,31 @@ public class friendListActivity extends Activity {
         nothingView = (RelativeLayout) findViewById(R.id.nothingLayout);
 
         nothingView.setVisibility(View.GONE);
+
+        DetectableKeyboardEventLayout root = (DetectableKeyboardEventLayout)findViewById(R.id.body);
+        root.setKeyboardListener(new DetectableKeyboardEventLayout.KeyboardListener() {
+
+            @Override
+            public void onKeyboardShown() {
+                //Log.d(TAG, "keyboard shown");
+                openKeyBoard = true;
+                footerLayout.setVisibility(View.INVISIBLE);
+                ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
+                params.height = 0;
+                footerLayout.setLayoutParams(params);
+            }
+
+            @Override
+            public void onKeyboardHidden() {
+                if (openKeyBoard) {
+                    openKeyBoard = false;
+                    footerLayout.setVisibility(View.VISIBLE);
+                    ViewGroup.LayoutParams params = footerLayout.getLayoutParams();
+                    params.height = getResources().getDimensionPixelSize(R.dimen.footer_height);
+                    footerLayout.setLayoutParams(params);
+                }
+            }
+        });
 
         //scrollView.scrollTo(0,0);
 
@@ -363,6 +402,7 @@ public class friendListActivity extends Activity {
         body.put("entity", "sendHiFronFL");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         hiSender.setParams(strURL,body);
@@ -384,9 +424,47 @@ public class friendListActivity extends Activity {
             }
         }
 
-        ((EffectImageView)view).doEffect();
-        sendHi(sendIndex);
-        sendIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        ((EffectImageView) view).doEffect();
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            eventTriggerView = view;
+
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(friendListActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(), profileComment);
+
+                            sendHi(sendIndex);
+                            sendIndex = null;
+                            profileComment = null;
+
+                            //キーボードを隠す
+                            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            //背景にフォーカスを移す
+                            mainLayout.requestFocus();
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            sendHi(sendIndex);
+            sendIndex = null;
+        }
     }
 
     private void sendON(String sendIndex){
@@ -410,6 +488,7 @@ public class friendListActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
         body.put("on_flg", onFlg);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         onSender.setParams(strURL, body);
@@ -433,6 +512,7 @@ public class friendListActivity extends Activity {
     }
 
     // ONボタン
+    private String profileComment;
     public void sendON(View view){
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
@@ -447,10 +527,55 @@ public class friendListActivity extends Activity {
             }
         }
 
-        eventTriggerView = view;
+        String onFlg = this.friendList.get(Integer.parseInt(sendIndex)).getOnFlg();
+        if( onFlg.equals("1") ){
+            eventTriggerView = view;
+            sendON(sendIndex);
+            sendIndex = null;
+            profileComment = null;
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        sendON(sendIndex);
-        sendIndex = null;
+            if( commonFucntion.getComment(getApplication()).equals("") ){
+                eventTriggerView = view;
+
+                //setViewにてビューを設定します。
+                final EditText editView = new EditText(friendListActivity.this);
+                editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                editView.setSingleLine();
+                alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                alertDialogBuilder.setView(editView);
+
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                profileComment = editView.getText().toString();
+                                commonFucntion.setComment(getApplication(), profileComment);
+
+                                sendON(sendIndex);
+                                sendIndex = null;
+                                profileComment = null;
+
+                                //キーボードを隠す
+                                inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                //背景にフォーカスを移す
+                                mainLayout.requestFocus();
+
+                                dialog.dismiss();
+                                dialog = null;
+
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }else{
+                eventTriggerView = view;
+                sendON(sendIndex);
+                sendIndex = null;
+            }
+        }
     }
 
     // ブロック解除ボタン
@@ -551,4 +676,5 @@ public class friendListActivity extends Activity {
         }
         return super.dispatchKeyEvent(event);
     }
+
 }

@@ -236,6 +236,43 @@ public class clsJson2Objects {
                 friendInfo.setNotificationOffFlg(jArrayNOF.getString(i));
                 friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
                 friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
+                friendInfo.setType("1");
+
+                list.add(friendInfo);
+            }
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public static ArrayList<clsFriendInfo> setOnLog(String strJeson) {
+        ArrayList<clsFriendInfo> list = new ArrayList<clsFriendInfo>();
+        try{
+            JSONObject json = new JSONObject(strJeson);
+            String strCount = json.getString("log_count");
+            JSONArray jArrayFriendId = json.getJSONArray("log_friend_id");
+            JSONArray jArrayName = json.getJSONArray("log_name");
+            JSONArray jArrayProfileComment = json.getJSONArray("log_profile_comment");
+            JSONArray jArrayOnUpdateTime = json.getJSONArray("log_on_update_time");
+            JSONArray jArrayOnFlg = json.getJSONArray("log_on_flg");
+            JSONArray jArrayImageUrl = json.getJSONArray("log_image_url");
+            JSONArray jArrayNOF = json.getJSONArray("log_notification_off_flg");
+            JSONArray jArrayBlockFlg = json.getJSONArray("log_block_flg");
+            JSONArray jArrayFlagsFriendId = json.getJSONArray("log_flags_friend_id");
+
+            for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
+                clsFriendInfo friendInfo = new clsFriendInfo();
+                friendInfo.setFriendId(jArrayFriendId.getString(i));
+                friendInfo.setName(jArrayName.getString(i));
+                friendInfo.setProfileComment(jArrayProfileComment.getString(i));
+                friendInfo.setOnUpdateTime(jArrayOnUpdateTime.getString(i));
+                friendInfo.setOnFlg(jArrayOnFlg.getString(i));
+                friendInfo.setImageURL(jArrayImageUrl.getString(i));
+                friendInfo.setNotificationOffFlg(jArrayNOF.getString(i));
+                friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
+                friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
+                friendInfo.setType("2");
 
                 list.add(friendInfo);
             }

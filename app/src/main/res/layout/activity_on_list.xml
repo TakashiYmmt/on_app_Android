@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_zero_margin"
@@ -6,9 +7,16 @@
     android:paddingTop="@dimen/activity_zero_margin"
     android:paddingBottom="@dimen/activity_zero_margin"
     android:background="@color/bg_white"
+    android:id = "@+id/mainLayout"
     tools:context="jp.co.webshark.on2.onListActivity">
 
-<!-- === ヘッダ部 ============================================================================== -->
+    <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+    <!-- === ヘッダ部 ============================================================================== -->
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -40,7 +48,7 @@
         android:layout_below="@+id/header"
         android:orientation="vertical" >
     </LinearLayout>
-<!-- === ヘッダ部 ============================================================================== -->
+    <!-- === ヘッダ部 ============================================================================== -->
 
     <RelativeLayout
         android:id="@+id/nothingLayout"
@@ -89,7 +97,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="あなたにONしている人"
+                    android:text="@string/onListAct_Subject1"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:id="@+id/subject1"
                     android:layout_centerVertical="true"/>
@@ -101,6 +109,15 @@
                 android:background="@color/background_material_dark" >
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/blank1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/on_list_cell_height"
+                android:text="@string/onListAct_noFriend1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"/>
+
             <ListView
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
@@ -109,6 +126,44 @@
                 android:listSelector="@color/color_clear">
             </ListView>
 
+
+            <RelativeLayout
+                android:id="@+id/subject_frame2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/on_list_subject_height"
+                android:background="@color/background_floating_material_light">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onListAct_Subject2"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:id="@+id/subject2"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark" >
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/blank2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/on_list_cell_height"
+                android:text="@string/onListAct_noFriend2"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center"/>
+
+            <ListView
+                android:id="@+id/listView2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/on_list_cell_height"
+                android:minHeight="@dimen/on_list_cell_height"
+                android:listSelector="@color/color_clear">
+            </ListView>
         </LinearLayout>
     </ScrollView>
 
@@ -172,7 +227,8 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/color_select_tab_gray">
             <RelativeLayout
                 android:id="@+id/footer2_in"
                 android:layout_height="match_parent"
@@ -275,6 +331,6 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-<!-- === フッタ部 ============================================================================== -->
-
+    <!-- === フッタ部 ============================================================================== -->
+    </jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout>
 </RelativeLayout>

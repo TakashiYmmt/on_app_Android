@@ -19,6 +19,7 @@ public class clsFriendInfo {
     String block_flg;
     String time_ago;
     String tag_id;
+    String type;
     boolean selected;
     ArrayList<String> arrPhone;
     ArrayList<String> arrEMail;
@@ -147,5 +148,12 @@ public class clsFriendInfo {
     }
     public void setArrEMail(ArrayList<String> arrEMail) {
         this.arrEMail = arrEMail;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 }

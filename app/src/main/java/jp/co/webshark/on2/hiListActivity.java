@@ -1,14 +1,20 @@
 package jp.co.webshark.on2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -18,6 +24,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.UrlImageView;
@@ -35,6 +42,8 @@ public class hiListActivity extends Activity {
     private AsyncPost hiSender;
     private AsyncPost flgSender;
     private String sendHiIndex;
+    private InputMethodManager inputMethodManager;
+    private boolean openKeyBoard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,8 @@ public class hiListActivity extends Activity {
 
         //画面全体のレイアウト
         mainLayout = (RelativeLayout)findViewById(R.id.mainLayout);
+        //キーボード表示を制御するためのオブジェクト
+        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 画面上のオブジェクト
         listView = (ListView) findViewById(R.id.listView1);
@@ -51,6 +62,23 @@ public class hiListActivity extends Activity {
 
         nothingView.setVisibility(View.GONE);
         //scrollView.scrollTo(0,0);
+
+        DetectableKeyboardEventLayout root = (DetectableKeyboardEventLayout)findViewById(R.id.body);
+        root.setKeyboardListener(new DetectableKeyboardEventLayout.KeyboardListener() {
+
+            @Override
+            public void onKeyboardShown() {
+                //Log.d(TAG, "keyboard shown");
+                openKeyBoard = true;
+            }
+
+            @Override
+            public void onKeyboardHidden() {
+                if (openKeyBoard) {
+                    openKeyBoard = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -146,6 +174,7 @@ public class hiListActivity extends Activity {
         body.put("entity", "sendHi");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         hiSender.setParams(strURL, body);
@@ -278,6 +307,7 @@ public class hiListActivity extends Activity {
     }
 
     // Hiボタン
+    private String profileComment;
     public void sendHi(View view){
         RelativeLayout cell = (RelativeLayout)view.getParent();
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
@@ -292,8 +322,44 @@ public class hiListActivity extends Activity {
         }
 
         ((EffectImageView)view).doEffect();
-        sendHi(sendHiIndex);
-        sendHiIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(hiListActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(), profileComment);
+
+                            sendHi(sendHiIndex);
+                            sendHiIndex = null;
+                            profileComment = null;
+
+                            //キーボードを隠す
+                            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            //背景にフォーカスを移す
+                            mainLayout.requestFocus();
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            sendHi(sendHiIndex);
+            sendHiIndex = null;
+        }
     }
 
 
@@ -389,5 +455,34 @@ public class hiListActivity extends Activity {
             }
         }
         return super.dispatchKeyEvent(event);
+    }
+
+    /**
+     * EditText編集時に背景をタップしたらキーボードを閉じるようにするタッチイベントの処理
+     */
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        //キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        //背景にフォーカスを移す
+        mainLayout.requestFocus();
+
+        // キーボードが出ていた時はイベントをカット
+        if( openKeyBoard ){
+            return false;
+        }else {
+            return super.dispatchTouchEvent(ev);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        //背景にフォーカスを移す
+        mainLayout.requestFocus();
+
+        return false;
     }
 }

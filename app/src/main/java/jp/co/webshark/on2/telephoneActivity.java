@@ -100,8 +100,8 @@ public class telephoneActivity extends Activity {
         countrySelector.setSelection(defaultIndex);
 
         // 実験
-        ImageView logo = (ImageView) findViewById(R.id.imageView2);
-        registerForContextMenu(logo);
+        //ImageView logo = (ImageView) findViewById(R.id.imageView2);
+        //registerForContextMenu(logo);
 
         //TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         //String telnumber = tm.getLine1Number();

@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -526,6 +527,7 @@ public class groupEditActivity extends Activity {
     }
 
     // ONボタン
+    private String profileComment;
     public void sendON(View view){
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
@@ -543,8 +545,54 @@ public class groupEditActivity extends Activity {
 
         eventTriggerView = view;
 
-        sendON(sendIndex);
-        sendIndex = null;
+        String onFlg = this.groupMember.get(Integer.parseInt(sendIndex)).getOnFlg();
+        if( onFlg.equals("1") ){
+            eventTriggerView = view;
+            sendON(sendIndex);
+            sendIndex = null;
+            profileComment = null;
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            if( commonFucntion.getComment(getApplication()).equals("") ){
+                eventTriggerView = view;
+
+                //setViewにてビューを設定します。
+                final EditText editView = new EditText(groupEditActivity.this);
+                editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                editView.setSingleLine();
+                alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                alertDialogBuilder.setView(editView);
+
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                profileComment = editView.getText().toString();
+                                commonFucntion.setComment(getApplication(), profileComment);
+
+                                sendON(sendIndex);
+                                sendIndex = null;
+                                profileComment = null;
+
+                                //キーボードを隠す
+                                inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                //背景にフォーカスを移す
+                                mainLayout.requestFocus();
+
+                                dialog.dismiss();
+                                dialog = null;
+
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }else{
+                sendON(sendIndex);
+                sendIndex = null;
+            }
+        }
     }
     private void sendON(String sendIndex){
         int user_id = commonFucntion.getUserID(getApplicationContext());
@@ -567,6 +615,7 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
         body.put("on_flg", onFlg);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         onSender.setParams(strURL, body);
@@ -623,8 +672,46 @@ public class groupEditActivity extends Activity {
         }
 
         ((EffectImageView)view).doEffect();
-        sendHi(sendIndex);
-        sendIndex = null;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            eventTriggerView = view;
+
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(groupEditActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(), profileComment);
+
+                            sendHi(sendIndex);
+                            sendIndex = null;
+                            profileComment = null;
+
+                            //キーボードを隠す
+                            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            //背景にフォーカスを移す
+                            mainLayout.requestFocus();
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            sendHi(sendIndex);
+            sendIndex = null;
+        }
     }
     private void sendHi(String sendHiIndex){
         int user_id = commonFucntion.getUserID(getApplicationContext());
@@ -636,6 +723,7 @@ public class groupEditActivity extends Activity {
         body.put("entity", "sendHiFronFL");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
 
         // API通信のPOST処理
         hiSender.setParams(strURL, body);

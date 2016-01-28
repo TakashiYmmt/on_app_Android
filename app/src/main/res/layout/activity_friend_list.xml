@@ -5,10 +5,18 @@ android:paddingLeft="@dimen/activity_zero_margin"
 android:paddingRight="@dimen/activity_zero_margin"
 android:paddingTop="@dimen/activity_zero_margin"
 android:paddingBottom="@dimen/activity_zero_margin"
+android:id = "@+id/mainLayout"
 android:background="@color/bg_white"
 tools:context="jp.co.webshark.on2.friendListActivity">
 
-<!-- === ヘッダ部 ============================================================================== -->
+    <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+    <!-- === ヘッダ部 ============================================================================== -->
 <LinearLayout
     android:id="@+id/header"
     android:layout_width="match_parent"
@@ -272,4 +280,5 @@ tools:context="jp.co.webshark.on2.friendListActivity">
     </LinearLayout>
 <!-- === フッタ部 ============================================================================== -->
 
+    </jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout>
 </RelativeLayout>
