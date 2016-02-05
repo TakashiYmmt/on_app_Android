@@ -344,7 +344,20 @@ public class profileEditActivity extends Activity {
     // 戻るリンク
     public void profileEditClose(View view) {
         // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
-        finish();
+        //finish();
+
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+        intent.putExtra("userName", userInfo.getName());
+        startActivityForResult(intent, 0);
+    }
+
+    // FBにログイン
+    public void fbLogin(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),fbLoginActivity.class);
+        intent.putExtra("userName", userInfo.getName());
+        startActivityForResult(intent, 0);
     }
 
     // 名前を変更

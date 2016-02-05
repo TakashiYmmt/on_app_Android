@@ -282,4 +282,24 @@ public class clsJson2Objects {
         }
         return list;
     }
+
+    public static String setFbFriendId(JSONObject json) {
+        String result = "";
+        try{
+            JSONArray data = json.getJSONArray("data");
+            for( int i = 0 ; i < data.length() ; i++ ){
+                if( !data.getJSONObject(i).getString("id").equals("") ){
+                    if( result.equals("") ){
+                        result = data.getJSONObject(i).getString("id");
+                    }else{
+                        result = result + "\",\"" + data.getJSONObject(i).getString("id");
+                    }
+                }
+            }
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        result = "[\""+result+"\"]";
+        return result;
+    }
 }

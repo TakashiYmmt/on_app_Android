@@ -3,9 +3,9 @@
 
 <resources>
     <string name="app_name">on</string>
-    <string name="api_url">http://210.140.165.80/on/1.6/api.php</string>
+    <string name="api_url">http://210.140.165.80/on/1.7/api.php</string>
     <string name="ok">OK</string>
-    <string name="fb_app_id">1627585374168002</string>
+    <string name="fb_app_id">172287869777831</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

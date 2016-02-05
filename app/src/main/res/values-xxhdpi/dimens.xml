@@ -82,7 +82,7 @@
     <dimen name="friend_prof_top_margin">60dp</dimen>
 
     <!-- profileEditActivity -->
-    <dimen name="profile_edit_image_area_height">300dp</dimen>
+    <dimen name="profile_edit_image_area_height">360dp</dimen>
     <dimen name="profile_edit_image_height">250dp</dimen>
     <dimen name="profile_edit_cell_height">70dp</dimen>
     <dimen name="profile_edit_qr_height">250dp</dimen>

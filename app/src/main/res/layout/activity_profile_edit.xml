@@ -63,14 +63,25 @@
         android:layout_below="@+id/heade_line">
 
         <jp.co.webshark.on2.customViews.HttpImageView
+            android:id="@+id/profile_image"
             android:onClick="openLibrary"
             android:layout_width="@dimen/profile_edit_image_height"
             android:layout_height="@dimen/profile_edit_image_height"
-            android:id="@+id/profile_image"
             android:src="@drawable/list_icon_user"
             android:layout_gravity="center"
             android:layout_centerInParent="true">
         </jp.co.webshark.on2.customViews.HttpImageView>
+
+        <Button
+            android:id="@+id/fb_login"
+            android:onClick="fbLogin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="FB"/>
 
     </RelativeLayout>
     <LinearLayout

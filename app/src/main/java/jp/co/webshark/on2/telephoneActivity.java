@@ -100,8 +100,8 @@ public class telephoneActivity extends Activity {
         countrySelector.setSelection(defaultIndex);
 
         // 実験
-        //ImageView logo = (ImageView) findViewById(R.id.imageView2);
-        //registerForContextMenu(logo);
+        ImageView logo = (ImageView) findViewById(R.id.imageView2);
+        registerForContextMenu(logo);
 
         //TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         //String telnumber = tm.getLine1Number();
@@ -119,9 +119,10 @@ public class telephoneActivity extends Activity {
         //コンテキストメニューの設定
         menu.setHeaderTitle("Androidテストアカウントを選ぶ");
         //Menu.add(int groupId, int itemId, int order, CharSequence title)
-        menu.add(0, 0, 0, "000-0000-1760で");
-        menu.add(0, 1, 0, "000-0000-1761で");
-        menu.add(0, 2, 0, "090-3997-8227で");
+        menu.add(0, 0, 0, "稲村テストで");
+        menu.add(0, 1, 0, "山本テストで");
+        menu.add(0, 2, 0, "FB連携確認用で");
+        menu.add(0, 3, 0, "090-3997-8227で");
     }
     public boolean onContextItemSelected(MenuItem item) {
 
@@ -141,6 +142,11 @@ public class telephoneActivity extends Activity {
                 startActivity(intent);
                 return true;
             case 2:
+                cf.setUserID(getApplicationContext(), "331");
+                intent = new Intent(getApplicationContext(),homeActivity.class);
+                startActivity(intent);
+                return true;
+            case 3:
                 cf.setUserID(getApplicationContext(), "4");
                 intent = new Intent(getApplicationContext(),homeActivity.class);
                 startActivity(intent);
