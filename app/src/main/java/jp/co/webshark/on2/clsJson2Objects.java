@@ -62,6 +62,29 @@ public class clsJson2Objects {
         return userInfo;
     }
 
+    // ID検索結果
+    public static clsUserInfo setSearchResult(String strJeson) {
+        clsUserInfo userInfo = new clsUserInfo();
+        try{
+            JSONObject json = new JSONObject(strJeson);
+            userInfo.setId(json.getString("user_id"));
+            userInfo.setTelephoneNumber(json.getString("telephone_number"));
+            userInfo.setValidateKey(json.getString("validate_key"));
+            userInfo.setPushNotifyKey(json.getString("push_notify_key"));
+            userInfo.setValid(json.getString("valid"));
+            userInfo.setStatus(json.getString("status"));
+            userInfo.setName(json.getString("name"));
+            userInfo.setImageURL(json.getString("image_url"));
+            userInfo.setComment(json.getString("profile_comment"));
+            userInfo.setProfileId(json.getString("profile_id"));
+            userInfo.setFriendFlag(json.getString("friend_flag"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return userInfo;
+    }
+
     // システム情報(getSysInfo)
     public static clsSystemInfo setSysInfo(String strJeson) {
         clsSystemInfo sysInfo = new clsSystemInfo();
@@ -136,7 +159,7 @@ public class clsJson2Objects {
                 friendInfo.setFriendId(row.getString("friend_id"));
                 friendInfo.setFriendUserId(row.getString("friend_user_id"));
                 friendInfo.setName(row.getString("name"));
-                //friendInfo.setCustomName(row.getString("custom_name"));
+                friendInfo.setNickName(row.getString("nick_name"));
                 friendInfo.setOnFlg(row.getString("on_flg"));
                 friendInfo.setImageURL(row.getString("image_url"));
                 friendInfo.setProfileComment(row.getString("profile_comment"));
@@ -145,6 +168,13 @@ public class clsJson2Objects {
                 friendInfo.setNotificationOffFlg(row.getString("notification_off_flg"));
                 friendInfo.setBlockFlg(row.getString("block_flg"));
                 friendInfo.setTagId(row.getString("tag_id"));
+                //friendInfo.setCreateTime(row.getString("create_time"));
+                if( row.has("flags_friend_id") ){
+                    friendInfo.setFlagsFriendId(row.getString("flags_friend_id"));
+                }
+                if( row.has("new_flg") ){
+                    friendInfo.setNewFlg(row.getString("new_flg"));
+                }
 
                 list.add(friendInfo);
             }
@@ -181,6 +211,7 @@ public class clsJson2Objects {
             String strCount = json.getString("count");
             JSONArray jArrayFriendId = json.getJSONArray("friend_id");
             JSONArray jArrayName = json.getJSONArray("name");
+            JSONArray jArrayNickName = json.getJSONArray("nick_name");
             JSONArray jArrayProfileComment = json.getJSONArray("profile_comment");
             JSONArray jArrayTimeAgo = json.getJSONArray("time_ago");
             JSONArray jArrayOnFlg = json.getJSONArray("on_flg");
@@ -193,6 +224,7 @@ public class clsJson2Objects {
                 clsFriendInfo friendInfo = new clsFriendInfo();
                 friendInfo.setFriendId(jArrayFriendId.getString(i));
                 friendInfo.setName(jArrayName.getString(i));
+                friendInfo.setNickName(jArrayNickName.getString(i));
                 friendInfo.setProfileComment(jArrayProfileComment.getString(i));
                 friendInfo.setTimeAgo(jArrayTimeAgo.getString(i));
                 friendInfo.setOnFlg(jArrayOnFlg.getString(i));
@@ -217,6 +249,7 @@ public class clsJson2Objects {
             String strCount = json.getString("count");
             JSONArray jArrayFriendId = json.getJSONArray("friend_id");
             JSONArray jArrayName = json.getJSONArray("name");
+            JSONArray jArrayNickName = json.getJSONArray("nick_name");
             JSONArray jArrayProfileComment = json.getJSONArray("profile_comment");
             JSONArray jArrayOnUpdateTime = json.getJSONArray("on_update_time");
             JSONArray jArrayOnFlg = json.getJSONArray("on_flg");
@@ -224,11 +257,14 @@ public class clsJson2Objects {
             JSONArray jArrayNOF = json.getJSONArray("notification_off_flg");
             JSONArray jArrayBlockFlg = json.getJSONArray("block_flg");
             JSONArray jArrayFlagsFriendId = json.getJSONArray("flags_friend_id");
+            JSONArray jArrayTalkId = json.getJSONArray("talk_id");
+            JSONArray jArrayUnreadCount = json.getJSONArray("unread_count");
 
             for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
                 clsFriendInfo friendInfo = new clsFriendInfo();
                 friendInfo.setFriendId(jArrayFriendId.getString(i));
                 friendInfo.setName(jArrayName.getString(i));
+                friendInfo.setNickName(jArrayNickName.getString(i));
                 friendInfo.setProfileComment(jArrayProfileComment.getString(i));
                 friendInfo.setOnUpdateTime(jArrayOnUpdateTime.getString(i));
                 friendInfo.setOnFlg(jArrayOnFlg.getString(i));
@@ -237,6 +273,8 @@ public class clsJson2Objects {
                 friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
                 friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
                 friendInfo.setType("1");
+                friendInfo.setTalkId(jArrayTalkId.getString(i));
+                friendInfo.setUnreadCount(jArrayUnreadCount.getString(i));
 
                 list.add(friendInfo);
             }
@@ -253,6 +291,7 @@ public class clsJson2Objects {
             String strCount = json.getString("log_count");
             JSONArray jArrayFriendId = json.getJSONArray("log_friend_id");
             JSONArray jArrayName = json.getJSONArray("log_name");
+            JSONArray jArrayNickName = json.getJSONArray("log_nick_name");
             JSONArray jArrayProfileComment = json.getJSONArray("log_profile_comment");
             JSONArray jArrayOnUpdateTime = json.getJSONArray("log_on_update_time");
             JSONArray jArrayOnFlg = json.getJSONArray("log_on_flg");
@@ -260,11 +299,14 @@ public class clsJson2Objects {
             JSONArray jArrayNOF = json.getJSONArray("log_notification_off_flg");
             JSONArray jArrayBlockFlg = json.getJSONArray("log_block_flg");
             JSONArray jArrayFlagsFriendId = json.getJSONArray("log_flags_friend_id");
+            JSONArray jArrayTalkId = json.getJSONArray("log_talk_id");
+            JSONArray jArrayUnreadCount = json.getJSONArray("log_unread_count");
 
             for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
                 clsFriendInfo friendInfo = new clsFriendInfo();
                 friendInfo.setFriendId(jArrayFriendId.getString(i));
                 friendInfo.setName(jArrayName.getString(i));
+                friendInfo.setNickName(jArrayNickName.getString(i));
                 friendInfo.setProfileComment(jArrayProfileComment.getString(i));
                 friendInfo.setOnUpdateTime(jArrayOnUpdateTime.getString(i));
                 friendInfo.setOnFlg(jArrayOnFlg.getString(i));
@@ -273,6 +315,8 @@ public class clsJson2Objects {
                 friendInfo.setBlockFlg(jArrayBlockFlg.getString(i));
                 friendInfo.setFlagsFriendId(jArrayFlagsFriendId.getString(i));
                 friendInfo.setType("2");
+                friendInfo.setTalkId(jArrayTalkId.getString(i));
+                friendInfo.setUnreadCount(jArrayUnreadCount.getString(i));
 
                 list.add(friendInfo);
             }
@@ -301,5 +345,30 @@ public class clsJson2Objects {
         }
         result = "[\""+result+"\"]";
         return result;
+    }
+
+    public static ArrayList<clsTalkInfo> setTalkLog(String strJeson) {
+        ArrayList<clsTalkInfo> list = new ArrayList<clsTalkInfo>();
+        try{
+            JSONObject json = new JSONObject(strJeson);
+            String strCount = json.getString("count");
+            JSONArray jArray = json.getJSONArray("talks");
+
+            for( int i = 0 ; i < Integer.parseInt(strCount) ; i++ ){
+                clsTalkInfo talkInfo = new clsTalkInfo();
+                JSONObject row = (JSONObject) jArray.get(i);
+                talkInfo.setSerialId(row.getString("serial_id"));
+                talkInfo.setTalkId(row.getString("talk_id"));
+                talkInfo.setTalkUserId(row.getString("user_id"));
+                talkInfo.setMessage(row.getString("message"));
+                talkInfo.setDatatime(row.getString("datatime"));
+
+                list.add(talkInfo);
+            }
+
+        }catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

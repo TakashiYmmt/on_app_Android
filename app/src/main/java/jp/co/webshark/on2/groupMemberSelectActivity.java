@@ -97,9 +97,15 @@ public class groupMemberSelectActivity extends Activity {
             convertView = layoutInflater.inflate(R.layout.group_view_cell01,parent,false);
 
             HttpImageView profImage = (HttpImageView)convertView.findViewById(R.id.member_image);
-            profImage.setImageUrl(groupMember.get(position).getImageURL(), parent.getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
-            ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());
+            profImage.setImageUrl(groupMember.get(position).getImageURL(), parent.getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(), true);
+            //((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
+
+            if( groupMember.get(position).getNickName().equals("") ){
+                ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());
+            }else{
+                ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getNickName());
+            }
 
             ImageView selectButtonImage = (ImageView)convertView.findViewById(R.id.cell_switch_button);
             if(groupMember.get(position).getSelected()){

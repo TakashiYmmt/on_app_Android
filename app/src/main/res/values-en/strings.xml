@@ -4,7 +4,9 @@
     <integer name="country_index">0</integer>
     <string name="app_name">on</string>
     <string name="close">Close</string>
+    <string name="send">Send</string>
     <string name="back">Back</string>
+    <string name="head_back">《 Back</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="complete">Done</string>
@@ -58,8 +60,9 @@
     <string name="homeAct_friend_list">Friends</string>
     <string name="homeAct_group_add">Create Group</string>
     <string name="homeAct_qr_add">add by QR-code</string>
+    <string name="homeAct_id_add">search by ID</string>
     <string name="homeAct_my_qr">my QR-code</string>
-    <string name="homeAct_invite">Invite via SMS</string>
+    <string name="homeAct_invite">Invite</string>
     <string name="homeAct_invite_LINE">Invite via LINE</string>
     <string name="homeAct_invite_SMS">Invite via SMS</string>
     <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
@@ -70,6 +73,11 @@
     <string name="friendListAct_noFriend">You currently have no friends who are ON with you.</string>
     <string name="friendListAct_offBlock">Unblock</string>
     <string name="friendListAct_subject">Friends</string>
+    <string name="friendListAct_delete">deleated friends</string>
+
+    <!-- deleteFriendListActivity => delFriendListAct -->
+    <string name="delFriendListAct_noFriend">You currently have no deleted friends who are ON with you.</string>
+    <string name="delFriendListAct_subject">deleated friends</string>
 
     <!-- friendProfileActivity => profEditAct -->
     <string name="friendProfAct_naviTitle">Profile</string>
@@ -77,9 +85,15 @@
     <string name="friendProfAct_deBlock">Unblock</string>
     <string name="friendProfAct_doSilent">Notifications off</string>
     <string name="friendProfAct_deSilent">Turn notifications on</string>
+    <string name="friendProfAct_doDelete">Delete</string>
+    <string name="friendProfAct_deleteConfirm">%sさんを友達から削除します。\nよろしいですか？</string>
 
     <!-- onListActivity => onListAct -->
     <string name="onListAct_noFriend">You currently have no ON friends.</string>
+    <string name="onListAct_Subject1">あなたにONしている人</string>
+    <string name="onListAct_Subject2">過去のON一覧</string>
+    <string name="onListAct_noFriend1">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend2">過去にONをした友達はいません。</string>
 
     <!-- hiListActivity => hiListAct -->
     <string name="hiListAct_noFriend">There are currently no Hi.</string>
@@ -100,6 +114,7 @@
     <string name="profEditActDrawQr_naviTitle">My QR Code</string>
     <string name="profEditActQrResult_naviTitle">read QR-code</string>
     <string name="profEditAct_profUpdate">Profile updated</string>
+    <string name="profEditAct_profIdNotUnique">既に使われているIDです</string>
     <string name="profEditAct_DrawQr_guide">if your friend use this QR-code.\nregist your friend.</string>
     <string name="profEditAct_QrDefault">Read QR Code</string>
     <string name="profEditAct_QrRegisted">already your friend</string>
@@ -125,6 +140,14 @@
     <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
     <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
     <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
+
+    <!-- searchFriendActivity => earchFriendAct -->
+    <string name="searchFriendAct_naviTitle">search friend via ID</string>
+    <string name="searchFriendAct_editHint">input friend id</string>
+    <string name="searchFriendAct_myId">my ID</string>
+
+    <!-- talkActivity => talkAct -->
+    <string name="talkAct_naviTitle">%sさんとのトーク</string>
 
     <!-- 国一覧 -->
     <array name="country_name_list">

@@ -86,7 +86,7 @@
 
     <!-- friendProfileActivity -->
     <dimen name="friend_prof_image_height">250dp</dimen>
-    <dimen name="friend_prof_top_margin">60dp</dimen>
+    <dimen name="friend_prof_top_margin">30dp</dimen>
 
     <!-- profileEditActivity -->
     <dimen name="profile_edit_image_area_height">360dp</dimen>

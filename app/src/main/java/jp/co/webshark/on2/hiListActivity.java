@@ -5,7 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -27,6 +33,8 @@ import java.util.HashMap;
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.ResponceReceiver;
+import jp.co.webshark.on2.customViews.UpdateReceiver;
 import jp.co.webshark.on2.customViews.UrlImageView;
 import jp.co.webshark.on2.customViews.WrapTextView;
 
@@ -38,12 +46,17 @@ public class hiListActivity extends Activity {
     private ListView listView;
     private ScrollView scrollView;
     private RelativeLayout nothingView;
-    private AsyncPost hiGetter;
-    private AsyncPost hiSender;
-    private AsyncPost flgSender;
+    //private AsyncPost hiGetter;
+    //private AsyncPost hiSender;
+    //private AsyncPost flgSender;
+    //private AsyncPost badgeInfoGetter;
     private String sendHiIndex;
     private InputMethodManager inputMethodManager;
     private boolean openKeyBoard;
+    private boolean keepList;
+    private UpdateReceiver upReceiver;
+    private IntentFilter intentFilter;
+    private boolean isDestroy = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +92,27 @@ public class hiListActivity extends Activity {
                 }
             }
         });
+        ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.GONE);
+
+        upReceiver = new UpdateReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("UPDATE_ACTION");
+        registerReceiver(upReceiver, intentFilter);
+
+        upReceiver.registerHandler(updateHandler);
+        keepList = false;
+
+    }
+
+    @Override
+    public void onStart(){
+        isDestroy = false;
+        super.onStart();
+    }
+    @Override
+    public void onPause(){
+        isDestroy = true;
+        super.onPause();
     }
 
     @Override
@@ -86,68 +120,27 @@ public class hiListActivity extends Activity {
         System.gc();
         super.onResume();
 
-        // コールバックの初期化
-        this.setHiGetter();
-        this.setHiSender();
-        this.setFlgSender();
-
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getHiList();
+        this.clearHiBadge();
+        this.getBadgeInfo();
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
 
+        if( upReceiver != null ){
+            unregisterReceiver(upReceiver);
+        }
         this.nothingView = null;
-        this.hiSender = null;
+        //this.hiSender = null;
         this.listView = null;
         this.hiList = null;
         this.scrollView = null;
         this.mainLayout = null;
 
         System.gc();
-    }
-
-    // APIコールバック定義
-    private void setHiGetter(){
-        // プロフィール取得用API通信のコールバック
-        hiGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                drawHiList(clsJson2Objects.setHiList(result));
-            }
-        });
-    }
-    private void setHiSender(){
-        // プロフィール取得用API通信のコールバック
-        hiSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawHiList(clsJson2Objects.setUserInfo(result));
-                setHiSender();
-            }
-        });
-    }
-    private void setFlgSender(){
-        // ブロックフラグ送信用API通信のコールバック
-        flgSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
-                getHiList();
-                setFlgSender();
-            }
-        });
     }
 
     private void getHiList(){
@@ -158,10 +151,23 @@ public class hiListActivity extends Activity {
 
         body.put("entity", "getHiList");
         body.put("user_id", String.valueOf(user_id));
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                    drawHiList(clsJson2Objects.setHiList(result));
+                }
+            }
+        });
         // API通信のPOST処理
         hiGetter.setParams(strURL, body);
-        hiGetter.execute();
+        hiGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void sendHi(String sendHiIndex){
@@ -175,10 +181,22 @@ public class hiListActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
         body.put("profile_comment", profileComment);
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawHiList(clsJson2Objects.setUserInfo(result));
+                //setHiSender();
+            }
+        });
         // API通信のPOST処理
         hiSender.setParams(strURL, body);
-        hiSender.execute();
+        hiSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void sendDeBlock(String sendIndex){
@@ -191,12 +209,33 @@ public class hiListActivity extends Activity {
         body.put("entity", "blockOff");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // ブロックフラグ送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                if(!isDestroy){
+                    getHiList();
+                }
+                //setFlgSender();
+            }
+        });
         // API通信のPOST処理
         flgSender.setParams(strURL, body);
-        flgSender.execute();
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
+    private class ScrollUp implements Runnable {
+        public void run() {
+            ((ScrollView) findViewById(R.id.scroll_body)).fullScroll(View.FOCUS_UP);
+        }
+    }
     private void drawHiList(ArrayList<clsFriendInfo> list){
 
         FriendsAdapter adapter = new FriendsAdapter(hiListActivity.this);
@@ -219,14 +258,85 @@ public class hiListActivity extends Activity {
             listView.requestLayout();
 
             adapter.notifyDataSetChanged();
-            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            if(!keepList){
+                //scrollView.fullScroll(ScrollView.FOCUS_UP);
+                scrollView.post(new ScrollUp());
+            }
 
         }else{
             nothingView.setVisibility(View.VISIBLE);
             scrollView.setVisibility(View.GONE);
         }
-        this.setHiGetter();
+        //this.setHiGetter();
+        keepList = false;
     }
+
+    private void getBadgeInfo(){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "getTagBadgeCount");
+        body.put("user_id", String.valueOf(user_id));
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
+
+        // システム情報取得用API通信のコールバック
+        AsyncPost badgeInfoGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    String onCount = clsJson2Objects.getElement(result,"on_count");
+                    String hiCount = clsJson2Objects.getElement(result,"hi_count");
+                    drawBadgeInfo(onCount, hiCount);
+                }
+                //setBadgeInfoGetter();
+            }
+        });
+        // API通信のPOST処理
+        badgeInfoGetter.setParams(strURL, body);
+        badgeInfoGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+    private void clearHiBadge(){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "CommitBudgeCount");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("badge_type", "1");
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
+
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawHiList(clsJson2Objects.setUserInfo(result));
+                //setHiSender();
+            }
+        });
+        // API通信のPOST処理(hiSenderを借りる)
+        hiSender.setParams(strURL, body);
+        hiSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+    private void drawBadgeInfo(String onCount, String hiCount){
+        if( !onCount.equals("0") && !onCount.equals("") ){
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setText(onCount);
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.VISIBLE);
+        }else{
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.GONE);
+        }
+    }
+
 
     static private class FriendsAdapter extends BaseAdapter {
 
@@ -275,9 +385,15 @@ public class hiListActivity extends Activity {
                 //((TextView)convertView.findViewById(R.id.cellHiTime)).setText("たった今");
             }
 
-            ((TextView) convertView.findViewById(R.id.cellHiName)).setText(friendList.get(position).getName());
+            //((TextView) convertView.findViewById(R.id.cellHiName)).setText(friendList.get(position).getName());
             ((WrapTextView)convertView.findViewById(R.id.cellHiComment)).setText(friendList.get(position).getProfileComment());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
+
+            if( friendList.get(position).getNickName().equals("") ){
+                ((TextView)convertView.findViewById(R.id.cellHiName)).setText(friendList.get(position).getName());
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellHiName)).setText(friendList.get(position).getNickName());
+            }
 
             //HttpImageView profImage = (HttpImageView) convertView.findViewById(R.id.cellHiProfileImage);
             //profImage.setImageUrl(friendList.get(position).getImageURL(), parent.getContext());
@@ -382,6 +498,37 @@ public class hiListActivity extends Activity {
         sendHiIndex = null;
     }
 
+    // セル全体
+    public void openTalk(View view){
+        RelativeLayout cell = (RelativeLayout)view;
+        Bitmap imageBitmap = null;
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendHiIndex = hiddenText.getText().toString();
+                    //break;
+                }
+            }else if(childview instanceof HttpImageView){
+                HttpImageView friendImage = (HttpImageView)childview;
+                imageBitmap = ((BitmapDrawable)friendImage.getDrawable()).getBitmap();
+            }
+        }
+
+        clsFriendInfo friendInfo = hiList.get(Integer.parseInt(sendHiIndex));
+
+        if( friendInfo.getBlockFlg().equals("00") ){
+            // 一方通行で開くだけ
+            onGlobal onGlobal = (onGlobal) this.getApplication();
+            onGlobal.setShareData("selectFrined",friendInfo);
+            onGlobal.setShareData("friendImage",imageBitmap);
+            sendHiIndex = null;
+
+            Intent intent = new Intent(getApplicationContext(),talkActivity.class);
+            startActivity(intent);
+        }
+    }
 
     public void openProfile(View view){
 
@@ -444,6 +591,13 @@ public class hiListActivity extends Activity {
         this.finish();
     }
 
+    // 戻るリンク
+    public void backToHome(View view) {
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction()==KeyEvent.ACTION_DOWN) {
@@ -485,4 +639,15 @@ public class hiListActivity extends Activity {
 
         return false;
     }
+
+    // サービスから値を受け取ったら動かしたい内容を書く
+    private Handler updateHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            getBadgeInfo();
+            keepList = true;
+            getHiList();
+            clearHiBadge();
+        }
+    };
 }

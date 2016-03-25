@@ -10,6 +10,7 @@ public class clsFriendInfo {
     String friend_user_id;
     String flags_friend_id;
     String name;
+    String nick_name;
     String on_flg;
     String image_url;
     String profile_comment;
@@ -21,8 +22,12 @@ public class clsFriendInfo {
     String tag_id;
     String type;
     boolean selected;
+    String create_time;
+    String new_flg;
     ArrayList<String> arrPhone;
     ArrayList<String> arrEMail;
+    String talk_id;
+    String unread_count;
 
     public String getFriendId() {
         return friend_id;
@@ -53,6 +58,18 @@ public class clsFriendInfo {
         this.name = name;
     }
 
+    public String getNickName() {
+        return nick_name;
+    }
+
+    public void setNickName(String nick_name) {
+        if( nick_name.equals("null") ){
+            this.nick_name = "";
+        }else{
+            this.nick_name = nick_name;
+        }
+    }
+
     public String getOnFlg() {
         return on_flg;
     }
@@ -74,7 +91,12 @@ public class clsFriendInfo {
     }
 
     public void setProfileComment(String profile_comment) {
-        this.profile_comment = profile_comment;
+
+        if( profile_comment.equals("null") ){
+            this.profile_comment = "…";
+        }else{
+            this.profile_comment = profile_comment;
+        }
     }
 
     public String getTelephoneNumber() {
@@ -155,5 +177,52 @@ public class clsFriendInfo {
     }
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getCreateTime() {
+        if( create_time == null ){
+            return "999999999999";
+        }else if( create_time.equals("") || create_time.equals("null") ){
+            return "999999999999";
+        }
+        return create_time;
+    }
+
+    public void setCreateTime(String create_time) {
+        this.create_time = create_time;
+    }
+
+    public String getNewFlg() {
+        return new_flg;
+    }
+
+    public void setNewFlg(String new_flg) {
+        this.new_flg = new_flg;
+    }
+
+    public String getTalkId() {
+        if( talk_id == null ){
+            talk_id = "";
+        }else if( talk_id.equals("null") ){
+            talk_id = "";
+        }
+        return talk_id;
+    }
+
+    public void setTalkId(String talk_id) {
+        this.talk_id = talk_id;
+    }
+
+    public String getUnreadCount() {
+        if( unread_count == null ){
+            unread_count = "0";
+        }else if( unread_count.equals("null") ){
+            unread_count = "0";
+        }
+        return unread_count;
+    }
+
+    public void setUnreadCount(String unread_count) {
+        this.unread_count = unread_count;
     }
 }

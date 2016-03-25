@@ -3,11 +3,16 @@ package jp.co.webshark.on2;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.ContactsContract;
+
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -349,6 +354,12 @@ public class commonFucntion extends Application{
         onGlobal onGlobal = (onGlobal) app;
         onGlobal.setShareData("profile_comment", comment);
         return;
+    }
+
+    public static AccessToken checkFbLogin(Context context) {
+        FacebookSdk.sdkInitialize(context);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken;
     }
 
 }

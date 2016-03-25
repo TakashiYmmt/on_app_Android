@@ -16,7 +16,7 @@
         android:layout_width="@dimen/home_cell_height"
         android:layout_height="@dimen/home_cell_height"
         android:id="@+id/group_icon"
-        android:src="@drawable/add_group_icon"/>
+        android:src="@drawable/add_group_group_icon"/>
 
     <jp.co.webshark.on2.customViews.EffectImageView
         android:id="@+id/all_hi"

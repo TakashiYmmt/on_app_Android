@@ -6,6 +6,8 @@
     <string name="app_name">on</string>
     <string name="close">閉じる</string>
     <string name="back">戻る</string>
+    <string name="send">送る</string>
+    <string name="head_back">《 戻る</string>
     <string name="cancel">キャンセル</string>
     <string name="save">保存</string>
     <string name="complete">完了</string>
@@ -57,7 +59,9 @@
     <string name="homeAct_friend_list">友達一覧</string>
     <string name="homeAct_group_add">グループを作る</string>
     <string name="homeAct_qr_add">QRコードで友達を追加する</string>
+    <string name="homeAct_id_add">IDで友達を探す</string>
     <string name="homeAct_my_qr">自分のQRコードを表示する</string>
+    <string name="homeAct_invite">アプリに招待する</string>
     <string name="homeAct_invite_LINE">LINEで招待する</string>
     <string name="homeAct_invite_SMS">SMSで招待する</string>
     <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
@@ -68,6 +72,11 @@
     <string name="friendListAct_noFriend">ONを共有している友達がいません。</string>
     <string name="friendListAct_offBlock">ブロック解除</string>
     <string name="friendListAct_subject">あなたの友達</string>
+    <string name="friendListAct_delete">削除した友達</string>
+
+    <!-- deleteFriendListActivity => delFriendListAct -->
+    <string name="delFriendListAct_noFriend">削除した友達がいません。</string>
+    <string name="delFriendListAct_subject">削除した友達</string>
 
     <!-- friendProfileActivity => profEditAct -->
     <string name="friendProfAct_naviTitle">プロフィール</string>
@@ -76,6 +85,8 @@
     <string name="friendProfAct_doSilent">非通知にする</string>
     <string name="friendProfAct_deSilent">非通知を解除する</string>
     <string name="common_blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
+    <string name="friendProfAct_doDelete">友達から削除</string>
+    <string name="friendProfAct_deleteConfirm">%sさんを友達から削除します。\nよろしいですか？</string>
 
     <!-- onListActivity => onListAct -->
     <string name="onListAct_noFriend">現在ONの友達はいません。</string>
@@ -103,6 +114,7 @@
     <string name="profEditActDrawQr_naviTitle">自分のQRコード</string>
     <string name="profEditActQrResult_naviTitle">QRコードで追加</string>
     <string name="profEditAct_profUpdate">プロフィールを変更しました</string>
+    <string name="profEditAct_profIdNotUnique">既に使われているIDです</string>
     <string name="profEditAct_DrawQr_guide">友達がこのQRコードを\nONのQRコードリーダーで\nスキャンすると\nあなたの友達に追加できます。</string>
     <string name="profEditAct_QrDefault">友達に追加する</string>
     <string name="profEditAct_QrRegisted">もう友達になっています</string>
@@ -113,7 +125,7 @@
     <!-- groupEditActivity => groupEditAct -->
     <string name="groupEditAct_naviTitle">グループの追加</string>
     <string name="groupEditAct_Delete">グループを削除する</string>
-    <string name="groupEditAct_Friends">人から選ぶ</string>
+    <string name="groupEditAct_Friends">グループメンバー追加</string>
     <string name="groupEditAct_ListSubject">グループメンバー</string>
     <string name="groupEditAct_EditViewHint">グループ名</string>
     <string name="groupEditAct_noMemberWarning">メンバーを選択してください</string>
@@ -128,6 +140,14 @@
     <string name="inviteFriendsAct_selectMail">メールアドレスを選んでください。</string>
     <string name="inviteFriendsAct_selectPhone">SMSを送る電話番号を選んでください。</string>
     <string name="inviteFriendsAct_mailSubject">ヒマならONに招待です</string>
+
+    <!-- searchFriendActivity => earchFriendAct -->
+    <string name="searchFriendAct_naviTitle">友達をIDで追加</string>
+    <string name="searchFriendAct_editHint">友達のIDを入力して検索</string>
+    <string name="searchFriendAct_myId">自分のID</string>
+
+    <!-- talkActivity => talkAct -->
+    <string name="talkAct_naviTitle">%sさんとのトーク</string>
 
     <!-- 国一覧 -->
     <array name="country_name_list">

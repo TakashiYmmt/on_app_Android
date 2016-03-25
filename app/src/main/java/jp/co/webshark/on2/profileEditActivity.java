@@ -9,14 +9,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,10 +35,10 @@ import java.util.HashMap;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
-public class profileEditActivity extends Activity {
+public class profileEditActivity extends commonActivity {
     private RelativeLayout mainLayout;
-    private AsyncPost profileSender;
-    private AsyncPost profileGetter;
+    //private AsyncPost profileSender;
+    //private AsyncPost profileGetter;
     private ImageView profileImageView;
     private Uri mPictureUri;
     private String userName;
@@ -53,8 +57,13 @@ public class profileEditActivity extends Activity {
 
         profileImageView = (ImageView)findViewById(R.id.profile_image);
 
-        // IDは使うようになるまで隠しておく
-        ((RelativeLayout)findViewById(R.id.id_edit_frame)).setVisibility(View.GONE);
+        // FB認証チェック
+        AccessToken accessToken = commonFucntion.checkFbLogin(getApplicationContext());
+        if( accessToken != null ){
+            ((TextView)findViewById(R.id.fb_login)).setText("連携しています");
+        }else{
+            ((TextView)findViewById(R.id.fb_login)).setText("facebookと連携する");
+        }
 
         drawBitmap = false;
     }
@@ -62,41 +71,9 @@ public class profileEditActivity extends Activity {
     public void onResume(){
         super.onResume();
 
-        // コールバックの初期化
-        this.setProfileGetter();
-        this.setProfileSender();
-
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getUserInfo();
 
-    }
-
-    // APIコールバック定義
-    private void setProfileGetter(){
-        // プロフィール取得用API通信のコールバック
-        profileGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                userInfo = clsJson2Objects.setUserInfo(result);
-                drawUserInfo();
-            }
-        });
-    }
-    private void setProfileSender(){
-        // プロフィール取得用API通信のコールバック
-        profileSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列を確認してからローカル情報の作成と画面遷移をする
-                //registCheck(clsJson2Objects.isOK(result));
-                setProfileSender();
-            }
-        });
     }
 
     private void getUserInfo(){
@@ -109,9 +86,23 @@ public class profileEditActivity extends Activity {
         body.put("device_type", "2");
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost profileGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    userInfo = clsJson2Objects.setUserInfo(result);
+                    drawUserInfo();
+                }
+
+            }
+        });
         // API通信のPOST処理
         profileGetter.setParams(strURL, body);
-        profileGetter.execute();
+        profileGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void drawUserInfo(){
@@ -125,8 +116,6 @@ public class profileEditActivity extends Activity {
 
         userName = userInfo.getName();
         userProfileComment = userInfo.getComment();
-
-        setProfileGetter();
     }
 
 
@@ -195,18 +184,6 @@ public class profileEditActivity extends Activity {
 
 
                 if( data == null ){
-                    //File file = new File(mPictureUri.toString());
-                    //istream = new FileInputStream(file);
-
-                    /*
-                    MediaScannerConnection.scanFile(
-                            this,
-                            new String[]{mPictureUri.getPath()},
-                            new String[]{"image/jpeg"},
-                            null
-                    );
-                    */
-
                     istream = getContentResolver().openInputStream(mPictureUri);
                 }else{
                     istream = getContentResolver().openInputStream(data.getData());
@@ -260,13 +237,6 @@ public class profileEditActivity extends Activity {
                 e.printStackTrace();
             }
 
-            /*
-            // 画像を取得
-            Uri result = (data == null) ? mPictureUri : data.getData();
-            //ImageView button = (ImageView) findViewById(R.id.imageButton);
-            profileImageView.setImageURI(result);
-            */
-
             // サイズ調整
             ViewGroup.LayoutParams params = profileImageView.getLayoutParams();
             // 縦幅に合わせる
@@ -289,28 +259,6 @@ public class profileEditActivity extends Activity {
         body.put("profile_comment",userProfileComment);
         body.put("user_id", String.valueOf(user_id));
 
-        //サーバーにアップロード //action: updateUserinfo
-        /*
-        String[] pojo = { MediaStore.MediaColumns.DATA };
-
-        Cursor cursor = getApplicationContext().getContentResolver().query(mPictureUri, pojo, null, null, null);
-
-        if (cursor != null) {
-            int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
-            cursor.moveToFirst();
-            picPath = cursor.getString(columnIndex);
-        }
-
-        if (picPath != null &&
-                (
-                        picPath.endsWith(".png") ||
-                                picPath.endsWith(".PNG") ||
-                                picPath.endsWith(".jpg") ||
-                                picPath.endsWith(".JPG")
-                )
-                )
-        {
-        */
         if( drawBitmap ){
                 Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
                 ByteArrayOutputStream bao = new ByteArrayOutputStream();
@@ -332,9 +280,17 @@ public class profileEditActivity extends Activity {
                 }
                 byte[] ba = bao.toByteArray();
 
+                // プロフィール取得用API通信のコールバック
+                AsyncPost profileSender = new AsyncPost(new AsyncCallback() {
+                    public void onPreExecute() {}
+                    public void onProgressUpdate(int progress) {}
+                    public void onCancelled() {}
+                    public void onPostExecute(String result) {
+                    }
+                });
                 // API通信のPOST処理
                 profileSender.setParams(strURL,body,"image.jpg",ba);
-                profileSender.execute();
+                profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 drawBitmap = false;
             } else {
                 Toast.makeText(this, "JPG, PNG only", Toast.LENGTH_LONG).show();

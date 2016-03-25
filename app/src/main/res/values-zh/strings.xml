@@ -5,7 +5,9 @@
     <integer name="country_index">39</integer>
     <string name="app_name">on</string>
     <string name="close">关闭</string>
+    <string name="send">Send</string>
     <string name="back">返回</string>
+    <string name="head_back">《 返回</string>
     <string name="cancel">取消</string>
     <string name="save">保存</string>
     <string name="complete">完成</string>
@@ -56,13 +58,14 @@
     <string name="homeAct_subject_add">新建</string>
     <string name="homeAct_friend_list">好友列表</string>
     <string name="homeAct_group_add">新建小组</string>
-    <string name="homeAct_invite">发送SMS邀请</string>
+    <string name="homeAct_invite">发送</string>
     <string name="homeAct_invite_LINE">发送LINE邀请</string>
     <string name="homeAct_invite_SMS">发送SMS邀请</string>
 
     <string name="homeAct_groupHi_confirm">Send Hi to all group members.</string>
     <string name="homeAct_allOn_confirm">Send ON to all group members.</string>
     <string name="homeAct_qr_add">add by QR-code</string>
+    <string name="homeAct_id_add">search by ID</string>
     <string name="homeAct_my_qr">my QR-code</string>
     <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
     <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
@@ -72,16 +75,27 @@
     <string name="friendListAct_noFriend">所有的好友都没有开启ON状态</string>
     <string name="friendListAct_offBlock">解除屏蔽</string>
     <string name="friendListAct_subject">好友</string>
+    <string name="friendListAct_delete">deleated friends</string>
 
-    <!-- friendProfileActivity => profEditAct -->
+    <!-- deleteFriendListActivity => delFriendListAct -->
+    <string name="delFriendListAct_noFriend">You currently have no deleted friends who are ON with you.</string>
+    <string name="delFriendListAct_subject">deleated friends</string>
+
+    <!-- friendProfileActivity => friendProfAct -->
     <string name="friendProfAct_naviTitle">Profile</string>
     <string name="friendProfAct_doBlock">屏蔽</string>
     <string name="friendProfAct_deBlock">解除屏蔽</string>
     <string name="friendProfAct_doSilent">关闭推送</string>
     <string name="friendProfAct_deSilent">允许推送</string>
+    <string name="friendProfAct_doDelete">Delete</string>
+    <string name="friendProfAct_deleteConfirm">%sさんを友達から削除します。\nよろしいですか？</string>
 
     <!-- onListActivity => onListAct -->
     <string name="onListAct_noFriend">所有的好友都没有开启ON状态</string>
+    <string name="onListAct_Subject1">あなたにONしている人</string>
+    <string name="onListAct_Subject2">過去のON一覧</string>
+    <string name="onListAct_noFriend1">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend2">過去にONをした友達はいません。</string>
 
     <!-- hiListActivity => hiListAct -->
     <string name="hiListAct_noFriend">现在没有人对你发送Hi</string>
@@ -102,6 +116,7 @@
     <string name="profEditActDrawQr_naviTitle">My QR Code</string>
     <string name="profEditActQrResult_naviTitle">read QR-code</string>
     <string name="profEditAct_profUpdate">Profile updated</string>
+    <string name="profEditAct_profIdNotUnique">既に使われているIDです</string>
     <string name="profEditAct_DrawQr_guide">if your friend use this QR-code.\nregist your friend.</string>
     <string name="profEditAct_QrDefault">Read QR Code</string>
     <string name="profEditAct_QrRegisted">already your friend</string>
@@ -127,6 +142,14 @@
     <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
     <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
     <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
+
+    <!-- searchFriendActivity => earchFriendAct -->
+    <string name="searchFriendAct_naviTitle">search friend via ID</string>
+    <string name="searchFriendAct_editHint">input friend id</string>
+    <string name="searchFriendAct_myId">my ID</string>
+
+    <!-- talkActivity => talkAct -->
+    <string name="talkAct_naviTitle">%sさんとのトーク</string>
 
     <!-- 国一覧 -->
     <array name="country_name_list">

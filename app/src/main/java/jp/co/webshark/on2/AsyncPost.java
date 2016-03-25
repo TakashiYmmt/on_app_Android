@@ -34,14 +34,17 @@ public class AsyncPost extends  AsyncTask<Void, Void, String> {
     private String uploadFileName;
     private String uploadFilePath;
     private byte[] imageData;
+    private boolean isRunning;
 
     public AsyncPost(AsyncCallback asyncCallback) {
         this._asyncCallback = asyncCallback;
+        isRunning = false;
     }
 
     protected void onPreExecute() {
         super.onPreExecute();
         this._asyncCallback.onPreExecute();
+        isRunning = true;
     }
 
     public void setParams(String url, HashMap<String ,String> paramsMap){
@@ -71,7 +74,6 @@ public class AsyncPost extends  AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-
         String returnString = "";
 
         Log.d("AsyncPost ：", " doInBackground（） ");
@@ -99,7 +101,6 @@ public class AsyncPost extends  AsyncTask<Void, Void, String> {
             }else{
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
             }
-
             HttpResponse response = httpclient.execute(httppost);
             returnString = EntityUtils.toString(response.getEntity());
             Log.d("upload result NEW", returnString);
@@ -116,6 +117,11 @@ public class AsyncPost extends  AsyncTask<Void, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         this._asyncCallback.onPostExecute(result);
+        isRunning = false;
+    }
+
+    public boolean isRunnning(){
+        return isRunning;
     }
 }
 

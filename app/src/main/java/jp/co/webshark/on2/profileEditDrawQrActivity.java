@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -24,9 +25,9 @@ import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.HttpImageView;
 
-public class profileEditDrawQrActivity extends Activity {
+public class profileEditDrawQrActivity extends commonActivity {
 
-    private AsyncPost profileGetter;
+    //private AsyncPost profileGetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +40,7 @@ public class profileEditDrawQrActivity extends Activity {
     public void onResume() {
         super.onResume();
 
-        // コールバックの初期化
-        this.setProfileGetter();
-
         this.getRandKey();
-    }
-
-    // APIコールバック定義
-    private void setProfileGetter(){
-        // プロフィール取得用API通信のコールバック
-        profileGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                drawQrCode(clsJson2Objects.getElement(result,"rand_code"));
-            }
-        });
     }
 
     private void getRandKey(){
@@ -68,9 +52,22 @@ public class profileEditDrawQrActivity extends Activity {
         body.put("entity", "getRandCodeForQR");
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost profileGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    drawQrCode(clsJson2Objects.getElement(result,"rand_code"));
+                }
+
+            }
+        });
         // API通信のPOST処理
         profileGetter.setParams(strURL, body);
-        profileGetter.execute();
+        profileGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void drawQrCode( String keyString ){

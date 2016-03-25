@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="@dimen/on_list_cell_height"
+android:clickable="true"
+android:onClick="openTalk"
 android:background="@color/bg_white">
 
     <TextView
@@ -30,25 +32,38 @@ android:background="@color/bg_white">
             android:layout_alignLeft="@+id/cellOnProfileImage"
             android:layout_marginTop="@dimen/activity_vertical_margin_half"
             android:layout_below="@+id/cellOnProfileImage"/>
-
-    <TextView
-        android:id="@+id/cellOnName"
+    <LinearLayout
+        android:id="@+id/cellOnNameFrame"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/on_list_cell_name_height"
-        android:text="友達"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/cellOnProfileImage"
-        android:layout_toLeftOf="@+id/cellIconSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+        android:layout_toLeftOf="@+id/cellIconBadge"
+        android:layout_marginTop="@dimen/activity_vertical_margin_half">
 
-    <ImageView
-        android:id="@+id/cellIconSilent"
+        <TextView
+            android:id="@+id/cellOnName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/on_list_cell_name_height"
+            android:text="友達"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:drawableRight="@drawable/list_icon_silent"
+            android:drawablePadding="@dimen/activity_horizontal_margin_half"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cellIconBadge"
         android:layout_width="@dimen/on_list_cell_silent_height"
         android:layout_height="@dimen/on_list_cell_silent_height"
-        android:src="@drawable/list_icon_silent"
+        android:text="1"
+        android:textSize="9dp"
+        android:textColor="@color/color_active_white"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center_horizontal"
+        android:background="@drawable/talk_badge"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_toLeftOf="@+id/switch_icon"/>
 
@@ -65,7 +80,7 @@ android:background="@color/bg_white">
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
         android:layout_toRightOf="@+id/cellOnProfileImage"
         android:layout_toLeftOf="@+id/switch_icon"
-        android:layout_below="@+id/cellOnName"/>
+        android:layout_below="@+id/cellOnNameFrame"/>
 
     <jp.co.webshark.on2.customViews.EffectImageView
         android:id="@+id/switch_icon"
@@ -87,7 +102,7 @@ android:background="@color/bg_white">
         android:layout_marginTop="@dimen/activity_vertical_margin_half"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellOnName"
+        android:layout_below="@+id/cellOnNameFrame"
         android:layout_toRightOf="@+id/cellOnProfileImage"
         android:layout_alignParentRight="true"
         android:textColor="@drawable/button_design_front"

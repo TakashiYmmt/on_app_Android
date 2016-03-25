@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_zero_margin"
     android:paddingRight="@dimen/activity_zero_margin"
@@ -28,10 +29,11 @@
                 android:onClick="friendProfileClose"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/navigation_height"
-                android:text="@string/back"
+                android:text="@string/head_back"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:gravity="center"
+                android:textColor="@color/color_active_green"
                 android:textSize="@dimen/navigation_text_size"/>
 
             <TextView
@@ -56,49 +58,257 @@
     </LinearLayout>
     <!-- === ヘッダ部 ============================================================================== -->
 
-    <jp.co.webshark.on2.customViews.HttpImageView
-        android:id="@+id/profile_image"
-        android:layout_width="@dimen/friend_prof_image_height"
-        android:layout_height="@dimen/friend_prof_image_height"
-        android:src="@drawable/list_icon_user"
-        android:layout_below="@+id/heade_line"
-        android:layout_marginTop="@dimen/friend_prof_top_margin"
-        android:layout_centerHorizontal="true">
-    </jp.co.webshark.on2.customViews.HttpImageView>
+    <ScrollView
+        android:id="@+id/scroll_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/heade_line" >
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profEditAct_listName"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/profile_image"
-        android:layout_centerHorizontal="true"/>
+        <LinearLayout
+            android:id="@+id/mainList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/silentButton"
-        android:onClick="actSilent"
-        android:layout_width="@dimen/friend_prof_image_height"
-        android:layout_height="@dimen/activity_button_height"
-        android:text="@string/friendProfAct_deSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/nameTextView"
-        android:layout_toRightOf="@+id/cellFriendProfileImage"
-        android:layout_centerHorizontal="true"
-        android:textColor="@drawable/button_design_front"
-        android:background="@drawable/button_design_back" />
+            <jp.co.webshark.on2.customViews.HttpImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/friend_prof_image_height"
+                android:layout_height="@dimen/friend_prof_image_height"
+                android:src="@drawable/list_icon_user"
+                android:layout_below="@+id/heade_line"
+                android:layout_marginTop="@dimen/friend_prof_top_margin"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center">
+            </jp.co.webshark.on2.customViews.HttpImageView>
 
-    <Button
-        android:id="@+id/blockButton"
-        android:onClick="actBlock"
-        android:layout_width="@dimen/friend_prof_image_height"
-        android:layout_height="@dimen/activity_button_height"
-        android:text="@string/friendProfAct_deBlock"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/silentButton"
-        android:layout_toRightOf="@+id/cellFriendProfileImage"
-        android:layout_centerHorizontal="true"
-        android:textColor="@drawable/button_design_front"
-        android:background="@drawable/button_design_back" />
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                android:layout_below="@+id/profile_image"
+                android:layout_gravity="center"
+                >
+
+                <jp.co.webshark.on2.customViews.EffectImageView2
+                    android:id="@+id/hiButton"
+                    android:onClick="sendHi"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile_send_hi"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:id="@+id/hiButtonText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/color_active_white">
+                </TextView>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/spalator01"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_below="@+id/hiButton"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/name_cell"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:layout_below="@+id/spalator01">
+                <TextView
+                    android:id="@+id/cellFriendName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/friend_list_cell_name_height"
+                    android:text="友達"
+                    android:textSize="@dimen/hi_list_cell_name_textsize"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <ImageView
+                    android:id="@+id/cellSwitchButton"
+                    android:onClick="sendON"
+                    android:layout_width="@dimen/friend_list_cell_on_height"
+                    android:layout_height="@dimen/friend_list_cell_on_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_button_off"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/spalator02"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/name_cell"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/nickname_cell"
+                android:onClick="editNickName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:layout_below="@+id/spalator02">
+                <TextView
+                    android:id="@+id/nicknameLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/friend_list_cell_name_height"
+                    android:text="表示名"
+                    android:textSize="@dimen/hi_list_cell_name_textsize"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <TextView
+                    android:id="@+id/nickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/hi_list_cell_name_textsize"
+                    android:maxLines="3"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                    android:layout_toRightOf="@+id/nicknameLabel"
+                    android:layout_toLeftOf="@+id/nickNameArrow"/>
+                <ImageView
+                    android:id="@+id/nickNameArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_icon_arrow"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/spalator03"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/nickname_cell"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/talk_cell"
+                android:onClick="openTalk"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:layout_below="@+id/spalator02">
+                <TextView
+                    android:id="@+id/talkLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/friend_list_cell_name_height"
+                    android:text="トーク"
+                    android:textSize="@dimen/hi_list_cell_name_textsize"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+                <ImageView
+                    android:id="@+id/talkArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_icon_arrow"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/spalator04"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/background_material_dark"
+                android:layout_below="@+id/talk_cell"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/button_cell"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/group_cell_height"
+                android:layout_below="@+id/spalator04">
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    >
+                    <Button
+                        android:id="@+id/silentButton"
+                        android:onClick="actSilent"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/activity_button_height"
+                        android:text="@string/friendProfAct_deSilent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+                        android:textColor="@drawable/button_design_front"
+                        android:background="@drawable/button_design_back" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    >
+                    <Button
+                        android:id="@+id/blockButton"
+                        android:onClick="actBlock"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/activity_button_height"
+                        android:text="@string/friendProfAct_doDelete"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:textColor="@drawable/button_design_front"
+                        android:background="@drawable/button_design_back" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:onClick="actDelete"
+                android:layout_below="@+id/button_cell"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_button_height"
+                android:text="@string/friendProfAct_doDelete"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textColor="@drawable/button_design_front"
+                android:background="@drawable/button_design_back" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

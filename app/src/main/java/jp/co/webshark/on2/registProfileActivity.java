@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
@@ -35,12 +36,12 @@ import java.util.HashMap;
 import jp.co.webshark.on2.customViews.HttpImageView;
 
 
-public class registProfileActivity extends Activity {
+public class registProfileActivity extends commonActivity {
     private InputMethodManager inputMethodManager;
     private RelativeLayout mainLayout;
     private EditText nameInputEditText;
     private Uri mPictureUri;
-    private AsyncPost profileSender;
+    //private AsyncPost profileSender;
     private Context mContext;
     private String  picPath,ba1;
     private ImageView profileImageView;
@@ -73,20 +74,6 @@ public class registProfileActivity extends Activity {
 
         drawBitmap = false;
     }
-    // APIコールバック定義
-    private void setProfileSender(){
-        // プロフィール取得用API通信のコールバック
-        profileSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列を確認してからローカル情報の作成と画面遷移をする
-                registCheck(clsJson2Objects.isOK(result));
-            }
-        });
-    }
-
     private void registCheck(boolean result){
 
         // resultから成否を確認してから
@@ -104,9 +91,6 @@ public class registProfileActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
-
-        // コールバックの初期化
-        this.setProfileSender();
 
         //キーボードを隠す
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -350,7 +334,7 @@ public class registProfileActivity extends Activity {
 
                 // API通信のPOST処理
                 profileSender.setParams(strURL,body,"image.jpg",ba);
-                profileSender.execute();
+                profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             */
 
                 Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
@@ -373,9 +357,22 @@ public class registProfileActivity extends Activity {
                 }
                 byte[] ba = bao.toByteArray();
 
+                // プロフィール取得用API通信のコールバック
+                AsyncPost profileSender = new AsyncPost(new AsyncCallback() {
+                    public void onPreExecute() {}
+                    public void onProgressUpdate(int progress) {}
+                    public void onCancelled() {}
+                    public void onPostExecute(String result) {
+                        if(!isDestroy){
+                            // JSON文字列を確認してからローカル情報の作成と画面遷移をする
+                            registCheck(clsJson2Objects.isOK(result));
+                        }
+
+                    }
+                });
                 // API通信のPOST処理
                 profileSender.setParams(strURL,body,"image.jpg",ba);
-                profileSender.execute();
+                profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 drawBitmap = false;
             } else {
                 Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();

@@ -1,0 +1,151 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id = "@+id/mainLayout"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.talkActivity">
+
+    <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+    <!-- === ヘッダ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/header_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/linkTextView"
+                android:clickable="true"
+                android:onClick="talkClose"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/navigation_height"
+                android:text="@string/head_back"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:textColor="@color/color_active_green"
+                android:textSize="@dimen/navigation_text_size"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/navigationTitle"
+                android:text="a"
+                android:layout_toRightOf="@+id/linkTextView"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/navigation_text_size" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/heade_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <!-- === ヘッダ部 ============================================================================== -->
+
+    <ScrollView
+        android:id="@+id/scroll_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/heade_line"
+        android:layout_above="@+id/footer_line">
+        <jp.co.webshark.on2.customViews.FlexListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:minHeight="@dimen/hi_list_cell_height"
+            android:listSelector="@color/color_clear">
+        </jp.co.webshark.on2.customViews.FlexListView>
+
+
+    </ScrollView>
+    <!-- === フッタ部 ============================================================================== -->
+    <LinearLayout
+        android:id="@+id/footer_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/background_material_dark"
+        android:layout_above="@+id/footer"
+        android:orientation="vertical" >
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+        <RelativeLayout
+            android:id="@+id/footer4_in"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <EditText
+                android:id="@+id/idInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_input_text_height"
+                android:ems="10"
+                android:maxLength="500"
+                android:textSize="@dimen/activity_input_text_size"
+                android:autoText="false"
+                android:background="@drawable/simple_frame"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_toLeftOf="@+id/sendMessageFrame"
+                />
+            <LinearLayout
+                android:id="@+id/sendMessageFrame"
+                android:onClick="sendMessage"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/send_message"
+                    android:onClick="sendMessage"
+                    android:clickable="true"
+                    android:layout_width="85dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/common_button001"
+                    android:textColor="@color/color_active_green"
+                    android:gravity="center"
+                    android:text="送信"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <!-- === フッタ部 ============================================================================== -->
+
+</jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout>
+</RelativeLayout>

@@ -35,10 +35,11 @@
                 android:onClick="groupEditClose"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/navigation_height"
-                android:text="@string/back"
+                android:text="@string/head_back"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:gravity="center"
+                android:textColor="@color/color_active_green"
                 android:textSize="@dimen/navigation_text_size"/>
 
             <TextView
@@ -100,7 +101,7 @@
                     android:layout_height="@dimen/group_image"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:src="@drawable/add_group_icon"
+                    android:src="@drawable/add_group_group_icon"
                     android:background="@color/background_material_dark"
                     android:layout_centerVertical="true"
                     android:focusable="true"

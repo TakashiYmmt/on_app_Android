@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:swipe="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_zero_margin"
     android:paddingRight="@dimen/activity_zero_margin"
@@ -89,40 +90,40 @@
                     android:id="@+id/profile_image"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:src="@drawable/list_icon_user"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/list_icon_user">
                </jp.co.webshark.on2.customViews.HttpImageView>
-
-                <TextView
-                    android:id="@+id/onCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_active_green"
-                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/profile_image"
-                    android:text=""
-                    android:focusable="true"
-                    android:focusableInTouchMode="true">
-
-                    <requestFocus/>
-                </TextView>
 
                 <EditText
                     android:id="@+id/profileCommentEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/onCount"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_toRightOf="@+id/profile_image"
+                    android:layout_centerVertical="true"
                     android:textSize="@dimen/activity_input_text_size"
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:text="" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/button_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:id="@+id/friends_switch_icon"
+                    android:onClick="allOnOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/home_button_on_andr"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
 
             <FrameLayout
@@ -178,16 +179,24 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin_half"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
-                    android:id="@+id/friends_switch_icon"
-                    android:onClick="allOnOff"
-                    android:layout_width="@dimen/home_cell_on_height"
-                    android:layout_height="@dimen/home_cell_on_height"
+                <TextView
+                    android:id="@+id/onCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_active_green"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/list_button_off"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:text="@string/homeAct_onCountZero"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true">
+
+                    <requestFocus/>
+                </TextView>
+
             </RelativeLayout>
 
             <FrameLayout
@@ -270,23 +279,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height">
 
+                <ImageView
+                    android:id="@+id/add_group_icon"
+                    android:layout_width="@dimen/home_cell_height"
+                    android:layout_height="@dimen/home_cell_height"
+                    android:scaleType="center"
+                    android:src="@drawable/add_group_icon"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAct_group_add"
                     android:textSize="@dimen/home_topic_textsize"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/add_group_icon"
                     android:id="@+id/addGroupText"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/home_icon_plus"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <FrameLayout
@@ -301,23 +311,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height">
 
+                <ImageView
+                    android:id="@+id/add_qr_icon"
+                    android:layout_width="@dimen/home_cell_height"
+                    android:layout_height="@dimen/home_cell_height"
+                    android:scaleType="center"
+                    android:src="@drawable/add_qr_icon"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+
                 <TextView
                     android:id="@+id/addQrText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAct_qr_add"
                     android:textSize="@dimen/home_topic_textsize"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/add_qr_icon"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/home_icon_plus"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <FrameLayout
@@ -332,23 +343,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height">
 
+                <ImageView
+                    android:id="@+id/my_qr_icon"
+                    android:layout_width="@dimen/home_cell_height"
+                    android:layout_height="@dimen/home_cell_height"
+                    android:scaleType="center"
+                    android:src="@drawable/add_qr_icon"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"/>
+
                 <TextView
                     android:id="@+id/myQrText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/homeAct_my_qr"
                     android:textSize="@dimen/home_topic_textsize"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/my_qr_icon"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/home_icon_plus"
-                    android:layout_centerVertical="true"/>
             </RelativeLayout>
 
             <FrameLayout
@@ -358,28 +370,29 @@
             </FrameLayout>
 
             <RelativeLayout
-                android:id="@+id/line_frame"
-                android:onClick="openLineApp"
+                android:id="@+id/add_id_frame"
+                android:onClick="addId"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height">
 
-                <TextView
-                    android:id="@+id/lineText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/homeAct_invite_LINE"
-                    android:textSize="@dimen/home_topic_textsize"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                <ImageView
+                    android:id="@+id/add_id_icon"
+                    android:layout_width="@dimen/home_cell_height"
+                    android:layout_height="@dimen/home_cell_height"
+                    android:scaleType="center"
+                    android:src="@drawable/add_id_icon"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/addIdText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/home_icon_plus"
+                    android:text="@string/homeAct_id_add"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_toRightOf="@+id/add_id_icon"
                     android:layout_centerVertical="true"/>
+
             </RelativeLayout>
 
             <FrameLayout
@@ -389,29 +402,31 @@
             </FrameLayout>
 
             <RelativeLayout
-                android:id="@+id/sms_frame"
-                android:onClick="openInviteFriends"
+                android:id="@+id/add_inv_frame"
+                android:onClick="addInv"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height">
 
-                <TextView
-                    android:id="@+id/smsText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/homeAct_invite_SMS"
-                    android:textSize="@dimen/home_topic_textsize"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                <ImageView
+                    android:id="@+id/add_inv_icon"
+                    android:layout_width="@dimen/home_cell_height"
+                    android:layout_height="@dimen/home_cell_height"
+                    android:scaleType="center"
+                    android:src="@drawable/add_inv_icon"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/addInvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:src="@drawable/home_icon_plus"
+                    android:text="@string/homeAct_invite"
+                    android:textSize="@dimen/home_topic_textsize"
+                    android:layout_toRightOf="@+id/add_inv_icon"
                     android:layout_centerVertical="true"/>
+
             </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -500,6 +515,25 @@
                     android:id="@+id/tabOnImageButtonText"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tabOnImageButton"/>
+
+                <TextView
+                    android:id="@+id/tabOnImageButtonBadge"
+                    android:clickable="true"
+                    android:onClick="openOnList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000"
+                    android:textSize="8dp"
+                    android:textColor="@color/color_active_white"
+                    android:gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@+id/tabOnImageButton"
+                    android:layout_marginLeft="-8dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:background="@drawable/common_badge001"/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -538,6 +572,25 @@
                     android:id="@+id/tabFriendButtonText"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tabFriendButton"/>
+
+                <TextView
+                    android:id="@+id/tabFriendButtonBadge"
+                    android:clickable="true"
+                    android:onClick="openFriendList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1000"
+                    android:textSize="8dp"
+                    android:textColor="@color/color_active_white"
+                    android:gravity="center"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@+id/tabFriendButton"
+                    android:layout_marginLeft="-8dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:background="@drawable/common_badge001"/>
             </RelativeLayout>
         </LinearLayout>
 
@@ -576,6 +629,26 @@
                     android:id="@+id/tabHiButtonText"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tabHiButton"/>
+
+                <TextView
+                    android:id="@+id/tabHiButtonBadge"
+                    android:clickable="true"
+                    android:onClick="openHiList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8888"
+                    android:textSize="8dp"
+                    android:textColor="@color/color_active_white"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/tabHiButton"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="-8dp"
+                    android:paddingTop="1dp"
+                    android:paddingBottom="1dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:background="@drawable/common_badge001"/>
+
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

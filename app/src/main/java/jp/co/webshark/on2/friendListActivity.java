@@ -5,8 +5,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -37,6 +44,8 @@ import java.util.regex.Pattern;
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.ResponceReceiver;
+import jp.co.webshark.on2.customViews.UpdateReceiver;
 import jp.co.webshark.on2.customViews.UrlImageView;
 import jp.co.webshark.on2.customViews.WrapTextView;
 
@@ -49,15 +58,19 @@ public class friendListActivity extends Activity {
     private ListView listView;
     private RelativeLayout nothingView;
     private ScrollView scrollView;
-    private AsyncPost friendGetter;
-    private AsyncPost onSender;
-    private AsyncPost hiSender;
-    private AsyncPost flgSender;
+    //private AsyncPost friendGetter;
+    //private AsyncPost badgeInfoGetter;
+    //private AsyncPost onSender;
+    //private AsyncPost hiSender;
+    //private AsyncPost flgSender;
     private String sendIndex;
     private View eventTriggerView;
     private String refreshOnFlg;
     private InputMethodManager inputMethodManager;
     private boolean openKeyBoard;
+    private UpdateReceiver upReceiver;
+    private IntentFilter intentFilter;
+    private boolean isDestroy = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +116,16 @@ public class friendListActivity extends Activity {
             }
         });
 
+        ((TextView) findViewById(R.id.tabHiButtonBadge)).setVisibility(View.GONE);
+        ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.GONE);
         //scrollView.scrollTo(0,0);
 
+        upReceiver = new UpdateReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("UPDATE_ACTION");
+        registerReceiver(upReceiver, intentFilter);
+
+        upReceiver.registerHandler(updateHandler);
         // 戻るボタン
         //setSpannableString(this.getWindow().getDecorView());
     }
@@ -114,22 +135,42 @@ public class friendListActivity extends Activity {
         super.onResume();
 
         // コールバックの初期化
+        /*
         this.setFriendGetter();
         this.setHiSender();
         this.setOnSender();
         this.setFlgSender();
+        this.setBadgeInfoGetter();
+        */
 
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getFriendList();
+        this.getBadgeInfo();
+    }
+
+    @Override
+    public void onStart(){
+        isDestroy = false;
+        super.onStart();
     }
     @Override
+    public void onPause(){
+        isDestroy = true;
+        super.onPause();
+    }
+
+    @Override
     public void onDestroy(){
+        isDestroy = true;
         super.onDestroy();
 
+        if( upReceiver != null ){
+            unregisterReceiver(upReceiver);
+        }
         this.nothingView = null;
-        this.friendGetter = null;
-        this.onSender = null;
-        this.hiSender = null;
+        //this.friendGetter = null;
+        //this.onSender = null;
+        //this.hiSender = null;
         this.sendIndex = null;
         this.listView = null;
         this.friendList = null;
@@ -137,59 +178,6 @@ public class friendListActivity extends Activity {
         this.mainLayout = null;
 
         System.gc();
-    }
-
-    private void setHiSender(){
-        // プロフィール取得用API通信のコールバック
-        hiSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawHiList(clsJson2Objects.setUserInfo(result));
-                setHiSender();
-            }
-        });
-    }
-    private void setOnSender(){
-        // ON送信用API通信のコールバック
-        onSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
-                ////getFriendList();
-                setOnSender();
-
-                // 変更したフラグに応じてトリガーのボタン画像を差し替え
-                if( refreshOnFlg.equals("0") ){
-                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
-                }else{
-                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
-                }
-                eventTriggerView = null;
-                refreshOnFlg = null;
-            }
-        });
-    }
-    private void setFlgSender(){
-        // ON送信用API通信のコールバック
-        flgSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
-                ////getFriendList();
-                setFlgSender();
-
-                getFriendList();
-            }
-        });
     }
 
     static private class FriendsAdapter extends BaseAdapter {
@@ -229,23 +217,39 @@ public class friendListActivity extends Activity {
             //HttpImageView profImage = (HttpImageView) convertView.findViewById(R.id.cellFriendProfileImage);
             //profImage.setImageUrl(friendList.get(position).getImageURL(), parent.getContext());
             HttpImageView profImage = (HttpImageView) convertView.findViewById(R.id.cellFriendProfileImage);
-            profImage.setImageUrl(friendList.get(position).getImageURL(),parent.getResources().getDimensionPixelSize(R.dimen.friend_list_cell_image),parent.getContext(),true);
+            profImage.setImageUrl(friendList.get(position).getImageURL(), parent.getResources().getDimensionPixelSize(R.dimen.friend_list_cell_image), parent.getContext(), true);
 
-            ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(friendList.get(position).getName());
             ((WrapTextView)convertView.findViewById(R.id.cellFriendComment)).setText(friendList.get(position).getProfileComment());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
             targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
 
+            if( friendList.get(position).getNickName().equals("") ){
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(friendList.get(position).getName());
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(friendList.get(position).getNickName());
+            }
+
+
             if( friendList.get(position).getOnFlg().equals("1") ){
                 ImageView switchButton = (ImageView)convertView.findViewById(R.id.cellSwitchButton);
                 switchButton.setImageResource(R.drawable.list_button_on);
             }
 
-            if( friendList.get(position).getNotificationOffFlg().equals("00") ){
-                ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
-                silentIcon.setVisibility(View.GONE);
+            ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.GONE);
+            if( friendList.get(position).getNotificationOffFlg().equals("01") && friendList.get(position).getNewFlg().equals("1") ){
+                //((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(R.drawable.friend_list_new,0,R.drawable.list_icon_silent,0);
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
+                ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.VISIBLE);
+            }else if( friendList.get(position).getNotificationOffFlg().equals("01") ){
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
+                ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.GONE);
+            }else if( friendList.get(position).getNewFlg().equals("1") ){
+                //((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(R.drawable.friend_list_new,0,0,0);
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+                ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.VISIBLE);
             }
 
             if( friendList.get(position).getBlockFlg().equals("00") ){
@@ -280,17 +284,49 @@ public class friendListActivity extends Activity {
         }
     }
 
-    private void setFriendGetter(){
-        // ONカウント取得用API通信のコールバック
-        friendGetter = new AsyncPost(new AsyncCallback() {
+    private void getBadgeInfo(){
+        int user_id = commonFucntion.getUserID(this.getApplicationContext());
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "getTagBadgeCount");
+        body.put("user_id", String.valueOf(user_id));
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
+
+        // システム情報取得用API通信のコールバック
+        AsyncPost badgeInfoGetter = new AsyncPost(new AsyncCallback() {
             public void onPreExecute() {}
             public void onProgressUpdate(int progress) {}
             public void onCancelled() {}
             public void onPostExecute(String result) {
                 // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                drawFriendList(clsJson2Objects.setFriendList(result));
+                if(!isDestroy){
+                    String onCount = clsJson2Objects.getElement(result,"on_count");
+                    String hiCount = clsJson2Objects.getElement(result,"hi_count");
+                    drawBadgeInfo(onCount, hiCount);
+                }
+                //setBadgeInfoGetter();
             }
         });
+        // API通信のPOST処理
+        badgeInfoGetter.setParams(strURL, body);
+        badgeInfoGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+    }
+
+    private void drawBadgeInfo(String onCount, String hiCount){
+        if( !onCount.equals("0") && !onCount.equals("") ){
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setText(onCount);
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.VISIBLE);
+        }else{
+            ((TextView) findViewById(R.id.tabOnImageButtonBadge)).setVisibility(View.GONE);
+        }
+        if( !hiCount.equals("0") && !hiCount.equals("") ){
+            ((TextView) findViewById(R.id.tabHiButtonBadge)).setText(hiCount);
+            ((TextView) findViewById(R.id.tabHiButtonBadge)).setVisibility(View.VISIBLE);
+        }else{
+            ((TextView) findViewById(R.id.tabHiButtonBadge)).setVisibility(View.GONE);
+        }
     }
 
     private void getFriendList(){
@@ -301,10 +337,24 @@ public class friendListActivity extends Activity {
 
         body.put("entity", "getFriendList");
         body.put("user_id", String.valueOf(user_id));
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // ONカウント取得用API通信のコールバック
+        AsyncPost friendGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    drawFriendList(clsJson2Objects.setFriendList(result));
+                }
+            }
+        });
         // API通信のPOST処理
         friendGetter.setParams(strURL, body);
-        friendGetter.execute();
+        friendGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
     private void drawFriendList(ArrayList<clsFriendInfo> list){
@@ -334,7 +384,7 @@ public class friendListActivity extends Activity {
             scrollView.setVisibility(View.GONE);
         }
 
-        this.setFriendGetter();
+        //this.setFriendGetter();
     }
 
     // 閉じるリンク作成
@@ -403,10 +453,23 @@ public class friendListActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
         body.put("profile_comment", profileComment);
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawHiList(clsJson2Objects.setUserInfo(result));
+                //setHiSender();
+            }
+        });
         // API通信のPOST処理
         hiSender.setParams(strURL,body);
-        hiSender.execute();
+        hiSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
     // Hiボタン
@@ -489,10 +552,34 @@ public class friendListActivity extends Activity {
         body.put("friend_id", friendId);
         body.put("on_flg", onFlg);
         body.put("profile_comment", profileComment);
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // ON送信用API通信のコールバック
+        AsyncPost onSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                //setOnSender();
+                if(!isDestroy){
+                    // 変更したフラグに応じてトリガーのボタン画像を差し替え
+                    if( refreshOnFlg.equals("0") ){
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
+                    }else{
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
+                    }
+                    eventTriggerView = null;
+                    refreshOnFlg = null;
+                }
+            }
+        });
         // API通信のPOST処理
         onSender.setParams(strURL, body);
-        onSender.execute();
+        onSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
     private void sendDeBlock(String sendIndex){
@@ -505,10 +592,28 @@ public class friendListActivity extends Activity {
         body.put("entity", "blockOff");
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
+        //new commonApiConnector(getBaseContext()).requestTask(body, strURL);
 
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                //setFlgSender();
+                if(!isDestroy){
+                    getFriendList();
+                }
+
+            }
+        });
         // API通信のPOST処理
         flgSender.setParams(strURL, body);
-        flgSender.execute();
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
     }
 
     // ONボタン
@@ -613,13 +718,20 @@ public class friendListActivity extends Activity {
 
         clsFriendInfo friendInfo = friendList.get(Integer.parseInt(sendIndex));
 
-        onGlobal onGlobal = (onGlobal) getApplication();
-        onGlobal.setShareData("selectFrined",friendInfo);
-        sendIndex = null;
+        // 友達リストは friend_id が逆向きなので、友達プロフィール用に整える
+        String temp = friendInfo.getFlagsFriendId();
+        friendInfo.setFlagsFriendId(friendInfo.getFriendId());
+        friendInfo.setFriendId(temp);
 
-        // 一方通行で開くだけ
-        Intent intent = new Intent(getApplicationContext(),friendProfileActivity.class);
-        startActivity(intent);
+        if( friendInfo.getBlockFlg().equals("00") ){
+            onGlobal onGlobal = (onGlobal) getApplication();
+            onGlobal.setShareData("selectFrined",friendInfo);
+            sendIndex = null;
+
+            // 一方通行で開くだけ
+            Intent intent = new Intent(getApplicationContext(),friendProfileActivity.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -664,6 +776,59 @@ public class friendListActivity extends Activity {
         this.finish();
     }
 
+    // 削除済み友達リストボタン
+    public void openDeletedFriendList(View view){
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),deletedFriendListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        this.finish();
+    }
+
+    // 戻るリンク
+    public void backToHome(View view) {
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+        startActivityForResult(intent, 0);
+    }
+
+    // セル全体
+    public void openTalk(View view){
+        RelativeLayout cell = (RelativeLayout)view;
+        Bitmap imageBitmap = null;
+
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    //break;
+                }
+            }else if(childview instanceof HttpImageView){
+                HttpImageView friendImage = (HttpImageView)childview;
+                imageBitmap = ((BitmapDrawable)friendImage.getDrawable()).getBitmap();
+            }
+        }
+
+        clsFriendInfo friendInfo = friendList.get(Integer.parseInt(sendIndex));
+
+        if( friendInfo.getBlockFlg().equals("00") ){
+            // 友達リストは friend_id が逆向きなので、トーク用に整える
+            String temp = friendInfo.getFlagsFriendId();
+            friendInfo.setFlagsFriendId(friendInfo.getFriendId());
+            friendInfo.setFriendId(temp);
+
+            onGlobal onGlobal = (onGlobal) getApplication();
+            onGlobal.setShareData("selectFrined",friendInfo);
+            onGlobal.setShareData("friendImage",imageBitmap);
+            sendIndex = null;
+
+            Intent intent = new Intent(getApplicationContext(),talkActivity.class);
+            startActivity(intent);
+        }
+    }
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction()==KeyEvent.ACTION_DOWN) {
@@ -677,4 +842,15 @@ public class friendListActivity extends Activity {
         return super.dispatchKeyEvent(event);
     }
 
+    // サービスから値を受け取ったら動かしたい内容を書く
+    private Handler updateHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // 画面が生きている時はイベントを実行する
+            if(!isDestroy){
+                getBadgeInfo();
+            }
+
+        }
+    };
 }

@@ -5,8 +5,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.internal.widget.AdapterViewCompat;
+////import android.support.v7.internal.widget.AdapterViewCompat;
 import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -35,13 +36,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class telephoneActivity extends Activity {
+public class telephoneActivity extends commonActivity {
     private InputMethodManager inputMethodManager;
     private RelativeLayout mainLayout;
     private EditText phoneInputEditText;
     private TextView countryCodeView;
     private CheckBox acceptCheck;
-    private AsyncPost telSender;
+    //private AsyncPost telSender;
     private Spinner countrySelector;
     private String countryCode;
     private String[] countryCodeList;
@@ -63,8 +64,6 @@ public class telephoneActivity extends Activity {
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         setSpannableString(this.getWindow().getDecorView());
-
-        setTelSender();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,10 +122,11 @@ public class telephoneActivity extends Activity {
         menu.add(0, 1, 0, "山本テストで");
         menu.add(0, 2, 0, "FB連携確認用で");
         menu.add(0, 3, 0, "090-3997-8227で");
+        menu.add(0, 4, 0, "アンドロイド福田で");
     }
     public boolean onContextItemSelected(MenuItem item) {
 
-        AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Intent intent;
         commonFucntion cf = new commonFucntion();
 
@@ -151,26 +151,14 @@ public class telephoneActivity extends Activity {
                 intent = new Intent(getApplicationContext(),homeActivity.class);
                 startActivity(intent);
                 return true;
+            case 4:
+                cf.setUserID(getApplicationContext(), "335");
+                intent = new Intent(getApplicationContext(),homeActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
-    }
-
-    private void setTelSender(){
-        // 電話番号認証API通信のコールバック
-        telSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して内部変数にプールする値を取り出しておく
-                presetUserInfo(clsJson2Objects.setUserInfo(result));
-
-                // resultから成否を確認してから
-                Intent intent = new Intent(getApplicationContext(),verifyActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void presetUserInfo(clsUserInfo userInfo){
@@ -211,9 +199,26 @@ public class telephoneActivity extends Activity {
                 body.put("telephone_number", inputText);
                 body.put("country_number", countryCode);
 
+                // 電話番号認証API通信のコールバック
+                AsyncPost telSender = new AsyncPost(new AsyncCallback() {
+                    public void onPreExecute() {}
+                    public void onProgressUpdate(int progress) {}
+                    public void onCancelled() {}
+                    public void onPostExecute(String result) {
+                        // JSON文字列をユーザ情報クラスに変換して内部変数にプールする値を取り出しておく
+                        if(!isDestroy){
+                            presetUserInfo(clsJson2Objects.setUserInfo(result));
+
+                            // resultから成否を確認してから
+                            Intent intent = new Intent(getApplicationContext(),verifyActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }
+                });
                 // API通信のPOST処理
                 telSender.setParams(strURL,body);
-                telSender.execute();
+                telSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
         }else{
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
