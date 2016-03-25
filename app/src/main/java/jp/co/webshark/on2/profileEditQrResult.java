@@ -2,6 +2,7 @@ package jp.co.webshark.on2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +13,12 @@ import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.HttpImageView;
 
-public class profileEditQrResult extends Activity {
+public class profileEditQrResult extends commonActivity {
     private HttpImageView friendImageView;
     private TextView friendNameTextView;
     private Button addButton;
-    private AsyncPost qrProfileGetter;
-    private AsyncPost qrFriendSetter;
+    //private AsyncPost qrProfileGetter;
+    //private AsyncPost qrFriendSetter;
     private String qrResult;
     private String friendName;
     private String friendImageUrl;
@@ -43,53 +44,8 @@ public class profileEditQrResult extends Activity {
     public void onResume(){
         super.onResume();
 
-        // コールバックの初期化
-        this.setQrProfileGetter();
-        this.setQrFriendSetter();
-
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getQrUserInfo();
-    }
-
-    // APIコールバック定義
-    private void setQrProfileGetter(){
-        // プロフィール取得用API通信のコールバック
-        qrProfileGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列から必要な文字列を取り出しておく
-                friendName = clsJson2Objects.getElement(result,"name");
-                friendImageUrl = clsJson2Objects.getElement(result,"image_url");
-                timeLag = clsJson2Objects.getElement(result,"time_lag");
-                friendId = clsJson2Objects.getElement(result,"friend_id");
-                friendUserId = clsJson2Objects.getElement(result,"friend_user_id");
-
-                drawQrResult();
-                setQrProfileGetter();
-            }
-        });
-    }
-    private void setQrFriendSetter(){
-        // プロフィール取得用API通信のコールバック
-        qrFriendSetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // 成功していたらhome画面に戻る
-                if( clsJson2Objects.isOK(result) ){
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.profEditAct_QrAddComplete), Toast.LENGTH_LONG).show();
-                    // 一方通行で開くだけ
-                    Intent intent = new Intent(getApplicationContext(),homeActivity.class);
-                    startActivity(intent);
-                }else{
-                    setQrFriendSetter();
-                }
-
-            }
-        });
     }
 
     private void drawQrResult(){
@@ -134,9 +90,28 @@ public class profileEditQrResult extends Activity {
         body.put("qr_friend_key", qrResult);
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost qrProfileGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列から必要な文字列を取り出しておく
+                if(!isDestroy){
+                    friendName = clsJson2Objects.getElement(result,"name");
+                    friendImageUrl = clsJson2Objects.getElement(result,"image_url");
+                    timeLag = clsJson2Objects.getElement(result,"time_lag");
+                    friendId = clsJson2Objects.getElement(result,"friend_id");
+                    friendUserId = clsJson2Objects.getElement(result,"friend_user_id");
+
+                    drawQrResult();
+                }
+
+            }
+        });
         // API通信のPOST処理
         qrProfileGetter.setParams(strURL, body);
-        qrProfileGetter.execute();
+        qrProfileGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void addFriend(){
@@ -149,9 +124,26 @@ public class profileEditQrResult extends Activity {
         body.put("friend_user_id", friendUserId);
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost qrFriendSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // 成功していたらhome画面に戻る
+                    if( clsJson2Objects.isOK(result) ){
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.profEditAct_QrAddComplete), Toast.LENGTH_LONG).show();
+                        // 一方通行で開くだけ
+                        Intent intent = new Intent(getApplicationContext(),homeActivity.class);
+                        startActivity(intent);
+                    }
+                }
+            }
+        });
         // API通信のPOST処理
         qrFriendSetter.setParams(strURL, body);
-        qrFriendSetter.execute();
+        qrFriendSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     // 戻るリンク

@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Html;
@@ -40,16 +41,16 @@ import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
-public class groupEditActivity extends Activity {
+public class groupEditActivity extends commonActivity {
     String groupId;
     String groupName;
     ImageView groupImageView;
-    private AsyncPost groupMemberGetter;
-    private AsyncPost groupSetter;
-    private AsyncPost onSender;
-    private AsyncPost hiSender;
-    private AsyncPost flgSender;
-    private AsyncPost groupMemberSetter;
+    //private AsyncPost groupMemberGetter;
+    //private AsyncPost groupSetter;
+    //private AsyncPost onSender;
+    //private AsyncPost hiSender;
+    //private AsyncPost flgSender;
+    //private AsyncPost groupMemberSetter;
     ArrayList<clsFriendInfo> groupMember;
     ArrayList<clsFriendInfo> friendAll;
     private ListView listView;
@@ -98,7 +99,6 @@ public class groupEditActivity extends Activity {
             cell.setVisibility(View.GONE);
         }
 
-        setGroupMemberGetter();
         getGroupMember();
 
         DetectableKeyboardEventLayout root = (DetectableKeyboardEventLayout)findViewById(R.id.body);
@@ -122,126 +122,11 @@ public class groupEditActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
-        this.setGroupMemberGetter();
-        this.setGroupMemberSetter();
-        this.setGroupSetter();
-        this.setOnSender();
-        this.setHiSender();
-        this.setFlgSender();
 
         //キーボードを隠す
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         //背景にフォーカスを移す
         mainLayout.requestFocus();
-    }
-
-    // APIコールバック定義
-    private void setGroupMemberGetter(){
-        // プロフィール取得用API通信のコールバック
-        groupMemberGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                drawGroupMemberInfo(clsJson2Objects.setFriendList(result));
-            }
-        });
-    }
-
-    private void setGroupSetter(){
-        // プロフィール取得用API通信のコールバック
-        groupSetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // グループメンバー登録(更新)と画像セーブを行う
-                if( clsJson2Objects.isOK(result) ){
-                    if( groupId.isEmpty() ){
-                        groupId = clsJson2Objects.getElement(result, "tag_id");
-                    }else{
-                        removeGroupMember();
-                    }
-                    for( int i = 0 ; i < groupMember.size() ; i++ ){
-                        addGroupMember(groupMember.get(i).getFriendId());
-                    }
-
-                    Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
-                    commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
-                }
-                setGroupSetter();
-
-                Intent intent = new Intent();
-                setResult(RESULT_CANCELED, intent);
-                intent.putExtra("isUpdate", false);
-                finish();
-            }
-        });
-    }
-
-    private void setGroupMemberSetter(){
-        // プロフィール取得用API通信のコールバック
-        groupMemberSetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                setGroupMemberSetter();
-            }
-        });
-    }
-
-    private void setOnSender(){
-        // ON送信用API通信のコールバック
-        onSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
-                ////getFriendList();
-                setOnSender();
-
-                // 変更したフラグに応じてトリガーのボタン画像を差し替え
-                if( refreshOnFlg.equals("0") ){
-                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
-                }else{
-                    ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
-                }
-                eventTriggerView = null;
-                refreshOnFlg = null;
-            }
-        });
-    }
-    private void setHiSender(){
-        // プロフィール取得用API通信のコールバック
-        hiSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawHiList(clsJson2Objects.setUserInfo(result));
-                setHiSender();
-            }
-        });
-    }
-    private void setFlgSender(){
-        // ON送信用API通信のコールバック
-        flgSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
-                ////getFriendList();
-                setFlgSender();
-                getGroupMember();
-            }
-        });
     }
 
     private void getGroupMember(){
@@ -254,9 +139,21 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupMemberGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    drawGroupMemberInfo(clsJson2Objects.setFriendList(result));
+                }
+            }
+        });
         // API通信のPOST処理
         groupMemberGetter.setParams(strURL, body);
-        groupMemberGetter.execute();
+        groupMemberGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void createGroup(String groupName){
@@ -269,9 +166,38 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("name", groupName);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void updateGroup(String groupName){
@@ -285,9 +211,38 @@ public class groupEditActivity extends Activity {
         body.put("tag_id", groupId);
         body.put("name", groupName);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 
@@ -300,9 +255,16 @@ public class groupEditActivity extends Activity {
         body.put("entity", "deleteAllFriendTag");
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupMemberSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {}
+        });
         // API通信のPOST処理
         groupMemberSetter.setParams(strURL, body);
-        groupMemberSetter.execute();
+        groupMemberSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void addGroupMember(String friend_id){
@@ -323,7 +285,7 @@ public class groupEditActivity extends Activity {
             public void onPostExecute(String result) {}
         });
         setter.setParams(strURL, body);
-        setter.execute();
+        setter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void removeGroup(){
@@ -336,9 +298,38 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void drawGroupMemberInfo(ArrayList<clsFriendInfo> list){
@@ -368,8 +359,6 @@ public class groupEditActivity extends Activity {
 
         adapter.notifyDataSetChanged();
         scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-
-        this.setGroupMemberGetter();
     }
 
     // リスト部の配列連結アダプタ
@@ -403,8 +392,14 @@ public class groupEditActivity extends Activity {
             convertView = layoutInflater.inflate(R.layout.group_view_cell02,parent,false);
 
             ((HttpImageView)convertView.findViewById(R.id.cellFriendProfileImage)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
-            ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
+            //((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
+
+            if( groupMember.get(position).getNickName().equals("") ){
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getNickName());
+            }
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
             targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
@@ -617,9 +612,29 @@ public class groupEditActivity extends Activity {
         body.put("on_flg", onFlg);
         body.put("profile_comment", profileComment);
 
+        // ON送信用API通信のコールバック
+        AsyncPost onSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    // 変更したフラグに応じてトリガーのボタン画像を差し替え
+                    if( refreshOnFlg.equals("0") ){
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
+                    }else{
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
+                    }
+                    eventTriggerView = null;
+                    refreshOnFlg = null;
+                }
+
+            }
+        });
         // API通信のPOST処理
         onSender.setParams(strURL, body);
-        onSender.execute();
+        onSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     // ブロック解除ボタン
@@ -651,9 +666,21 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("friend_id", friendId);
 
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    getGroupMember();
+                }
+            }
+        });
         // API通信のPOST処理
         flgSender.setParams(strURL, body);
-        flgSender.execute();
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     // Hiボタン
@@ -725,9 +752,17 @@ public class groupEditActivity extends Activity {
         body.put("friend_id", friendId);
         body.put("profile_comment", profileComment);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+            }
+        });
         // API通信のPOST処理
         hiSender.setParams(strURL, body);
-        hiSender.execute();
+        hiSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     public void openProfile(View view){
 

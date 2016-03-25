@@ -20,14 +20,14 @@ import android.view.WindowManager.LayoutParams;
 
 import java.util.List;
 
-public class profileEditReadQrActivity extends Activity {
+public class profileEditReadQrActivity extends commonActivity {
 
     private SurfaceView mSurfaceView;
     private Camera mCamera;
     Toast my_toast;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit_read_qr);
 
@@ -51,7 +51,7 @@ public class profileEditReadQrActivity extends Activity {
 
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         SurfaceHolder holder = mSurfaceView.getHolder();
         holder.addCallback(callback);
