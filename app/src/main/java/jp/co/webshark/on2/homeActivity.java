@@ -67,6 +67,7 @@ import java.util.List;
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
+import jp.co.webshark.on2.customViews.SwipeListView;
 import jp.co.webshark.on2.customViews.UpdateReceiver;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
@@ -81,7 +82,8 @@ public class homeActivity extends commonActivity {
     private RelativeLayout mainLayout;
     private LinearLayout footerLayout;
     private int footerHeight;
-    private ListView listView;
+    //private ListView listView;
+    private SwipeListView listView;
     private ScrollView scrollView;
     private EditText editText;
     //private AsyncPost profileSender;
@@ -123,7 +125,8 @@ public class homeActivity extends commonActivity {
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 画面上のオブジェクト
-        listView = (ListView) findViewById(R.id.listView1);
+        //listView = (ListView) findViewById(R.id.listView1);
+        listView = (SwipeListView) findViewById(R.id.listView1);
         scrollView = (ScrollView) findViewById(R.id.scroll_body);
         editText = (EditText) findViewById(R.id.profileCommentEdit);
         allSwitchButton = (ImageView)findViewById(R.id.friends_switch_icon);
@@ -1300,7 +1303,8 @@ public class homeActivity extends commonActivity {
     // リストを広げる・しまう
     public void groupOpenClose(View view){
         // 一方通行で開くだけ
-        ListView gl = (ListView)findViewById(R.id.listView1);
+        //ListView gl = (ListView)findViewById(R.id.listView1);
+        SwipeListView gl = (SwipeListView)findViewById(R.id.listView1);
         ImageView iv = (ImageView)findViewById(R.id.groupArrow);
         if( gl.getVisibility() == View.VISIBLE ){
             gl.setVisibility(View.GONE);

@@ -1,113 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/friend_list_cell_height"
-    android:clickable="true"
-    android:onClick="openTalk"
-    android:background="@color/bg_white">
+    android:layout_height="match_parent">
 
-    <!-- インデックス保存用 -->
-    <TextView
-        android:layout_width="1px"
-        android:layout_height="1px"
-        android:text=""
-        android:id="@+id/cellHiddenIndex"/>
-    <RelativeLayout
-        android:id="@+id/imageBlock"
-        android:layout_width="@dimen/friend_list_cell_image"
-        android:layout_height="@dimen/friend_list_cell_image"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin_half">
-        <jp.co.webshark.on2.customViews.HttpImageView
-            android:id="@+id/cellFriendProfileImage"
-            android:onClick="openProfile"
-            android:layout_width="@dimen/friend_list_cell_image"
-            android:layout_height="@dimen/friend_list_cell_image"
-            android:src="@drawable/list_icon_user"/>
-        <ImageView
-            android:id="@+id/newBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/friend_list_new"/>
-    </RelativeLayout>
-
-    <jp.co.webshark.on2.customViews.EffectImageView
-        android:id="@+id/cellFriendHiButton"
-        android:onClick="sendHi"
-        android:layout_width="@dimen/friend_list_cell_hi_image"
-        android:layout_height="@dimen/friend_list_cell_hi_image"
-        android:layout_toRightOf="@+id/imageBlock"
-        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_marginRight="@dimen/activity_vertical_margin_half"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:src="@drawable/list_button_hi_small"/>
-
-    <TextView
-        android:id="@+id/cellLastOnTime"
-        android:layout_width="@dimen/hi_list_cell_image"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="@dimen/friend_list_cell_time_textsize"
-        android:gravity="center"
-        android:textColor="@color/color_text_gray"
-        android:layout_alignLeft="@+id/imageBlock"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/imageBlock"/>
-
-    <TextView
-        android:id="@+id/cellFriendName"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/friend_list_cell_name_height"
-        android:text=""
-        android:textSize="@dimen/friend_list_cell_name_textsize"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_toRightOf="@+id/cellFriendHiButton"
-        android:layout_toLeftOf="@+id/cellSwitchButton"
-        android:drawableLeft="@drawable/friend_list_new"
-        android:drawableRight="@drawable/list_icon_silent"
-        android:drawablePadding="@dimen/activity_vertical_margin_half"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
-
-
-    <jp.co.webshark.on2.customViews.WrapTextView
-        android:id="@+id/cellFriendComment"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/friend_list_cell_comment_height"
-        android:text="コメント"
-        android:textSize="@dimen/friend_list_cell_comment_textsize"
-        android:textColor="@color/color_comment_blue"
-        android:ellipsize="end"
-        android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_toRightOf="@+id/imageBlock"
-        android:layout_toLeftOf="@+id/cellSwitchButton"
-        android:layout_below="@+id/cellFriendHiButton"/>
-    <ImageView
-        android:id="@+id/cellSwitchButton"
-        android:onClick="sendON"
-        android:layout_width="@dimen/friend_list_cell_on_height"
-        android:layout_height="@dimen/friend_list_cell_on_height"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:src="@drawable/list_button_off"
-        android:layout_centerVertical="true"/>
-
-    <Button
-        android:id="@+id/cellDeBlockButton"
-        android:onClick="deBlock"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/friend_list_cell_block_height"
-        android:text="@string/friendListAct_offBlock"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellFriendName"
-        android:layout_toRightOf="@+id/imageBlock"
-        android:layout_alignParentRight="true"
-        android:textColor="@drawable/button_design_front"
-        android:background="@drawable/button_design_back" />
-</RelativeLayout>
+        android:layout_height="@dimen/friend_list_cell_height"
+        android:id="@+id/back"
+        android:tag="back"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="closeSwipe">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="@dimen/friend_list_cell_height"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/cellFriendNameBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/friend_list_cell_height"
+                    android:text="友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/list_icon_silent"
+                    android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="@dimen/friend_list_cell_height"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- インデックス保存用 -->
+                <TextView
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:text=""
+                    android:id="@+id/cellHiddenIndexBack"/>
+                <Button
+                    android:id="@+id/swipeSwitchSilent"
+                    android:onClick="swipeSwitchSilent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/listAct_doSilent"/>
+
+                <Button
+                    android:id="@+id/swipeSwitchBlock"
+                    android:onClick="swipeSwitchBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/listAct_doBlock"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/front"
+        android:tag="front"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/friend_list_cell_height"
+        android:background="@color/bg_white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="openTalk">
+
+            <!-- インデックス保存用 -->
+            <TextView
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:text=""
+                android:id="@+id/cellHiddenIndex"/>
+            <RelativeLayout
+                android:id="@+id/imageBlock"
+                android:onClick="openProfile"
+                android:clickable="true"
+                android:layout_width="@dimen/friend_list_cell_image"
+                android:layout_height="@dimen/friend_list_cell_image"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin_half">
+                <jp.co.webshark.on2.customViews.HttpImageView
+                    android:id="@+id/cellFriendProfileImage"
+                    android:layout_width="@dimen/friend_list_cell_image"
+                    android:layout_height="@dimen/friend_list_cell_image"
+                    android:src="@drawable/list_icon_user"/>
+                <ImageView
+                    android:id="@+id/newBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/friend_list_new"/>
+            </RelativeLayout>
+
+            <jp.co.webshark.on2.customViews.EffectImageView
+                android:id="@+id/cellFriendHiButton"
+                android:onClick="sendHi"
+                android:layout_width="@dimen/friend_list_cell_hi_image"
+                android:layout_height="@dimen/friend_list_cell_hi_image"
+                android:layout_toRightOf="@+id/imageBlock"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+                android:layout_marginRight="@dimen/activity_vertical_margin_half"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                android:src="@drawable/list_button_hi_small"/>
+
+            <TextView
+                android:id="@+id/cellLastOnTime"
+                android:layout_width="@dimen/hi_list_cell_image"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/friend_list_cell_time_textsize"
+                android:gravity="center"
+                android:textColor="@color/color_text_gray"
+                android:layout_alignLeft="@+id/imageBlock"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                android:layout_below="@+id/imageBlock"/>
+
+            <TextView
+                android:id="@+id/cellFriendName"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/friend_list_cell_name_height"
+                android:text=""
+                android:textSize="@dimen/friend_list_cell_name_textsize"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/cellFriendHiButton"
+                android:layout_toLeftOf="@+id/cellSwitchButton"
+                android:drawableLeft="@drawable/friend_list_new"
+                android:drawableRight="@drawable/list_icon_silent"
+                android:drawablePadding="@dimen/activity_vertical_margin_half"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+
+
+            <jp.co.webshark.on2.customViews.WrapTextView
+                android:id="@+id/cellFriendComment"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/friend_list_cell_comment_height"
+                android:text="コメント"
+                android:textSize="@dimen/friend_list_cell_comment_textsize"
+                android:textColor="@color/color_comment_blue"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+                android:layout_toRightOf="@+id/imageBlock"
+                android:layout_toLeftOf="@+id/cellSwitchButton"
+                android:layout_below="@+id/cellFriendHiButton"/>
+            <ImageView
+                android:id="@+id/cellSwitchButton"
+                android:onClick="sendON"
+                android:layout_width="@dimen/friend_list_cell_on_height"
+                android:layout_height="@dimen/friend_list_cell_on_height"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:src="@drawable/list_button_off"
+                android:layout_centerVertical="true"/>
+
+            <Button
+                android:id="@+id/cellDeBlockButton"
+                android:onClick="deBlock"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/friend_list_cell_block_height"
+                android:text="@string/friendListAct_offBlock"
+                android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+                android:layout_below="@+id/cellFriendName"
+                android:layout_toRightOf="@+id/imageBlock"
+                android:layout_alignParentRight="true"
+                android:textColor="@drawable/button_design_front"
+                android:background="@drawable/button_design_back" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>
+
+

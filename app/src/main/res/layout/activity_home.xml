@@ -238,12 +238,16 @@
                 android:background="@color/background_material_dark" >
             </FrameLayout>
 
-            <ListView
+            <jp.co.webshark.on2.customViews.SwipeListView
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/home_cell_height"
-                android:minHeight="@dimen/home_cell_height">
-            </ListView>
+                android:minHeight="@dimen/home_cell_height"
+                swipe:swipeFrontView="@+id/front"
+                swipe:swipeBackView="@+id/back"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeMode="none">
+            </jp.co.webshark.on2.customViews.SwipeListView>
 
             <FrameLayout
                 android:layout_width="match_parent"

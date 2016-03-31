@@ -2,11 +2,60 @@
 <items version="2" >
 
     <item
-        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/jars/classes.jar"
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wearable-8.4.0_732dada5dd8e3e2752d307d6f86b57fadf1ff69d.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-8.4.0_ece68e6d749919e206e811c02f7806b6c270f8e0.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-gcm-8.4.0_17a3223158c7fc5e23f4728321cb06db4563466b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.3.0/bc535105332645408ef5f1380215cc954b842178/bolts-applinks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="bc535105332645408ef5f1380215cc954b842178">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.3.0_5aa43d2e86e4ee38501a0089dcd1a0bdef2b3ca9.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-nearby-8.4.0_2d9681957883fdf0a7492f6959f5865cd7e5ea07.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-9df834f82efd2ceda55f1711c1373ba39522a0e8.jar" />
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-ac699476e9bd83fca3f93779d1797135ec793d2c.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-3478aa1b1939cc3c4f02257e36e91e948efc5c5b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/multidex/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.android.support-multidex-1.0.1_6ab676925839849314a72eaefb3e40c03bae36b0.jar" />
     </item>
     <item
         jar="/Users/takashi/Desktop/on2/app/libs/httpcore-4.4.1.jar"
@@ -16,25 +65,53 @@
         <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/httpcore-4.4.1-f6ddb04d92fcb417e1ccf8abbb21625c594cf23b.jar" />
     </item>
     <item
-        jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
-        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-3478aa1b1939cc3c4f02257e36e91e948efc5c5b.jar" />
+        revision="23.0.0"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-plus-8.4.0_08be4f6b518352199247ec063652226f70bc4104.jar" />
     </item>
     <item
-        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/libs/internal_impl-22.0.0.jar"
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
         jumboMode="false"
-        revision="22.0.1"
-        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
-        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-9401b43c11127771a7717040a37d80eb5fd49f8e.jar" />
+        revision="23.0.0"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.android.support-mediarouter-v7-23.0.0_810da06f07372630a9e9630505d625dd8778897a.jar" />
     </item>
     <item
-        jar="/Users/takashi/Desktop/on2/app/libs/httpmime-4.3.5.jar"
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
         jumboMode="false"
-        revision="22.0.1"
+        revision="23.0.0"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wallet-8.4.0_6c0917ba75f4267646fa8344b5a21f414c3c2ca1.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appinvite-8.4.0_0a2bce12c774ec8647f6da68a1b13dad06401f95.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_8da66ca19328c9c067914dd8e991c5769e60383b.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/libs/httpmime-4.3.5.jar"
+        jumboMode="false"
+        revision="23.0.0"
         sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
-        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/httpmime-4.3.5-306f0cbac7b61d7bcb9a2379e99a3c1cd9f3ff87.jar" />
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/httpmime-4.3.5_ace3b8c1d69f0555d6106c9b9aacce2f37bb516c.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-fitness-8.4.0_35b54d5989ec3609df4eb805eff4c9fec94037a5.jar" />
     </item>
     <item
         jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
@@ -44,11 +121,207 @@
         <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-3478aa1b1939cc3c4f02257e36e91e948efc5c5b.jar" />
     </item>
     <item
-        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/classes.jar"
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_a9dd772fbd95b0afbf03b70d8fa7a992d3a8939a.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_f21f424b5c793130a5778f197f553a96c104a528.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/libs/nineoldandroids-2.4.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="59f19e43354d32de831379c23ce03bb259a4c2b7">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/nineoldandroids-2.4.0_ae19bee597d25025f8b1e9be3d2b562529bf2753.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/jars/libs/internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
-        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-ac699476e9bd83fca3f93779d1797135ec793d2c.jar" />
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-9401b43c11127771a7717040a37d80eb5fd49f8e.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.1_cdb26b2e25631950bbd046ac489eda80947d2005.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-identity-8.4.0_04a39ebfdeb59f75d0788c8e91286aa6431ea117.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-games-8.4.0_90fc3d88833ef1e7a0c39d6cf4fe3c8989c361dc.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/jars/libs/internal_impl-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.1_da6ccb48133fd79d255d778363f9cfd74ecf2509.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-cast-8.4.0_d486d700ee6930818e6cb6d27b4df1087ce68ee0.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-8.4.0_44611d404d4db6285fcea2393f9310fa6e70dfcf.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-vision-8.4.0_0af1d21f471c2b498e048afd7c61146daadf7869.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.0_af139cf1cd7faabd6541d4fb30bba7e508f55705.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-panorama-8.4.0_ecdd4faf87517cc40abf58953356d4c7d891af20.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-ads-8.4.0_6c6d875f808c2e15d3f9f0a3871bcd35af97326f.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="cb86970df0f0f25f766d320b279c7858c1ca0003">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.2.1_3998bcda1eea7ae9dfda2404fbd12e919954e253.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_0e4e052b24108c57cf6cf91897ee65c61f9aa72f.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_1187930a13b77ce2dc6a0d97987c65374dd46a93.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/libs/httpcore-4.4.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="f5aa318bda4c6c8d688c9d00b90681dcd82ce636">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/httpcore-4.4.1_5b22bdac7a607b07caa8d96f324ca2b872578bcc.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.3.0/8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c/bolts-tasks-1.3.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8a62fd16fcc1c06f284fc98e6cbded2a5af1dd4c">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.3.0_694465c04fcc5d083fe969cabf09118fde34bc9e.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/libs/javase-2.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="049c7efbaa67727bef5f2dd79efba1ca35f3e7f0">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/javase-2.2_57ded0c38379dbcae523cc83e1266e67353795cc.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="5c9b831cf63629b8b3873959e52515340484a880">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.9.0_dbbe8a5db565d7df0c7934ac83784544b7cecf73.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_f04feb932d09c5111025fb12970bef54b93a4104.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-drive-8.4.0_15fd18bbaafcccb63c67e3e6c95135eefecebcf4.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/libs/core-2.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="cba0b93b0072105d808ef7a00a107a4eb97874e7">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/core-2.2_d08ff6114a72f3c3d0e3f16b434b637d69456150.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.1/support-annotations-23.2.1.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.1_307e42d96a46e2543c57cabda45cad08c8131f2a.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/libs/httpmime-4.3.5.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1dd0d38df9c6d21e893f2e52403f1cd99e91cd81">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/httpmime-4.3.5-306f0cbac7b61d7bcb9a2379e99a3c1cd9f3ff87.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-safetynet-8.4.0_0b2e4beb5eefe5df0ff38be18f008a7a4b9ba15f.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/takashi/on_app_Android_fbtest/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-measurement-8.4.0_2ed62e6160b2fd9f845ecfd41a5c751467c3d54a.jar" />
+    </item>
+    <item
+        jar="/Users/takashi/Desktop/on2/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/takashi/Desktop/on2/app/build/intermediates/pre-dexed/debug/classes-9df834f82efd2ceda55f1711c1373ba39522a0e8.jar" />
     </item>
 
 </items>

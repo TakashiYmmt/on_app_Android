@@ -1,97 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/hi_list_cell_height"
-    android:clickable="true"
-    android:onClick="openTalk"
-    android:background="@color/bg_white">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="1px"
-        android:layout_height="1px"
-        android:text=""
-        android:id="@+id/cellHiddenIndex"/>
-
-    <jp.co.webshark.on2.customViews.HttpImageView
-        android:id="@+id/cellHiProfileImage"
-        android:onClick="openProfile"
-        android:layout_width="@dimen/hi_list_cell_image"
-        android:layout_height="@dimen/hi_list_cell_image"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
-        android:src="@drawable/list_icon_user"/>
-
-    <TextView
-        android:id="@+id/cellHiTime"
-        android:layout_width="@dimen/hi_list_cell_image"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="@dimen/hi_list_cell_time_textsize"
-        android:gravity="center"
-        android:textColor="@color/color_text_gray"
-        android:layout_alignLeft="@+id/cellHiProfileImage"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellHiProfileImage"/>
-
-    <TextView
-        android:id="@+id/cellHiName"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/hi_list_cell_name_height"
-        android:text="友達"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_toRightOf="@+id/cellHiProfileImage"
-        android:layout_toLeftOf="@+id/cellIconSilent"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
-
-    <ImageView
-        android:id="@+id/cellIconSilent"
-        android:layout_width="@dimen/hi_list_cell_silent_height"
-        android:layout_height="@dimen/hi_list_cell_silent_height"
-        android:src="@drawable/list_icon_silent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_toLeftOf="@+id/switch_icon"/>
-
-    <jp.co.webshark.on2.customViews.WrapTextView
-        android:id="@+id/cellHiComment"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/hi_list_cell_comment_height"
-        android:text="コメント"
-        android:textSize="@dimen/on_list_cell_comment_textsize"
-        android:textColor="@color/color_comment_blue"
-        android:ellipsize="end"
-        android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_toRightOf="@+id/cellHiProfileImage"
-        android:layout_toLeftOf="@+id/switch_icon"
-        android:layout_below="@+id/cellHiName"/>
-
-    <jp.co.webshark.on2.customViews.EffectImageView
-        android:id="@+id/switch_icon"
-        android:onClick="sendHi"
-        android:layout_width="@dimen/on_list_button_height"
-        android:layout_height="@dimen/on_list_button_height"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:src="@drawable/list_button_hi"
-        android:layout_centerVertical="true"/>
-
-    <Button
-        android:id="@+id/cellDeBlockButton"
-        android:onClick="deBlock"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hi_list_cell_block_height"
-        android:text="@string/friendListAct_offBlock"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin_half"
-        android:layout_below="@+id/cellHiName"
-        android:layout_toRightOf="@+id/cellHiProfileImage"
-        android:layout_alignParentRight="true"
-        android:textColor="@drawable/button_design_front"
-        android:background="@drawable/button_design_back" />
-</RelativeLayout>
+        android:layout_height="@dimen/friend_list_cell_height"
+        android:id="@+id/back"
+        android:tag="back"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="closeSwipe">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="@dimen/friend_list_cell_height"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/cellHiNameBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/friend_list_cell_height"
+                    android:text="友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達友達"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/list_icon_silent"
+                    android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="@dimen/friend_list_cell_height"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- インデックス保存用 -->
+                <TextView
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:text=""
+                    android:id="@+id/cellHiddenIndexBack"/>
+                <Button
+                    android:id="@+id/swipeSwitchSilent"
+                    android:onClick="swipeSwitchSilent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/listAct_doSilent"/>
+
+                <Button
+                    android:id="@+id/swipeSwitchBlock"
+                    android:onClick="swipeSwitchBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/listAct_doBlock"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/front"
+        android:tag="front"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/friend_list_cell_height"
+        android:background="@color/bg_white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="openTalk">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hi_list_cell_height"
+                android:clickable="true"
+                android:onClick="openTalk"
+                android:background="@color/bg_white">
+
+                <TextView
+                    android:layout_width="1px"
+                    android:layout_height="1px"
+                    android:text=""
+                    android:id="@+id/cellHiddenIndex"/>
+
+                <jp.co.webshark.on2.customViews.HttpImageView
+                    android:id="@+id/cellHiProfileImage"
+                    android:onClick="openProfile"
+                    android:layout_width="@dimen/hi_list_cell_image"
+                    android:layout_height="@dimen/hi_list_cell_image"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                    android:src="@drawable/list_icon_user"/>
+
+                <TextView
+                    android:id="@+id/cellHiTime"
+                    android:layout_width="@dimen/hi_list_cell_image"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/hi_list_cell_time_textsize"
+                    android:gravity="center"
+                    android:textColor="@color/color_text_gray"
+                    android:layout_alignLeft="@+id/cellHiProfileImage"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                    android:layout_below="@+id/cellHiProfileImage"/>
+
+                <TextView
+                    android:id="@+id/cellHiName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/hi_list_cell_name_height"
+                    android:text="友達"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/cellHiProfileImage"
+                    android:layout_toLeftOf="@+id/cellIconSilent"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"/>
+
+                <ImageView
+                    android:id="@+id/cellIconSilent"
+                    android:layout_width="@dimen/hi_list_cell_silent_height"
+                    android:layout_height="@dimen/hi_list_cell_silent_height"
+                    android:src="@drawable/list_icon_silent"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_toLeftOf="@+id/switch_icon"/>
+
+                <jp.co.webshark.on2.customViews.WrapTextView
+                    android:id="@+id/cellHiComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/hi_list_cell_comment_height"
+                    android:text="コメント"
+                    android:textSize="@dimen/on_list_cell_comment_textsize"
+                    android:textColor="@color/color_comment_blue"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_quarter"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+                    android:layout_toRightOf="@+id/cellHiProfileImage"
+                    android:layout_toLeftOf="@+id/switch_icon"
+                    android:layout_below="@+id/cellHiName"/>
+
+                <jp.co.webshark.on2.customViews.EffectImageView
+                    android:id="@+id/switch_icon"
+                    android:onClick="sendHi"
+                    android:layout_width="@dimen/on_list_button_height"
+                    android:layout_height="@dimen/on_list_button_height"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:src="@drawable/list_button_hi"
+                    android:layout_centerVertical="true"/>
+
+                <Button
+                    android:id="@+id/cellDeBlockButton"
+                    android:onClick="deBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/hi_list_cell_block_height"
+                    android:text="@string/friendListAct_offBlock"
+                    android:layout_marginTop="@dimen/activity_vertical_margin_half"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin_half"
+                    android:layout_below="@+id/cellHiName"
+                    android:layout_toRightOf="@+id/cellHiProfileImage"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@drawable/button_design_front"
+                    android:background="@drawable/button_design_back" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

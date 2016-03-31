@@ -133,13 +133,17 @@
                 android:ellipsize="end"
                 android:gravity="center"/>
 
-            <ListView
+            <jp.co.webshark.on2.customViews.SwipeListView
                 android:id="@+id/listView1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/on_list_cell_height"
                 android:minHeight="@dimen/on_list_cell_height"
-                android:listSelector="@color/color_clear">
-            </ListView>
+                android:listSelector="@color/color_clear"
+                swipe:swipeFrontView="@+id/front"
+                swipe:swipeBackView="@+id/back"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeMode="left">
+            </jp.co.webshark.on2.customViews.SwipeListView>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -177,13 +181,17 @@
                 android:ellipsize="end"
                 android:gravity="center"/>
 
-            <ListView
+            <jp.co.webshark.on2.customViews.SwipeListView
                 android:id="@+id/listView2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/on_list_cell_height"
                 android:minHeight="@dimen/on_list_cell_height"
-                android:listSelector="@color/color_clear">
-            </ListView>
+                android:listSelector="@color/color_clear"
+                swipe:swipeFrontView="@+id/front"
+                swipe:swipeBackView="@+id/back"
+                swipe:swipeCloseAllItemsWhenMoveList="true"
+                swipe:swipeMode="left">
+            </jp.co.webshark.on2.customViews.SwipeListView>
         </LinearLayout>
     </ScrollView>
 

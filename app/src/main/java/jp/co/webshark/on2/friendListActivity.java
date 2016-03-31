@@ -28,6 +28,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,6 +46,7 @@ import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
 import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
 import jp.co.webshark.on2.customViews.ResponceReceiver;
+import jp.co.webshark.on2.customViews.SwipeListView;
 import jp.co.webshark.on2.customViews.UpdateReceiver;
 import jp.co.webshark.on2.customViews.UrlImageView;
 import jp.co.webshark.on2.customViews.WrapTextView;
@@ -55,7 +57,7 @@ public class friendListActivity extends Activity {
     private RelativeLayout mainLayout;
     private LinearLayout footerLayout;
     private ArrayList<clsFriendInfo> friendList;
-    private ListView listView;
+    private SwipeListView listView;
     private RelativeLayout nothingView;
     private ScrollView scrollView;
     //private AsyncPost friendGetter;
@@ -85,7 +87,7 @@ public class friendListActivity extends Activity {
         inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 
         // 画面上のオブジェクト
-        listView = (ListView) findViewById(R.id.listView1);
+        listView = (SwipeListView) findViewById(R.id.listView1);
         scrollView = (ScrollView) findViewById(R.id.scroll_body);
         nothingView = (RelativeLayout) findViewById(R.id.nothingLayout);
 
@@ -146,6 +148,9 @@ public class friendListActivity extends Activity {
         // 画面初期化時にAPIから取得・描画する分はここで
         this.getFriendList();
         this.getBadgeInfo();
+
+        // スワイプ状態をリセットする
+        listView.closeOpenedItems();
     }
 
     @Override
@@ -163,6 +168,9 @@ public class friendListActivity extends Activity {
     public void onDestroy(){
         isDestroy = true;
         super.onDestroy();
+
+        // スワイプ状態をリセットする
+        listView.closeOpenedItems();
 
         if( upReceiver != null ){
             unregisterReceiver(upReceiver);
@@ -185,6 +193,7 @@ public class friendListActivity extends Activity {
         Context context;
         LayoutInflater layoutInflater = null;
         ArrayList<clsFriendInfo> friendList;
+        SwipeListView listView;
 
         public FriendsAdapter(Context context){
             this.context = context;
@@ -193,6 +202,9 @@ public class friendListActivity extends Activity {
 
         public void setFriendList(ArrayList<clsFriendInfo> friendList) {
             this.friendList = friendList;
+        }
+        public void setListView(SwipeListView listView) {
+            this.listView = listView;
         }
 
         @Override
@@ -221,14 +233,17 @@ public class friendListActivity extends Activity {
 
             ((WrapTextView)convertView.findViewById(R.id.cellFriendComment)).setText(friendList.get(position).getProfileComment());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
+            ((TextView)convertView.findViewById(R.id.cellHiddenIndexBack)).setText(Integer.toString(position));
 
             EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
             targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
 
             if( friendList.get(position).getNickName().equals("") ){
                 ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(friendList.get(position).getName());
+                ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setText(friendList.get(position).getName());
             }else{
                 ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(friendList.get(position).getNickName());
+                ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setText(friendList.get(position).getNickName());
             }
 
 
@@ -238,17 +253,24 @@ public class friendListActivity extends Activity {
             }
 
             ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
             ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.GONE);
+            ((Button)convertView.findViewById(R.id.swipeSwitchSilent)).setText(parent.getResources().getString(R.string.listAct_doSilent));
             if( friendList.get(position).getNotificationOffFlg().equals("01") && friendList.get(position).getNewFlg().equals("1") ){
                 //((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(R.drawable.friend_list_new,0,R.drawable.list_icon_silent,0);
                 ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
+                ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
                 ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.VISIBLE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchSilent)).setText(parent.getResources().getString(R.string.listAct_deSilent));
             }else if( friendList.get(position).getNotificationOffFlg().equals("01") ){
                 ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
+                ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.list_icon_silent,0);
                 ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.GONE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchSilent)).setText(parent.getResources().getString(R.string.listAct_deSilent));
             }else if( friendList.get(position).getNewFlg().equals("1") ){
                 //((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(R.drawable.friend_list_new,0,0,0);
                 ((TextView)convertView.findViewById(R.id.cellFriendName)).setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
+                ((TextView)convertView.findViewById(R.id.cellFriendNameBack)).setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
                 ((ImageView)convertView.findViewById(R.id.newBadge)).setVisibility(View.VISIBLE);
             }
 
@@ -256,10 +278,12 @@ public class friendListActivity extends Activity {
                 convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.cellFriendComment).setVisibility(View.VISIBLE);
                 convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchBlock)).setText(parent.getResources().getString(R.string.listAct_doBlock));
             }else{
                 convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.INVISIBLE);
                 convertView.findViewById(R.id.cellFriendComment).setVisibility(View.GONE);
                 convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.VISIBLE);
+                ((Button)convertView.findViewById(R.id.swipeSwitchBlock)).setText(parent.getResources().getString(R.string.listAct_deBlock));
             }
 
             try {
@@ -368,6 +392,7 @@ public class friendListActivity extends Activity {
 
             FriendsAdapter adapter = new FriendsAdapter(friendListActivity.this);
             adapter.setFriendList(list);
+            adapter.setListView(listView);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
@@ -827,6 +852,185 @@ public class friendListActivity extends Activity {
             Intent intent = new Intent(getApplicationContext(),talkActivity.class);
             startActivity(intent);
         }
+    }
+
+
+    // セル全体
+    public void closeSwipe(View view){
+        listView.closeOpenedItems();
+    }
+
+    private void sendDoBlock(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = friendList.get(Integer.parseInt(sendIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "blockOn");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                //setFlgSender();
+                if(!isDestroy){
+                    getFriendList();
+                }
+
+            }
+        });
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void sendDeSilent(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = friendList.get(Integer.parseInt(sendIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "notifyOn");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                //setFlgSender();
+                if(!isDestroy){
+                    getFriendList();
+                }
+
+            }
+        });
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    private void sendDoSilent(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = friendList.get(Integer.parseInt(sendIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "notifyOff");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                //drawGroupInfo(clsJson2Objects.setGroupInfo(result));
+                ////getFriendList();
+                //setFlgSender();
+                if(!isDestroy){
+                    getFriendList();
+                }
+
+            }
+        });
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+
+    // ブロック(解除)ボタン(裏)
+    public void swipeSwitchBlock(View view){
+        LinearLayout cell = (LinearLayout) view.getParent();
+
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        if( friendList.get(Integer.parseInt(sendIndex)).getBlockFlg().equals("00") ){
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(String.format(getResources().getString(R.string.blockConfirm), friendList.get(Integer.parseInt(sendIndex)).getName()));
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            sendDoBlock(sendIndex);
+                            listView.closeOpenedItems();
+
+                            sendIndex = null;
+                            dialog.dismiss();
+                            dialog = null;
+                        }
+                    });
+            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            dialog = null;
+                            return;
+                        }
+                    });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } else {
+            sendDeBlock(sendIndex);
+            listView.closeOpenedItems();
+
+            sendIndex = null;
+        }
+    }
+
+    // 非通知(解除)ボタン
+    public void swipeSwitchSilent(View view){
+        LinearLayout cell = (LinearLayout) view.getParent();
+
+        listView.closeOpenedItems();
+
+        for (int i = 0; i < cell.getChildCount(); i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if (i == 0) {
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        if( friendList.get(Integer.parseInt(sendIndex)).getNotificationOffFlg().equals("00") ){
+            sendDoSilent(sendIndex);
+        }else{
+            sendDeSilent(sendIndex);
+        }
+        sendIndex = null;
     }
 
     @Override

@@ -1,13 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:paddingLeft="@dimen/activity_zero_margin"
-android:paddingRight="@dimen/activity_zero_margin"
-android:paddingTop="@dimen/activity_zero_margin"
-android:paddingBottom="@dimen/activity_zero_margin"
-android:id = "@+id/mainLayout"
-android:background="@color/bg_white"
-tools:context="jp.co.webshark.on2.hiListActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/activity_zero_margin"
+    android:paddingRight="@dimen/activity_zero_margin"
+    android:paddingTop="@dimen/activity_zero_margin"
+    android:paddingBottom="@dimen/activity_zero_margin"
+    android:id="@+id/mainLayout"
+    android:background="@color/bg_white"
+    tools:context="jp.co.webshark.on2.hiListActivity">
 
 <jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout
     android:id="@+id/body"
@@ -123,13 +125,17 @@ tools:context="jp.co.webshark.on2.hiListActivity">
             android:background="@color/background_material_dark" >
         </FrameLayout>
 
-        <ListView
+        <jp.co.webshark.on2.customViews.SwipeListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/hi_list_cell_height"
             android:minHeight="@dimen/hi_list_cell_height"
-            android:listSelector="@color/color_clear">
-        </ListView>
+            android:listSelector="@color/color_clear"
+            swipe:swipeFrontView="@+id/front"
+            swipe:swipeBackView="@+id/back"
+            swipe:swipeCloseAllItemsWhenMoveList="true"
+            swipe:swipeMode="left">
+        </jp.co.webshark.on2.customViews.SwipeListView>
 
     </LinearLayout>
 </ScrollView>

@@ -1,73 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/home_cell_height"
-    android:onClick="groupEdit"
-    android:background="@color/bg_white">
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:layout_width="1px"
-        android:layout_height="1px"
-        android:text=""
-        android:id="@+id/cellHiddenIndex"/>
-
-    <ImageView
-        android:layout_width="@dimen/home_cell_height"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="@dimen/home_cell_height"
-        android:id="@+id/group_icon"
-        android:src="@drawable/add_group_group_icon"/>
+        android:id="@+id/back"
+        android:tag="back"
+        android:orientation="horizontal">
 
-    <jp.co.webshark.on2.customViews.EffectImageView
-        android:id="@+id/all_hi"
-        android:onClick="groupHi"
-        android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="@dimen/home_group_all_hi_width"
-        android:layout_toRightOf="@+id/group_icon"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginBottom="@dimen/activity_zero_margin"
-        android:src="@drawable/list_button_hi_all"/>
-    <TextView
-        android:id="@+id/cellGroupHiLabel"
-        android:layout_width="@dimen/home_group_all_hi_width"
-        android:layout_height="wrap_content"
-        android:text="@string/homeAct_all"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/color_active_green"
-        android:textSize="@dimen/hi_list_cell_time_textsize"
-        android:layout_below="@+id/all_hi"
-        android:layout_toRightOf="@+id/group_icon"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="@dimen/home_cell_height"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/cellGroupName"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/home_group_all_hi_height"
-        android:text="グループ0123456789012345678901234567890123456789"
-        android:ellipsize="end"
-        android:scrollHorizontally="true"
-        android:maxLines="2"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/home_topic_textsize"
-        android:layout_marginTop="@dimen/activity_vertical_margin_half"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin_half"
-        android:layout_toLeftOf="@+id/cellSwitchButton"
-        android:layout_toRightOf="@+id/all_hi"
-        android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/cellGroupNameBack"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_cell_height"
+                android:text="グループグループグループグループグループグループグループ"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin_half"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/list_icon_silent"
+                android:drawablePadding="@dimen/activity_horizontal_margin_quarter"/>
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/cellSwitchButton"
-        android:onClick="groupOnOff"
-        android:layout_width="@dimen/home_cell_on_height"
-        android:layout_height="@dimen/home_cell_on_height"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:src="@drawable/list_button_off"
-        android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="@dimen/home_cell_height"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/swipeSwitchSilent"
+                android:onClick="swipeSwitchSilent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/listAct_doSilent"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/front"
+        android:tag="front"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_cell_height"
+        android:onClick="groupEdit"
+        android:background="@color/bg_white">
+
+        <TextView
+            android:layout_width="1px"
+            android:layout_height="1px"
+            android:text=""
+            android:id="@+id/cellHiddenIndex"/>
+
+        <ImageView
+            android:layout_width="@dimen/home_cell_height"
+            android:layout_height="@dimen/home_cell_height"
+            android:id="@+id/group_icon"
+            android:src="@drawable/add_group_group_icon"/>
+
+        <jp.co.webshark.on2.customViews.EffectImageView
+            android:id="@+id/all_hi"
+            android:onClick="groupHi"
+            android:layout_width="@dimen/home_group_all_hi_width"
+            android:layout_height="@dimen/home_group_all_hi_width"
+            android:layout_toRightOf="@+id/group_icon"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin_half"
+            android:layout_marginBottom="@dimen/activity_zero_margin"
+            android:src="@drawable/list_button_hi_all"/>
+        <TextView
+            android:id="@+id/cellGroupHiLabel"
+            android:layout_width="@dimen/home_group_all_hi_width"
+            android:layout_height="wrap_content"
+            android:text="@string/homeAct_all"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textColor="@color/color_active_green"
+            android:textSize="@dimen/hi_list_cell_time_textsize"
+            android:layout_below="@+id/all_hi"
+            android:layout_toRightOf="@+id/group_icon"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <TextView
+            android:id="@+id/cellGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/home_group_all_hi_height"
+            android:text="グループ0123456789012345678901234567890123456789"
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            android:maxLines="2"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/home_topic_textsize"
+            android:layout_marginTop="@dimen/activity_vertical_margin_half"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin_half"
+            android:layout_toLeftOf="@+id/cellSwitchButton"
+            android:layout_toRightOf="@+id/all_hi"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/cellSwitchButton"
+            android:onClick="groupOnOff"
+            android:layout_width="@dimen/home_cell_on_height"
+            android:layout_height="@dimen/home_cell_on_height"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:src="@drawable/list_button_off"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+</FrameLayout>
+
