@@ -2,17 +2,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    lintOptions {
+        abortOnError false
+    }
+    compileSdkVersion 23
+    buildToolsVersion '23.0.0'
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "jp.co.webshark.on2"
-        minSdkVersion 10
+        minSdkVersion 15
         targetSdkVersion 22
-        versionCode 6
-        versionName "1.1.2"
+        versionCode 15
+        versionName "2.0.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
+            zipAlignEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -25,16 +31,23 @@ android {
         exclude 'META-INF/LICENSE'
     }
 }
+repositories { mavenCentral() }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/httpcore-4.4.1.jar')
     compile files('libs/httpmime-4.3.5.jar')
     compile files('libs/core-2.2.jar')
     compile files('libs/javase-2.2.jar')
-    compile 'com.google.android.gms:play-services:7.5.0'
     //compile files('libs/jackson-databind-2.6.0.jar')
     //compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
-    compile project(':facebookSDK')
+    compile 'com.android.support:appcompat-v7:22.0.1'
+    //compile 'com.android.support:appcompat-v7:24.0.0-alpha1'
+    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-identity:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile files('libs/nineoldandroids-2.4.0.jar')
 }

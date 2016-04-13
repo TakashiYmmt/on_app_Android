@@ -1,0 +1,286 @@
+[
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_edit_text_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_edit_text_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_plus_signin_btn_icon_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_icon_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_auth_dialog_header_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_auth_dialog_header_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/fb_button.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/fb_button.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/button_design_back.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/button_design_back.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_auth_dialog_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_auth_dialog_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_btn_default_mtrl_shape.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_list_selector_background_transition_holo_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/tab_navi_badge.9.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/tab_navi_badge.9.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/turn_button.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/turn_button.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_list_selector_holo_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_plus_signin_btn_text_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_item_background_holo_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/cast_ic_notification_connecting.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/res/drawable/cast_ic_notification_connecting.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_text_cursor_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_text_cursor_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_background_transition_holo_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_plus_signin_btn_text_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_auth_dialog_cancel_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_auth_dialog_cancel_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_textfield_search_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_textfield_search_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_send_button_icon.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_send_button_icon.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_media_route_connecting_mono_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_connecting_mono_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_google_signin_btn_text_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_tab_indicator_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_google_signin_btn_text_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_button_like_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_button_like_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_cast_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_cast_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_dialog_material_background_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_dialog_material_background_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/red_badge.9.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/red_badge.9.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/talk_balloon_9p_4.9.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/talk_balloon_9p_4.9.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_media_route_mono_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_mono_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_btn_check_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_check_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_dialog_material_background_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_cast_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_cast_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_button001.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/common_button001.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_badge001.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/common_badge001.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_btn_radio_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_ratingbar_full_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_ratingbar_full_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_play_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_play_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_settings_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_settings_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_cab_background_top_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/turn_icon.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/turn_icon.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_button002.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/common_button002.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/messenger_button_white_bg_selector.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/messenger_button_white_bg_selector.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/messenger_button_blue_bg_selector.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/messenger_button_blue_bg_selector.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/hi_list_nothing9pat.9.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/hi_list_nothing9pat.9.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_button_icon.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_button_icon.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/talk_balloon_9p_5.9.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/talk_balloon_9p_5.9.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_pause_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_pause_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_cab_background_internal_bg.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_spinner_textfield_background_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_spinner_textfield_background_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/simple_frame.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/simple_frame.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_media_route_connecting_mono_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_connecting_mono_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_button_login_silver_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_button_login_silver_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_settings_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_settings_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_item_background_holo_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_item_background_holo_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_button003.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/common_button003.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_list_selector_holo_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_btn_colored_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_pause_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_pause_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_google_signin_btn_icon_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_switch_thumb_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/abc_btn_borderless_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/drawable/abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/button_design_front.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/drawable/button_design_front.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_button_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_button_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/messenger_button_white_bg_round.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/messenger_button_white_bg_round.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/com_facebook_button_send_background.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/com_facebook_button_send_background.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_plus_signin_btn_icon_dark.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_plus_signin_btn_icon_dark.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/messenger_button_blue_bg_round.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/drawable/messenger_button_blue_bg_round.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_media_route_mono_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_media_route_mono_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/mr_ic_play_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/drawable/mr_ic_play_light.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/drawable/common_google_signin_btn_icon_light.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable/common_google_signin_btn_icon_light.xml"
+    }
+]

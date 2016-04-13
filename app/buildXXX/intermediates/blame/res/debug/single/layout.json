@@ -1,0 +1,382 @@
+[
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_activity_chooser_view.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_fb_login.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_fb_login.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit_id.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit_id.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/place_autocomplete_fragment.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/layout/place_autocomplete_fragment.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/sample_async_loader_image_view.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/sample_async_loader_image_view.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_search_view.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_blue_large.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_blue_large.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit_name.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit_name.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_group_edit.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_group_edit.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_on_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_on_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_mode_bar.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_white_large.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_white_large.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/fragment_home_tab.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/fragment_home_tab.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_alert_dialog_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_friend_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_friend_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_friend_profile.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_friend_profile.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_privacy_policy.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_privacy_policy.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_hi_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_hi_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_media_action.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_search_friend.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_search_friend.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/com_facebook_login_fragment.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/com_facebook_login_fragment.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_big_media.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_select_dialog_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/place_autocomplete_progress.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/layout/place_autocomplete_progress.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_search_dropdown_item_icons_2line.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/select_dialog_item_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/com_facebook_tooltip_bubble.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/com_facebook_tooltip_bubble.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/mr_media_route_list_item.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/layout/mr_media_route_list_item.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/com_facebook_device_auth_dialog_fragment.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/com_facebook_device_auth_dialog_fragment.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_talk.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_talk.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_screen_simple.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_screen_content_include.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_invite_friends.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_invite_friends.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_regist_profile.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_regist_profile.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit_read_qr.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit_read_qr.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_blue_round.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_blue_round.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/select_dialog_multichoice_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/tab_home_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/tab_home_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_home.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_home.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/home_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/home_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/support_simple_spinner_dropdown_item.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/on_list_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/on_list_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_group_member_select.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_group_member_select.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit_qr_result.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit_qr_result.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_mode_close_item_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_telephone.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_telephone.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_start.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_start.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_deleted_friend_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_deleted_friend_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_verify.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_verify.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/frined_list_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/frined_list_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_home2.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_home2.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/group_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/group_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_home_tab.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_home_tab.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_white_round.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_white_round.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_lines.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_lines.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_template_media.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_template_media.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/talk_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/talk_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_search_friend2.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_search_friend2.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_friend_profile_edit_nick_name.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_friend_profile_edit_nick_name.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/com_facebook_activity_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/com_facebook_activity_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/hi_list_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/hi_list_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_profile_edit_draw_qr.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_profile_edit_draw_qr.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_main.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/mr_media_route_chooser_dialog.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/layout/mr_media_route_chooser_dialog.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/del_friend_list_cell001.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/del_friend_list_cell001.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/talk_view_cell02.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/talk_view_cell02.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/place_autocomplete_item_powered_by_google.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/layout/place_autocomplete_item_powered_by_google.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/place_autocomplete_item_prediction.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/layout/place_autocomplete_item_prediction.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_bar_view_list_nav_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/invite_friends_view_cell01.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/invite_friends_view_cell01.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_action_bar_up_container.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_white_small.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_white_small.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/select_dialog_singlechoice_material.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/select_dialog_singlechoice_material.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/mr_media_route_controller_material_dialog_b.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/res/layout/mr_media_route_controller_material_dialog_b.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/messenger_button_send_blue_small.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.9.0/res/layout/messenger_button_send_blue_small.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/abc_popup_menu_item_layout.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/res/layout/abc_popup_menu_item_layout.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/group_view_cell02.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/group_view_cell02.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/debug/layout/activity_eula.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/layout/activity_eula.xml"
+    }
+]

@@ -3,11 +3,16 @@ package jp.co.webshark.on2;
 import android.app.Application;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.provider.ContactsContract;
+
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -84,6 +89,52 @@ public class commonFucntion extends Application{
         return -1;
     }
 
+    public static void setD064Flg(Context context){
+
+        OutputStream out;
+        try {
+            out = context.openFileOutput("d064.info", MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out,"UTF-8"));
+
+            //上書きする
+            writer.println("1");
+            writer.close();
+        } catch (IOException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+    }
+    public static String getD064Flg(Context context){
+
+        InputStream in;
+        String lineBuffer;
+
+        try {
+            in = context.openFileInput("d064.info");
+
+            File f1  = new File("d064.info");
+            if( f1.exists() ){
+                return "0";
+
+            }
+            BufferedReader reader= new BufferedReader(new InputStreamReader(in,"UTF-8"));
+            while( (lineBuffer = reader.readLine()) != null ){
+                //Log.d("FileAccess", lineBuffer);
+                try {
+                    //Integer.parseInt(lineBuffer);
+                    return lineBuffer;
+                } catch (NumberFormatException e) {
+                    return "0";
+                }
+            }
+        } catch (IOException e) {
+            // TODO 自動生成された catch ブロック
+            //e.printStackTrace();
+            return "0";
+        }
+        return "0";
+    }
+
     public static void createBitmapCache(Context context, Bitmap bitmap, String fileName){
 
         // 保存処理開始
@@ -156,11 +207,33 @@ public class commonFucntion extends Application{
         return null;
     }
 
+    /*
+    public static HashMap getLocalAddressList(Context context){
+
+        String[] Projection = { "display_name", ContactsContract.CommonDataKinds.Phone.DATA };
+        HashMap returnMap = new HashMap();
+
+        Cursor managedQuery = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,Projection, null, null, null);
+        while (managedQuery.moveToNext()) {
+            // japan-only
+            if( managedQuery.getString(1).substring(0,3).equals("090")
+                    || managedQuery.getString(1).substring(0,3).equals("080")){
+                clsFriendInfo cfl = new clsFriendInfo();
+                cfl.setName(managedQuery.getString(0));
+                cfl.setTelephoneNumber(managedQuery.getString(1).replace("-", ""));
+                returnMap.put(cfl.getTelephoneNumber(),cfl);
+            }
+        }
+
+        return returnMap;
+    }
+    */
+
     public void setMyAddress(Context context){
         try{
             onGlobal onGlobal = (onGlobal) context.getApplicationContext();
-            onGlobal.setShareData("myAddress",null);
-            onGlobal.setShareData("myAddress",getAddressList(context));
+            onGlobal.setShareData("myAddress", null);
+            onGlobal.setShareData("myAddress", getAddressList(context));
         }catch (Exception e){}
     }
 
@@ -282,4 +355,11 @@ public class commonFucntion extends Application{
         onGlobal.setShareData("profile_comment", comment);
         return;
     }
+
+    public static AccessToken checkFbLogin(Context context) {
+        FacebookSdk.sdkInitialize(context);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken;
+    }
+
 }

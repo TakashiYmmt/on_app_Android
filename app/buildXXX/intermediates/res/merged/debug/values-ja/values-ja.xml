@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <array name="country_code_list">
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"7"</item>
+        <item>"20"</item>
+        <item>"27"</item>
+        <item>"30"</item>
+        <item>"31"</item>
+        <item>"33"</item>
+        <item>"34"</item>
+        <item>"39"</item>
+        <item>"41"</item>
+        <item>"43"</item>
+        <item>"44"</item>
+        <item>"45"</item>
+        <item>"46"</item>
+        <item>"49"</item>
+        <item>"51"</item>
+        <item>"52"</item>
+        <item>"53"</item>
+        <item>"54"</item>
+        <item>"55"</item>
+        <item>"56"</item>
+        <item>"57"</item>
+        <item>"60"</item>
+        <item>"61"</item>
+        <item>"62"</item>
+        <item>"63"</item>
+        <item>"64"</item>
+        <item>"65"</item>
+        <item>"66"</item>
+        <item>"81"</item>
+        <item>"82"</item>
+        <item>"84"</item>
+        <item>"86"</item>
+        <item>"91"</item>
+        <item>"212"</item>
+        <item>"216"</item>
+        <item>"225"</item>
+        <item>"236"</item>
+        <item>"237"</item>
+        <item>"249"</item>
+        <item>"251"</item>
+        <item>"254"</item>
+        <item>"351"</item>
+        <item>"358"</item>
+        <item>"675"</item>
+        <item>"679"</item>
+        <item>"687"</item>
+        <item>"852"</item>
+        <item>"886"</item>
+        <item>"966"</item>
+        <item>"976"</item>
+        <item>"977"</item>
+    </array>
+    <array name="country_name_list">
+        <item>アメリカ合衆国</item>
+        <item>アラスカ</item>
+        <item>カナダ</item>
+        <item>ジャマイカ</item>
+        <item>ドミニカ共和国</item>
+        <item>グアム</item>
+        <item>サイパン</item>
+        <item>ハワイ</item>
+        <item>ロシア</item>
+        <item>エジプト</item>
+        <item>南アフリカ</item>
+        <item>ギリシャ</item>
+        <item>オランダ</item>
+        <item>フランス</item>
+        <item>スペイン</item>
+        <item>イタリア</item>
+        <item>スイス</item>
+        <item>オーストリア</item>
+        <item>イギリス</item>
+        <item>デンマーク</item>
+        <item>スウェーデン</item>
+        <item>ドイツ</item>
+        <item>ペルー</item>
+        <item>メキシコ</item>
+        <item>キューバ</item>
+        <item>アルゼンチン</item>
+        <item>ブラジル</item>
+        <item>チリ</item>
+        <item>コロンビア</item>
+        <item>マレーシア</item>
+        <item>オーストラリア</item>
+        <item>インドネシア</item>
+        <item>フィリピン</item>
+        <item>ニュージーランド</item>
+        <item>シンガポール</item>
+        <item>タイ</item>
+        <item>日本</item>
+        <item>大韓民国</item>
+        <item>ベトナム</item>
+        <item>中華人民共和国</item>
+        <item>インド</item>
+        <item>モロッコ</item>
+        <item>チュニジア</item>
+        <item>コートジボワール</item>
+        <item>中央アフリカ</item>
+        <item>カメルーン</item>
+        <item>スーダン</item>
+        <item>エチオピア</item>
+        <item>ケニア</item>
+        <item>ポルトガル</item>
+        <item>フィンランド</item>
+        <item>パプアニューギニア</item>
+        <item>フィジー</item>
+        <item>ニューカレドニア</item>
+        <item>香港</item>
+        <item>台湾</item>
+        <item>サウジアラビア</item>
+        <item>モンゴル</item>
+        <item>ネパール</item>
+    </array>
+    <color name="bg_white">#ffffff</color>
+    <color name="color_active_green">#ff50b524</color>
+    <color name="color_active_white">#ffffffff</color>
+    <color name="color_badge_red">#ff0000</color>
+    <color name="color_clear">#00000000</color>
+    <color name="color_comment_blue">#a4003ec8</color>
+    <color name="color_fb_blue">#305097</color>
+    <color name="color_link_green">#a450c81e</color>
+    <color name="color_log_bg_gray">#f6f6f6</color>
+    <color name="color_negative_white">#ffdcdcdc</color>
+    <color name="color_select_tab_gray">#373d41</color>
+    <color name="color_talk_nothing">#373d41</color>
+    <color name="color_text_bg_gray">#e5e5e5</color>
+    <color name="color_text_gray">#7e7e7e</color>
+    <color name="color_text_gray2">#999999</color>
+    <integer name="country_index">36</integer>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"ホームへ移動"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s、%2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s、%2$s、%3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"上へ移動"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"その他のオプション"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"完了"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"すべて表示"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"アプリの選択"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"検索…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"検索キーワードを削除"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"検索キーワード"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"検索"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"検索キーワードを送信"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"音声検索"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"共有"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"%sと共有"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"折りたたむ"</string>
+    <string name="action_settings">Settings</string>
+    <string name="api_url">http://210.140.165.80/on/2.0/api.php</string>
+    <string name="app_name">on</string>
+    <string name="back">戻る</string>
+    <string name="blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
+    <string name="cancel">キャンセル</string>
+    <string name="close">閉じる</string>
+    <string name="color_code_link_green">#a450c81e</string>
+    <string name="com_facebook_device_auth_instructions">スマートフォンまたはコンピュータから%@にアクセスし、次のコードを入力してください。</string>
+    <string name="com_facebook_image_download_unknown_error">画像のダウンロード中に予期しないエラーが発生しました。</string>
+    <string name="com_facebook_internet_permission_error_message">WebViewログインにはINTERNET権限が必要です</string>
+    <string name="com_facebook_internet_permission_error_title">AndroidManifestエラー</string>
+    <string name="com_facebook_like_button_liked">いいね！済み</string>
+    <string name="com_facebook_like_button_not_liked">いいね！</string>
+    <string name="com_facebook_loading">読み込み中...</string>
+    <string name="com_facebook_loginview_cancel_action">キャンセル</string>
+    <string name="com_facebook_loginview_log_in_button">ログイン</string>
+    <string name="com_facebook_loginview_log_in_button_long">Facebookでログイン</string>
+    <string name="com_facebook_loginview_log_out_action">ログアウト</string>
+    <string name="com_facebook_loginview_log_out_button">ログアウト</string>
+    <string name="com_facebook_loginview_logged_in_as">次のユーザーとしてログイン中: %1$s</string>
+    <string name="com_facebook_loginview_logged_in_using_facebook">Facebookを使用してログイン中</string>
+    <string name="com_facebook_send_button_text">送信</string>
+    <string name="com_facebook_share_button_text">シェア</string>
+    <string name="com_facebook_tooltip_default">新機能！アプリと共有する情報をコントロールできます。</string>
+    <string name="common_blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
+    <string msgid="2785372108150982144" name="common_google_play_services_api_unavailable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>には現在利用されていないGoogle Play開発者サービスが必要です。詳しくはデベロッパーにお問い合わせください。"</string>
+    <string msgid="7334167077229901382" name="common_google_play_services_enable_button">"Google Play開発者サービスを有効化"</string>
+    <string msgid="2016066508617425489" name="common_google_play_services_enable_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>の実行には、Google Play開発者サービスの有効化が必要です。"</string>
+    <string msgid="4763733806837472840" name="common_google_play_services_enable_title">"Google Play開発者サービスの有効化"</string>
+    <string msgid="5765996826213593005" name="common_google_play_services_install_button">"Google Play開発者サービスを入手"</string>
+    <string msgid="1545874412485515659" name="common_google_play_services_install_text_phone">"<ns1:g id="APP_NAME">%1$s</ns1:g>の実行にはGoogle Play開発者サービスが必要ですが、お使いのスマートフォンにはインストールされていません。"</string>
+    <string msgid="2742131317258851812" name="common_google_play_services_install_text_tablet">"<ns1:g id="APP_NAME">%1$s</ns1:g>の実行にはGoogle Play開発者サービスが必要ですが、お使いのタブレットにはインストールされていません。"</string>
+    <string msgid="2110712637922504348" name="common_google_play_services_install_title">"Google Play開発者サービスの入手"</string>
+    <string msgid="8004809446015217370" name="common_google_play_services_invalid_account_text">"指定したアカウントはこの端末上に存在しません。別のアカウントを選択してください。"</string>
+    <string msgid="9894539456463288" name="common_google_play_services_invalid_account_title">"無効なアカウント"</string>
+    <string msgid="2602915190038884860" name="common_google_play_services_network_error_text">"Google Play開発者サービスに接続するには、データ接続が必要です。"</string>
+    <string msgid="5183831421651758225" name="common_google_play_services_network_error_title">"ネットワークエラー"</string>
+    <string msgid="3936796119014022295" name="common_google_play_services_notification_ticker">"Google Play開発者サービスのエラー"</string>
+    <string msgid="6951442375899151085" name="common_google_play_services_restricted_profile_text">"制限付きプロフィールからのアカウントへのアクセスはサポートされていません。"</string>
+    <string msgid="4958149393843193760" name="common_google_play_services_restricted_profile_title">"制限付きプロフィール"</string>
+    <string msgid="59739986196915578" name="common_google_play_services_sign_in_failed_text">"指定されたアカウントへのログイン中にエラーが発生しました。別のアカウントを選択してください。"</string>
+    <string msgid="8431204498860131150" name="common_google_play_services_sign_in_failed_title">"ログインできませんでした"</string>
+    <string msgid="7170719956698345984" name="common_google_play_services_unknown_issue">"「<ns1:g id="APP_NAME">%1$s</ns1:g>」でGoogle Play開発者サービスに問題が発生しています。問題が解決しない場合は、デベロッパーにお問い合わせください。"</string>
+    <string msgid="4291190028362992831" name="common_google_play_services_unsupported_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>に必要なGoogle Play開発者サービスは、お使いの端末ではサポートされていません。詳しくは端末メーカーにお問い合わせください。"</string>
+    <string msgid="909734065366822541" name="common_google_play_services_unsupported_title">"Google Play開発者サービス"</string>
+    <string msgid="2221302284291941971" name="common_google_play_services_update_button">"更新"</string>
+    <string msgid="6230553430311881723" name="common_google_play_services_update_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>の実行にはGoogle Play開発者サービスの更新が必要です。"</string>
+    <string msgid="2926201203597631481" name="common_google_play_services_update_title">"Google Play開発者サービスの更新"</string>
+    <string msgid="1576144479907495032" name="common_google_play_services_updating_text">"<ns1:g id="APP_NAME">%1$s</ns1:g>の実行にはGoogle Play開発者サービスが必要ですが、このサービスは現在更新中です。"</string>
+    <string msgid="1604540693139938838" name="common_google_play_services_updating_title">"Google Play開発者サービスの更新中"</string>
+    <string msgid="8334920661858223093" name="common_google_play_services_wear_update_text">"Google Play開発者サービスの新しいバージョンが必要です。まもなく自動更新されます。"</string>
+    <string msgid="311697239335516384" name="common_open_on_phone">"スマートフォンで開く"</string>
+    <string msgid="3156914698180786012" name="common_signin_button_text">"ログイン"</string>
+    <string msgid="1483290677806110088" name="common_signin_button_text_long">"Googleにログイン"</string>
+    <string name="complete">完了</string>
+    <string name="delFriendListAct_noFriend">削除した友達がいません。</string>
+    <string name="delFriendListAct_subject">削除した友達</string>
+    <string name="fb_app_id">172287869777831</string>
+    <string name="friendListAct_delete">削除した友達</string>
+    <string name="friendListAct_noFriend">ONを共有している友達がいません。</string>
+    <string name="friendListAct_offBlock">ブロック解除</string>
+    <string name="friendListAct_subject">あなたの友達</string>
+    <string name="friendProfAct_deBlock">ブロックを解除する</string>
+    <string name="friendProfAct_deSilent">非通知を解除する</string>
+    <string name="friendProfAct_deleteConfirm">%sさんを友達から削除します。\nよろしいですか？</string>
+    <string name="friendProfAct_doBlock">ブロックする</string>
+    <string name="friendProfAct_doDelete">友達から削除</string>
+    <string name="friendProfAct_doSilent">非通知にする</string>
+    <string name="friendProfAct_naviTitle">プロフィール</string>
+    <string name="groupEditAct_Delete">グループを削除する</string>
+    <string name="groupEditAct_EditViewHint">グループ名</string>
+    <string name="groupEditAct_Friends">グループメンバー追加</string>
+    <string name="groupEditAct_ListSubject">グループメンバー</string>
+    <string name="groupEditAct_backSaveConfirm">編集した内容で保存しますか？</string>
+    <string name="groupEditAct_deleteConfirm">このグループを削除します。\nよろしいですか？</string>
+    <string name="groupEditAct_naviTitle">グループの追加</string>
+    <string name="groupEditAct_noMemberWarning">メンバーを選択してください</string>
+    <string name="groupEditAct_noTitleWarning">グループ名が入力されていません。</string>
+    <string name="groupEditAct_saveConfirm">保存しますか？</string>
+    <string name="head_back">《 戻る</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hiListAct_deBlock">ブロックを解除する</string>
+    <string name="hiListAct_deSilent">非通知を解除する</string>
+    <string name="hiListAct_doBlock">ブロックする</string>
+    <string name="hiListAct_doSilent">非通知にする</string>
+    <string name="hiListAct_noFriend">現在Hiはありません。</string>
+    <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
+    <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
+    <string name="homeAct_all">全員に</string>
+    <string name="homeAct_allOn_confirm">友達全員にONを送ります。</string>
+    <string name="homeAct_friend_list">友達一覧</string>
+    <string name="homeAct_groupHi_confirm">グループ全員にHiを送ります。</string>
+    <string name="homeAct_group_add">グループを作る</string>
+    <string name="homeAct_id_add">IDで友達を探す</string>
+    <string name="homeAct_invite">アプリに招待する</string>
+    <string name="homeAct_invite_LINE">LINEで招待する</string>
+    <string name="homeAct_invite_SMS">SMSで招待する</string>
+    <string name="homeAct_my_qr">自分のQRコードを表示する</string>
+    <string name="homeAct_onCount">現在%s人に対してON</string>
+    <string name="homeAct_onCountZero">誰にもONしてません。</string>
+    <string name="homeAct_profileCommentError">コメントは50文字までです。</string>
+    <string name="homeAct_profileCommentHint">例）今○○にいます！(50文字まで)</string>
+    <string name="homeAct_qr_add">QRコードで友達を追加する</string>
+    <string name="homeAct_subject_add">追加する</string>
+    <string name="homeAct_subject_friends">人から選ぶ</string>
+    <string name="homeAct_subject_group">グループから選ぶ</string>
+    <string name="inviteFriendsAct_mailSubject">ヒマならONに招待です</string>
+    <string name="inviteFriendsAct_naviTitle">SMSでアプリを招待する</string>
+    <string name="inviteFriendsAct_noFriend">ヒマならONに招待できる友達がいません。</string>
+    <string name="inviteFriendsAct_selectMail">メールアドレスを選んでください。</string>
+    <string name="inviteFriendsAct_selectPhone">SMSを送る電話番号を選んでください。</string>
+    <string name="is_test">0</string>
+    <string name="lc_DaysAgo">%d日前</string>
+    <string name="lc_HoursAgo">%d時間前</string>
+    <string name="lc_JustNow">たった今</string>
+    <string name="lc_MinitsAgo">%d分前</string>
+    <string name="lc_SecondsAgo">%d秒前</string>
+    <string name="listAct_deBlock">ブロックを解除する</string>
+    <string name="listAct_deSilent">非通知を解除する</string>
+    <string name="listAct_doBlock">ブロックする</string>
+    <string name="listAct_doSilent">非通知にする</string>
+    <string name="messenger_send_button_text">送信</string>
+    <string msgid="8327680881775995150" name="mr_media_route_button_content_description">"キャスト"</string>
+    <string msgid="7553005460920830010" name="mr_media_route_chooser_searching">"端末を検索しています…"</string>
+    <string msgid="7106830097177242655" name="mr_media_route_chooser_title">"端末に接続"</string>
+    <string msgid="109793632378378069" name="mr_media_route_controller_disconnect">"接続を解除"</string>
+    <string msgid="3641544772007543920" name="mr_media_route_controller_no_info_available">"情報がありません"</string>
+    <string msgid="8315773974194466049" name="mr_media_route_controller_pause">"一時停止"</string>
+    <string msgid="5214423499524760404" name="mr_media_route_controller_play">"再生"</string>
+    <string msgid="379358765881274425" name="mr_media_route_controller_settings_description">"ルーティング設定"</string>
+    <string msgid="5398645111664294430" name="mr_media_route_controller_stop">"キャストを停止"</string>
+    <string msgid="5441529851481176817" name="mr_system_route_name">"システム"</string>
+    <string msgid="7498112907524977311" name="mr_user_route_category_name">"端末"</string>
+    <string name="ok">OK</string>
+    <string name="onListAct_Subject1">あなたにONしている人</string>
+    <string name="onListAct_Subject2">過去のON一覧</string>
+    <string name="onListAct_noFriend">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend1">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend2">過去にONをした友達はいません。</string>
+    <string msgid="2132213647576279742" name="place_autocomplete_clear_button">"検索をクリア"</string>
+    <string msgid="4600782048316473865" name="place_autocomplete_search_hint">"検索"</string>
+    <string name="profEditActDrawQr_naviTitle">自分のQRコード</string>
+    <string name="profEditActId_naviTitle">IDを編集する</string>
+    <string name="profEditActName_naviTitle">名前を編集する</string>
+    <string name="profEditActQrResult_naviTitle">QRコードで追加</string>
+    <string name="profEditActReadQr_naviTitle">QRコードリーダー</string>
+    <string name="profEditAct_DrawQr_guide">友達がこのQRコードを\nONのQRコードリーダーで\nスキャンすると\nあなたの友達に追加できます。</string>
+    <string name="profEditAct_QrAddComplete">友達に追加しました！</string>
+    <string name="profEditAct_QrDefault">友達に追加する</string>
+    <string name="profEditAct_QrIllegal">無効なQRコードです</string>
+    <string name="profEditAct_QrLimitOver">有効期限切れです</string>
+    <string name="profEditAct_QrRegisted">もう友達になっています</string>
+    <string name="profEditAct_listDrawQR">自分のQRコード</string>
+    <string name="profEditAct_listId">ID</string>
+    <string name="profEditAct_listName">名前</string>
+    <string name="profEditAct_listReadQR">QRコードを読み取る</string>
+    <string name="profEditAct_naviTitle">プロフィール変更</string>
+    <string name="profEditAct_profIdNotUnique">既に使われているIDです</string>
+    <string name="profEditAct_profUpdate">プロフィールを変更しました</string>
+    <string name="profileAct_imageInputCheck">プロフィール画像を設定してください</string>
+    <string name="profileAct_nameInputCheck">お名前を入力してください</string>
+    <string name="registAct_guide_text">プロフィール画像を選ぶ</string>
+    <string name="registAct_nameInputEditText_hint">お名前を入力してください</string>
+    <string name="registAct_profileRegistButton_text">完了</string>
+    <string name="save">保存</string>
+    <string name="searchFriendAct_editHint">友達のIDを入力して検索</string>
+    <string name="searchFriendAct_myId">自分のID</string>
+    <string name="searchFriendAct_naviTitle">友達をIDで追加</string>
+    <string name="send">送る</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="talkAct_naviTitle">%sさんとのトーク</string>
+    <string name="talkAct_nothing">トークをはじめましょう。</string>
+    <string name="telAct_AcceptErr">利用規約に同意してください</string>
+    <string name="telAct_InputCheck">電話番号は必須項目です</string>
+    <string name="telAct_Restart">登録を最初からやりなおしますか？</string>
+    <string name="telAct_eula_full_text">利用規約に同意します。</string>
+    <string name="telAct_eula_link_text">利用規約</string>
+    <string name="telAct_phoneInputEditText_hint">電話番号を入力してください</string>
+    <string name="telAct_telephoneRegistButton_text">認証コードを送信する</string>
+    <string name="title_activity_eula">eulaActivity</string>
+    <string name="title_activity_fb_login">fbLoginActivity</string>
+    <string name="title_activity_friend_list">friendListActivity</string>
+    <string name="title_activity_friend_profile">friendProfileActivity</string>
+    <string name="title_activity_group_edit">groupEditActivity</string>
+    <string name="title_activity_group_member_select">groupMemberSelectActivity</string>
+    <string name="title_activity_hi_list">hiListActivity</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home2">home2Activity</string>
+    <string name="title_activity_home_tab">homeTabActivity</string>
+    <string name="title_activity_invite_friends">InviteFriendsActivity</string>
+    <string name="title_activity_main">mainActivity</string>
+    <string name="title_activity_on_list">onListActivity</string>
+    <string name="title_activity_on_list_view_cell01">on_list_view_cell01</string>
+    <string name="title_activity_on_list_view_cell02">on_list_view_cell02</string>
+    <string name="title_activity_privacy_policy">PrivacyPolicyActivity</string>
+    <string name="title_activity_profil_edit_id">profilEditIdActivity</string>
+    <string name="title_activity_profil_edit_name">profilEditNameActivity</string>
+    <string name="title_activity_profile_edit">profileEditActivity</string>
+    <string name="title_activity_profile_edit_draw_qr">profileEditDrawQrActivity</string>
+    <string name="title_activity_profile_edit_id">profileEditIdActivity</string>
+    <string name="title_activity_profile_edit_qr_result">profileEditQrResult</string>
+    <string name="title_activity_profile_edit_read_qr">profileEditReadQrActivity</string>
+    <string name="title_activity_regist_profile">registProfileActivity</string>
+    <string name="title_activity_telephone">telephoneActivity</string>
+    <string name="title_activity_verify">verifyActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="verifyAct_InputCheck">4桁のコードを入力してください</string>
+    <string name="verifyAct_VerifyError">認証コードが間違っています</string>
+    <string name="verifyAct_codeInputEditText_hint">4桁のコードを入力してください</string>
+    <string name="verifyAct_codeRegistButton_text">確認</string>
+    <string msgid="4184147110658930238" name="wallet_buy_button_place_holder">"Googleで購入"</string>
+</resources>

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 /**
  * Created by takashi on 2015/08/28.
  */
 public class GcmBroadcastReceiver extends WakefulBroadcastReceiver {
+    private Handler handler;
 
     @Override
     public void onReceive(Context context, Intent intent) {

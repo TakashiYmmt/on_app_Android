@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/activity_vertical_margin_half"
+    android:paddingBottom="@dimen/activity_vertical_margin_half"
+    android:background="@color/bg_white">
+
+    <LinearLayout
+        android:id="@+id/commentFrame"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin_half"
+        android:layout_toRightOf="@+id/friendImage"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/cellSendTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="１時間前"
+            android:textSize="@dimen/friend_list_cell_time_textsize"
+            android:gravity="bottom"
+            android:textColor="@color/color_text_gray"
+            android:layout_alignBottom="@+id/commentFrame"/>
+        <TextView
+            android:id="@+id/cellMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="□本日の感想"
+            android:maxLines="100"
+            android:maxLength="500"
+            android:textSize="@dimen/friend_list_cell_comment_textsize"
+            android:textColor="@color/color_active_white"
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/talk_balloon_9p_5"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -2,14 +2,15 @@ package jp.co.webshark.on2;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import java.util.HashMap;
 
-public class profileEditNameActivity extends Activity {
+public class profileEditNameActivity extends commonActivity {
     private String userName;
-    private AsyncPost profileSender;
+    //private AsyncPost profileSender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,26 +25,6 @@ public class profileEditNameActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
-
-        // コールバックの初期化
-        this.setProfileSender();
-    }
-    private void setProfileSender(){
-        // プロフィール取得用API通信のコールバック
-        profileSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                setProfileSender();
-
-                // アクティビティを終了
-                Intent intent = new Intent();
-                setResult(RESULT_CANCELED, intent);
-                intent.putExtra("isUpdate",true);
-                finish();
-            }
-        });
     }
 
     public void saveButtonClick(View view){
@@ -60,9 +41,25 @@ public class profileEditNameActivity extends Activity {
         body.put("column_value",userName);
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost profileSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // アクティビティを終了
+                if(!isDestroy){
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate",true);
+                    finish();
+                }
+
+            }
+        });
         // API通信のPOST処理
         profileSender.setParams(strURL, body);
-        profileSender.execute();
+        profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
     // 戻るリンク
     public void profileNameEditClose(View view) {

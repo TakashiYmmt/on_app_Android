@@ -7,6 +7,8 @@ public class clsSystemInfo {
     String newestVersion;
     String forceUpdateVersion;
     String storeUrl;
+    String d064BaseUrl;
+    String d064UrlParams;
 
     public int getNewestVersion() {
         return Integer.parseInt(newestVersion);
@@ -28,6 +30,20 @@ public class clsSystemInfo {
     }
     public void setStoreUrl(String storeUrl) {
         this.storeUrl = storeUrl;
+    }
+
+    public String getD064BaseUrl() {
+        return d064BaseUrl;
+    }
+    public void setD064BaseUrl(String d064BaseUrl) {
+        this.d064BaseUrl = d064BaseUrl;
+    }
+
+    public String getD064UrlParams() {
+        return d064UrlParams;
+    }
+    public void setD064UrlParams(String d064UrlParams) {
+        this.d064UrlParams = d064UrlParams;
     }
 
 }

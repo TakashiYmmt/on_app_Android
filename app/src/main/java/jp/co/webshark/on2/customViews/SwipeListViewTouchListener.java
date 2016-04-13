@@ -746,6 +746,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
      */
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
         if (!isSwipeEnabled()) {
             return false;
         }
@@ -856,6 +857,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
             }
 
             case MotionEvent.ACTION_MOVE: {
+
                 if (velocityTracker == null || paused || downPosition == ListView.INVALID_POSITION) {
                     break;
                 }
@@ -891,6 +893,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                         }
                     }
                 }
+
                 if (deltaMode > slop && swipeCurrentAction == SwipeListView.SWIPE_ACTION_NONE && velocityY < velocityX) {
                     swiping = true;
                     swipingRight = (deltaX > 0);
@@ -931,6 +934,7 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
                     move(deltaX);
                     return true;
                 }
+
                 break;
             }
         }

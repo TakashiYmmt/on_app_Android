@@ -2,10 +2,12 @@
 <!-- オブジェクト名などの言語に左右されない文字列の定義 -->
 
 <resources>
+    <string name="is_test">1</string>
+
     <string name="app_name">on</string>
-    <string name="api_url">http://210.140.165.80/on/1.5/api_yamamoto.php</string>
+    <string name="api_url">http://210.140.165.80/on/2.0/api.php</string>
     <string name="ok">OK</string>
-    <string name="fb_app_id">1627585374168002</string>
+    <string name="fb_app_id">172287869777831</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -24,7 +26,13 @@
     <color name="color_link_green">#a450c81e</color>
     <color name="color_comment_blue">#a4003ec8</color>
     <color name="color_text_gray">#7e7e7e</color>
+    <color name="color_text_gray2">#999999</color>
+    <color name="color_text_bg_gray">#e5e5e5</color>
     <color name="color_select_tab_gray">#373d41</color>
+    <color name="color_log_bg_gray">#f6f6f6</color>
+    <color name="color_fb_blue">#305097</color>
+    <color name="color_badge_red">#ff0000</color>
+    <color name="color_talk_nothing">#373d41</color>
 
     <string name="color_code_link_green">#a450c81e</string>
     <string name="title_activity_verify">verifyActivity</string>
@@ -52,5 +60,289 @@
     <string name="title_activity_profile_edit_qr_result">profileEditQrResult</string>
     <string name="title_activity_friend_profile">friendProfileActivity</string>
     <string name="title_activity_fb_login">fbLoginActivity</string>
+    <string name="title_activity_on_list_view_cell01">on_list_view_cell01</string>
+    <string name="title_activity_on_list_view_cell02">on_list_view_cell02</string>
+
+    <!-- 国番号 -->
+    <array name="country_code_list">
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"1"</item>
+        <item>"7"</item>
+        <item>"20"</item>
+        <item>"27"</item>
+        <item>"30"</item>
+        <item>"31"</item>
+        <item>"33"</item>
+        <item>"34"</item>
+        <item>"39"</item>
+        <item>"41"</item>
+        <item>"43"</item>
+        <item>"44"</item>
+        <item>"45"</item>
+        <item>"46"</item>
+        <item>"49"</item>
+        <item>"51"</item>
+        <item>"52"</item>
+        <item>"53"</item>
+        <item>"54"</item>
+        <item>"55"</item>
+        <item>"56"</item>
+        <item>"57"</item>
+        <item>"60"</item>
+        <item>"61"</item>
+        <item>"62"</item>
+        <item>"63"</item>
+        <item>"64"</item>
+        <item>"65"</item>
+        <item>"66"</item>
+        <item>"81"</item>
+        <item>"82"</item>
+        <item>"84"</item>
+        <item>"86"</item>
+        <item>"91"</item>
+        <item>"212"</item>
+        <item>"216"</item>
+        <item>"225"</item>
+        <item>"236"</item>
+        <item>"237"</item>
+        <item>"249"</item>
+        <item>"251"</item>
+        <item>"254"</item>
+        <item>"351"</item>
+        <item>"358"</item>
+        <item>"675"</item>
+        <item>"679"</item>
+        <item>"687"</item>
+        <item>"852"</item>
+        <item>"886"</item>
+        <item>"966"</item>
+        <item>"976"</item>
+        <item>"977"</item>
+    </array>
+
+    <!-- 該当なしは英語で -->
+    <!-- common -->
+    <integer name="country_index">0</integer>
+    <string name="close">Close</string>
+    <string name="send">Send</string>
+    <string name="back">Back</string>
+    <string name="head_back">《 Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="complete">Done</string>
+    <string name="blockConfirm">%sさんをブロックします。\nよろしいですか？</string>
+
+    <!-- list common -->
+    <string name="lc_DaysAgo">%d day(s) ago</string>
+    <string name="lc_HoursAgo">%d hour(s) ago</string>
+    <string name="lc_MinitsAgo">%d min(s) ago</string>
+    <string name="lc_SecondsAgo">%d sec(s) ago</string>
+    <string name="lc_JustNow">Just now</string>
+    <string name="listAct_doBlock">ブロックする</string>
+    <string name="listAct_deBlock">ブロックを解除する</string>
+    <string name="listAct_doSilent">非通知にする</string>
+    <string name="listAct_deSilent">非通知を解除する</string>
+
+    <!-- telephoneActivity => telAct -->
+    <string name="telAct_phoneInputEditText_hint">Input phone number</string>
+    <string name="telAct_InputCheck">Phone number is required.</string>
+    <string name="telAct_telephoneRegistButton_text">Send</string>
+    <string name="telAct_eula_full_text">Lisence Agreement</string>
+    <string name="telAct_eula_link_text">Lisence</string>
+    <string name="telAct_AcceptErr">Check Lisence Agreement</string>
+    <string name="telAct_Restart">Do you restart regist?</string>
+
+
+    <!-- verifyActivity => verifyAct -->
+    <string name="verifyAct_codeInputEditText_hint">Enter 4-digit code.</string>
+    <string name="verifyAct_VerifyError">Authentication code is incorrect.</string>
+    <string name="verifyAct_codeRegistButton_text">Authentication</string>
+    <string name="verifyAct_InputCheck">Input Authentication code.</string>
+
+    <!-- registProfileActivity => registAct -->
+    <string name="registAct_guide_text">Choose upload source.</string>
+    <string name="registAct_nameInputEditText_hint">Please input your name</string>
+    <string name="profileAct_imageInputCheck">Profile photo is required</string>
+    <string name="profileAct_nameInputCheck">Your name is required.</string>
+    <string name="registAct_profileRegistButton_text">Finish Registration</string>
+
+    <!-- homeActivity => homeAct -->
+    <string name="homeAct_onCountZero">You are not ON with anyone.</string>
+    <string name="homeAct_onCount">You are ON with %s People.</string>
+    <string name="homeAct_profileCommentHint">Ex.) I\'m now _at_. (50 chars max)</string>
+    <string name="homeAct_groupHi_confirm">Send Hi to all group members.</string>
+    <string name="homeAct_allOn_confirm">Send ON to all group members.</string>
+    <string name="homeAct_profileCommentError">Comments are limited to 50 characters.</string>
+
+    <string name="homeAct_subject_friends">Select People</string>
+    <string name="homeAct_subject_group">Select by Group</string>
+    <string name="homeAct_subject_add">Create</string>
+    <string name="homeAct_friend_list">Friends</string>
+    <string name="homeAct_group_add">Create Group</string>
+    <string name="homeAct_qr_add">add by QR-code</string>
+    <string name="homeAct_id_add">search by ID</string>
+    <string name="homeAct_my_qr">my QR-code</string>
+    <string name="homeAct_invite">Invite</string>
+    <string name="homeAct_invite_LINE">Invite via LINE</string>
+    <string name="homeAct_invite_SMS">Invite via SMS</string>
+    <string name="homeAct_ForceUpdate">最新のバージョンに更新してください。</string>
+    <string name="homeAct_Update">最新のバージョンがダウンロード可能です。\n更新しますか？</string>
+    <string name="homeAct_all">All</string>
+
+    <!-- friendListActivity => friendListAct -->
+    <string name="friendListAct_noFriend">You currently have no friends who are ON with you.</string>
+    <string name="friendListAct_offBlock">Unblock</string>
+    <string name="friendListAct_subject">Friends</string>
+    <string name="friendListAct_delete">deleated friends</string>
+
+    <!-- deleteFriendListActivity => delFriendListAct -->
+    <string name="delFriendListAct_noFriend">You currently have no deleted friends who are ON with you.</string>
+    <string name="delFriendListAct_subject">deleated friends</string>
+
+    <!-- friendProfileActivity => friendProfAct -->
+    <string name="friendProfAct_naviTitle">Profile</string>
+    <string name="friendProfAct_doBlock">Block</string>
+    <string name="friendProfAct_deBlock">Unblock</string>
+    <string name="friendProfAct_doSilent">Notifications off</string>
+    <string name="friendProfAct_deSilent">Turn notifications on</string>
+    <string name="friendProfAct_doDelete">Delete</string>
+    <string name="friendProfAct_deleteConfirm">%sさんを友達から削除します。\nよろしいですか？</string>
+
+    <!-- onListActivity => onListAct -->
+    <string name="onListAct_noFriend">You currently have no ON friends.</string>
+    <string name="onListAct_Subject1">あなたにONしている人</string>
+    <string name="onListAct_Subject2">過去のON一覧</string>
+    <string name="onListAct_noFriend1">現在ONの友達はいません。</string>
+    <string name="onListAct_noFriend2">過去にONをした友達はいません。</string>
+
+    <!-- hiListActivity => hiListAct -->
+    <string name="hiListAct_noFriend">There are currently no Hi.</string>
+    <string name="hiListAct_doBlock">Block</string>
+    <string name="hiListAct_deBlock">Unblock</string>
+    <string name="hiListAct_doSilent">Notifications off</string>
+    <string name="hiListAct_deSilent">Turn notifications on</string>
+
+    <!-- profileEditActivity => profEditAct -->
+    <string name="profEditAct_naviTitle">Profile update</string>
+    <string name="profEditAct_listName">Name</string>
+    <string name="profEditAct_listId">ID</string>
+    <string name="profEditAct_listReadQR">Read QR Code</string>
+    <string name="profEditAct_listDrawQR">My QR Code</string>
+    <string name="profEditActName_naviTitle">edit name</string>
+    <string name="profEditActId_naviTitle">edit ID</string>
+    <string name="profEditActReadQr_naviTitle">QR-code reader</string>
+    <string name="profEditActDrawQr_naviTitle">My QR Code</string>
+    <string name="profEditActQrResult_naviTitle">read QR-code</string>
+    <string name="profEditAct_profUpdate">Profile updated</string>
+    <string name="profEditAct_profIdNotUnique">既に使われているIDです</string>
+    <string name="profEditAct_DrawQr_guide">if your friend use this QR-code.\nregist your friend.</string>
+    <string name="profEditAct_QrDefault">Read QR Code</string>
+    <string name="profEditAct_QrRegisted">already your friend</string>
+    <string name="profEditAct_QrAddComplete">add complete</string>
+    <string name="profEditAct_QrLimitOver">security limit over</string>
+    <string name="profEditAct_QrIllegal">illegal QR-code</string>
+
+    <!-- groupEditActivity => groupEditAct -->
+    <string name="groupEditAct_naviTitle">Create new Group</string>
+    <string name="groupEditAct_Delete">Delete Group</string>
+    <string name="groupEditAct_Friends">Select People</string>
+    <string name="groupEditAct_ListSubject">Group Members</string>
+    <string name="groupEditAct_EditViewHint">Group Name</string>
+    <string name="groupEditAct_noMemberWarning">Select a Member</string>
+    <string name="groupEditAct_noTitleWarning">Group Name is not input yet.</string>
+    <string name="groupEditAct_saveConfirm">Save?</string>
+    <string name="groupEditAct_backSaveConfirm">Save?</string>
+    <string name="groupEditAct_deleteConfirm">Are you sure you want to delete this Group?</string>
+
+    <!-- inviteFriendsActivity => inviteFriendsAct -->
+    <string name="inviteFriendsAct_naviTitle">Invite via SMS</string>
+    <string name="inviteFriendsAct_noFriend">You don\'t have any friends to invite to ON.</string>
+    <string name="inviteFriendsAct_selectMail">Choose EMail-Address.</string>
+    <string name="inviteFriendsAct_selectPhone">Choose Phone-Number for SMS</string>
+    <string name="inviteFriendsAct_mailSubject">Join us to ON</string>
+
+    <!-- searchFriendActivity => earchFriendAct -->
+    <string name="searchFriendAct_naviTitle">search friend via ID</string>
+    <string name="searchFriendAct_editHint">input friend id</string>
+    <string name="searchFriendAct_myId">my ID</string>
+
+    <!-- talkActivity => talkAct -->
+    <string name="talkAct_naviTitle">%sさんとのトーク</string>
+    <string name="talkAct_nothing">トークをはじめましょう。</string>
+
+    <!-- 国一覧 -->
+    <array name="country_name_list">
+        <item>United States</item>
+        <item>Alaska</item>
+        <item>Canada</item>
+        <item>Jamaica</item>
+        <item>Dominican Republic</item>
+        <item>Guam</item>
+        <item>Saipan</item>
+        <item>Hawaii</item>
+        <item>Russia</item>
+        <item>Egypt</item>
+        <item>South Africa</item>
+        <item>Greece</item>
+        <item>Netherlands</item>
+        <item>France</item>
+        <item>Spain</item>
+        <item>Italy</item>
+        <item>Switzerland</item>
+        <item>Austria</item>
+        <item>United Kingdom</item>
+        <item>Denmark</item>
+        <item>Sweden</item>
+        <item>Germany</item>
+        <item>Peru</item>
+        <item>Mexico</item>
+        <item>Cuba</item>
+        <item>Argentina</item>
+        <item>Brazil</item>
+        <item>Chile</item>
+        <item>Colombia</item>
+        <item>Malaysia</item>
+        <item>Australia</item>
+        <item>Indonesia</item>
+        <item>Philippines</item>
+        <item>New Zealand</item>
+        <item>Singapore</item>
+        <item>Thailand</item>
+        <item>Japan</item>
+        <item>Republic of Korea</item>
+        <item>Viet Nam</item>
+        <item>China</item>
+        <item>India</item>
+        <item>Morocco</item>
+        <item>Tunisia</item>
+        <item>Cote d\'Ivoire</item>
+        <item>Central African Republic</item>
+        <item>Cameroon</item>
+        <item>Sudan</item>
+        <item>Ethiopia</item>
+        <item>Kenya</item>
+        <item>Portugal</item>
+        <item>Finland</item>
+        <item>Papua New Guinea</item>
+        <item>Fiji</item>
+        <item>New Caledonia</item>
+        <item>Hong Kong</item>
+        <item>Taiwan</item>
+        <item>Saudi Arabia</item>
+        <item>Mongolia</item>
+        <item>Nepal</item>
+    </array>
+    <string name="title_activity_search_friend">searchFriendActivity</string>
+    <string name="title_activity_deleted_friend_list">deletedFriendListActivity</string>
+    <string name="title_activity_search_friend2">searchFriendActivity2</string>
+    <string name="title_activity_friend_profile_edit_nick_name">friendProfileEditNickNameActivity
+    </string>
+    <string name="title_activity_talk">talkActivity</string>
 
 </resources>

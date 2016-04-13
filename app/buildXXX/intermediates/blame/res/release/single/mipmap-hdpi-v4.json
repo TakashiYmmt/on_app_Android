@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-hdpi-v4/icon.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-hdpi/icon.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-hdpi-v4/home_icon.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-hdpi/home_icon.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-hdpi-v4/ic_launcher.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    }
+]

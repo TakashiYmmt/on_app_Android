@@ -22,8 +22,15 @@ import java.net.URL;
  */
 public class HttpImageView extends ImageView {
     private ImageLoadTask task = null;
+    private Bitmap cacheBitmap = null;
 
     public void setImageUrl(String server_url,int limitSize, Context context) {
+
+        // キャッシュがあればそれを表示しておしまい
+        if( cacheBitmap != null ){
+            setImageBitmap(cacheBitmap);
+            return;
+        }
 
         if (task != null && task.getStatus() != AsyncTask.Status.FINISHED) {
             task.cancel(true);
@@ -43,6 +50,12 @@ public class HttpImageView extends ImageView {
     }
 
     public void setImageUrl(String server_url,int limitSize, Context context, boolean drawCircle) {
+
+        // キャッシュがあればそれを表示しておしまい
+        if( cacheBitmap != null ){
+            setImageBitmap(cacheBitmap);
+            return;
+        }
 
         if (task != null && task.getStatus() != AsyncTask.Status.FINISHED) {
             task.cancel(true);
@@ -197,6 +210,7 @@ public class HttpImageView extends ImageView {
             //setImageURI(result);
             //ずれはキャッシュしたローカルファイルを参照したいけど、今はクラス内にバイナリを持って扱う
             setImageBitmap(bitmap);
+            //cacheBitmap = bitmap;
             bitmap = null;
         }
 

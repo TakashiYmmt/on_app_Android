@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-mdpi-v4/home_icon.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-mdpi/home_icon.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-mdpi-v4/ic_launcher.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-mdpi-v4/icon.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-mdpi/icon.png"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/mipmap-mdpi-v4/icon_ldpi.png",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/mipmap-mdpi/icon_ldpi.png"
+    }
+]

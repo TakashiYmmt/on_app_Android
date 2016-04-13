@@ -17,6 +17,7 @@ public class clsUserInfo {
     String deviceType;
     String valid;
     String status;
+    String friend_flag;
 
     public String getId() {
         return id;
@@ -93,5 +94,12 @@ public class clsUserInfo {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getFriendFlag() {
+        return friend_flag;
+    }
+    public void setFriendFlag(String friend_flag) {
+        this.friend_flag = friend_flag;
     }
 }

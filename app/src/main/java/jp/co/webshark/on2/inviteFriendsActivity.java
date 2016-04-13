@@ -8,14 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.internal.widget.AdapterViewCompat;
+////import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -25,18 +27,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class inviteFriendsActivity extends Activity {
+import jp.co.webshark.on2.customViews.CustomScrollView;
+
+public class inviteFriendsActivity extends commonActivity {
     private RelativeLayout mainLayout;
     private ArrayList<clsFriendInfo> inviteList;
+    private ArrayList<clsFriendInfo> inviteFull;
     private ListView listView;
-    private ScrollView scrollView;
+    private CustomScrollView scrollView;
     private RelativeLayout nothingView;
     private String sendIndex;
-    private AsyncPost friendsGetter;
-    private AsyncPost messageGetter;
+    //private AsyncPost friendsGetter;
+    //private AsyncPost messageGetter;
     private String inviteMessage;
     private String[] items;
-    private AsyncPost checkFriendSender;
+    //private AsyncPost checkFriendSender;
     private String strJsonArray = null;
 
     @Override
@@ -49,7 +54,7 @@ public class inviteFriendsActivity extends Activity {
 
         // 画面上のオブジェクト
         listView = (ListView) findViewById(R.id.listView1);
-        scrollView = (ScrollView) findViewById(R.id.scroll_body);
+        scrollView = (CustomScrollView) findViewById(R.id.scroll_body);
         nothingView = (RelativeLayout) findViewById(R.id.nothingLayout);
 
         nothingView.setVisibility(View.GONE);
@@ -64,7 +69,7 @@ public class inviteFriendsActivity extends Activity {
         strJsonArray = commonFucntion.getArrayTelJsonList(getApplicationContext());
 
         // プロフィール取得用API通信のコールバック
-        checkFriendSender = new AsyncPost(new AsyncCallback() {
+        AsyncPost checkFriendSender = new AsyncPost(new AsyncCallback() {
             public void onPreExecute() {}
             public void onProgressUpdate(int progress) {}
             public void onCancelled() {}
@@ -80,7 +85,7 @@ public class inviteFriendsActivity extends Activity {
 
         // API通信のPOST処理
         checkFriendSender.setParams(strURL, body);
-        checkFriendSender.execute();
+        checkFriendSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         items = null;
     }
 
@@ -96,6 +101,7 @@ public class inviteFriendsActivity extends Activity {
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, proj, selection, args, sort);
 
         inviteList = new ArrayList<clsFriendInfo>();
+        inviteFull = new ArrayList<clsFriendInfo>();
 
         if (cursor.moveToFirst()) {
             String id = null;
@@ -119,6 +125,16 @@ public class inviteFriendsActivity extends Activity {
             } while (cursor.moveToNext());
         }
         cursor.close();
+
+        /*
+        for (int i = 0; i < 15; i++) {
+            if (i == inviteFull.size()) {
+                i = 15;
+            } else {
+                inviteList.add(inviteFull.get(i));
+            }
+        }
+        */
 
         try{
             onGlobal onGlobal = (onGlobal) getApplicationContext();
@@ -176,46 +192,12 @@ public class inviteFriendsActivity extends Activity {
     public void onResume(){
         super.onResume();
 
-        // コールバック初期化
-        setFriendsGetter();
-        setMessageGetter();
-
         // 画面初期化時に描画する分はここで
         getFriendList();
 
         // 画面再描画のタイミングでAPIから取れる情報を取っておく
         getMessage();
         items = null;
-    }
-
-    // APIコールバック定義
-    private void setFriendsGetter(){
-        // プロフィール取得用API通信のコールバック
-        friendsGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                //drawUserInfo(clsJson2Objects.setUserInfo(result));
-                drawInviteList(inviteList, clsJson2Objects.setTelephoneMap(result));
-                setFriendsGetter();
-            }
-        });
-    }
-    // APIコールバック定義
-    private void setMessageGetter(){
-        // プロフィール取得用API通信のコールバック
-        messageGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                inviteMessage = clsJson2Objects.getElement(result,"article");
-                setMessageGetter();
-            }
-        });
     }
 
     private void getFriendList(){
@@ -227,9 +209,22 @@ public class inviteFriendsActivity extends Activity {
         body.put("entity", "getFriendList");
         body.put("user_id", String.valueOf(user_id));
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost friendsGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    //drawUserInfo(clsJson2Objects.setUserInfo(result));
+                    drawInviteList(inviteList, clsJson2Objects.setTelephoneMap(result));
+                }
+            }
+        });
         // API通信のPOST処理
         friendsGetter.setParams(strURL, body);
-        friendsGetter.execute();
+        friendsGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void getMessage(){
@@ -240,9 +235,21 @@ public class inviteFriendsActivity extends Activity {
 
         body.put("entity", "getSMSInfo");
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost messageGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    inviteMessage = clsJson2Objects.getElement(result,"article");
+                }
+            }
+        });
         // API通信のPOST処理
         messageGetter.setParams(strURL, body);
-        messageGetter.execute();
+        messageGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void drawInviteList(ArrayList<clsFriendInfo> list,HashMap<String,String> telephoneMap){
@@ -414,7 +421,7 @@ public class inviteFriendsActivity extends Activity {
 
     public boolean onContextItemSelected(MenuItem item) {
 
-        AdapterViewCompat.AdapterContextMenuInfo info = (AdapterViewCompat.AdapterContextMenuInfo) item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         Intent intent;
 
         switch (item.getItemId()) {

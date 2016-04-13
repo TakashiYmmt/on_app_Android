@@ -1,0 +1,94 @@
+[
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_privacy_policy.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_privacy_policy.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_friend_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_friend_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profile_edit_draw_qr.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profile_edit_draw_qr.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_on_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_on_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_group_edit.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_group_edit.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_verify.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_verify.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profile_edit_id.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profile_edit_id.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_telephone.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_telephone.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_start.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_start.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_invite_friends.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_invite_friends.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_eula.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_eula.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profil_edit_name.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profil_edit_name.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profile_edit_read_qr.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profile_edit_read_qr.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profile_edit.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profile_edit.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_friend_profile.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_friend_profile.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_main.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_main.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_home_tab.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_home_tab.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_home.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_home.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_hi_list.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_hi_list.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_regist_profile.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_regist_profile.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_profile_edit_qr_result.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_profile_edit_qr_result.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_home2.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_home2.xml"
+    },
+    {
+        "merged": "/Users/takashi/on_app_Android_fbtest/app/build/intermediates/res/merged/release/menu/menu_group_member_select.xml",
+        "source": "/Users/takashi/on_app_Android_fbtest/app/src/main/res/menu/menu_group_member_select.xml"
+    }
+]

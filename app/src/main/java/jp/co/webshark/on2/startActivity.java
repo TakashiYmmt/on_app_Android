@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.Window;
+
+import com.facebook.AccessToken;
+
 import java.util.HashMap;
 
 public class startActivity extends Activity {
@@ -17,6 +20,9 @@ public class startActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        // FB認証チェック(予約)
+        AccessToken accessToken = commonFucntion.checkFbLogin(getApplicationContext());
 
         try{
             // 許可を求めるダイアログをメインスレッドで出す為にカーソルを作成
@@ -54,7 +60,7 @@ public class startActivity extends Activity {
 
                     // API通信のPOST処理
                     checkFriendSender.setParams(strURL, body);
-                    checkFriendSender.execute();
+                    checkFriendSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     */
                     cf = null;
                 }
@@ -76,7 +82,6 @@ public class startActivity extends Activity {
     class splashHandlerRegist implements Runnable {
         public void run() {
             Intent intent = new Intent(getApplication(), telephoneActivity.class);
-            //Intent intent = new Intent(getApplication(), fbLoginActivity.class);
             startActivity(intent);
             startActivity.this.finish();
         }
@@ -84,7 +89,6 @@ public class startActivity extends Activity {
     class splashHandlerMain implements Runnable {
         public void run() {
             Intent intent = new Intent(getApplication(), homeActivity.class);
-            //Intent intent = new Intent(getApplication(), fbLoginActivity.class);
             startActivity(intent);
             startActivity.this.finish();
         }

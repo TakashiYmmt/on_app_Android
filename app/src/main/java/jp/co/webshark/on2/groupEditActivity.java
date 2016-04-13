@@ -8,14 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -38,17 +37,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import jp.co.webshark.on2.customViews.DetectableKeyboardEventLayout;
+import jp.co.webshark.on2.customViews.EffectImageView;
 import jp.co.webshark.on2.customViews.HttpImageView;
-import jp.co.webshark.on2.customViews.SwipeListView;
 import jp.co.webshark.on2.customViews.UrlImageView;
 
-public class groupEditActivity extends Activity {
+public class groupEditActivity extends commonActivity {
     String groupId;
     String groupName;
     ImageView groupImageView;
-    private AsyncPost groupMemberGetter;
-    private AsyncPost groupSetter;
-    private AsyncPost groupMemberSetter;
+    //private AsyncPost groupMemberGetter;
+    //private AsyncPost groupSetter;
+    //private AsyncPost onSender;
+    //private AsyncPost hiSender;
+    //private AsyncPost flgSender;
+    //private AsyncPost groupMemberSetter;
     ArrayList<clsFriendInfo> groupMember;
     ArrayList<clsFriendInfo> friendAll;
     private ListView listView;
@@ -58,7 +60,9 @@ public class groupEditActivity extends Activity {
     private boolean openKeyBoard;
     private Uri mPictureUri;
     GroupMemberAdapter adapter;
-    private boolean isChanged;
+    private String refreshOnFlg;
+    private View eventTriggerView;
+    private String sendIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +99,6 @@ public class groupEditActivity extends Activity {
             cell.setVisibility(View.GONE);
         }
 
-        setGroupMemberGetter();
         getGroupMember();
 
         DetectableKeyboardEventLayout root = (DetectableKeyboardEventLayout)findViewById(R.id.body);
@@ -114,81 +117,16 @@ public class groupEditActivity extends Activity {
                 }
             }
         });
-
-        isChanged = false;
-
-        // イベントリスナーの登録
-        ((EditText) findViewById(R.id.groupNameEdit)).addTextChangedListener(new UITextWatcher ());
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        this.setGroupMemberGetter();
-        this.setGroupMemberSetter();
-        this.setGroupSetter();
 
         //キーボードを隠す
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         //背景にフォーカスを移す
         mainLayout.requestFocus();
-    }
-
-    // APIコールバック定義
-    private void setGroupMemberGetter(){
-        // プロフィール取得用API通信のコールバック
-        groupMemberGetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
-                drawGroupMemberInfo(clsJson2Objects.setFriendList(result));
-            }
-        });
-    }
-
-    private void setGroupSetter(){
-        // プロフィール取得用API通信のコールバック
-        groupSetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // グループメンバー登録(更新)と画像セーブを行う
-                if( clsJson2Objects.isOK(result) ){
-                    if( groupId.isEmpty() ){
-                        groupId = clsJson2Objects.getElement(result, "tag_id");
-                    }else{
-                        removeGroupMember();
-                    }
-                    for( int i = 0 ; i < groupMember.size() ; i++ ){
-                        addGroupMember(groupMember.get(i).getFriendId());
-                    }
-
-                    Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
-                    commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
-                }
-                setGroupSetter();
-
-                Intent intent = new Intent();
-                setResult(RESULT_CANCELED, intent);
-                intent.putExtra("isUpdate", false);
-                finish();
-            }
-        });
-    }
-
-    private void setGroupMemberSetter(){
-        // プロフィール取得用API通信のコールバック
-        groupMemberSetter = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                setGroupMemberSetter();
-            }
-        });
     }
 
     private void getGroupMember(){
@@ -201,9 +139,21 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupMemberGetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    drawGroupMemberInfo(clsJson2Objects.setFriendList(result));
+                }
+            }
+        });
         // API通信のPOST処理
         groupMemberGetter.setParams(strURL, body);
-        groupMemberGetter.execute();
+        groupMemberGetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void createGroup(String groupName){
@@ -216,9 +166,38 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("name", groupName);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void updateGroup(String groupName){
@@ -232,9 +211,38 @@ public class groupEditActivity extends Activity {
         body.put("tag_id", groupId);
         body.put("name", groupName);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
 
@@ -247,9 +255,16 @@ public class groupEditActivity extends Activity {
         body.put("entity", "deleteAllFriendTag");
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupMemberSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {}
+        });
         // API通信のPOST処理
         groupMemberSetter.setParams(strURL, body);
-        groupMemberSetter.execute();
+        groupMemberSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void addGroupMember(String friend_id){
@@ -270,7 +285,7 @@ public class groupEditActivity extends Activity {
             public void onPostExecute(String result) {}
         });
         setter.setParams(strURL, body);
-        setter.execute();
+        setter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void removeGroup(){
@@ -283,9 +298,38 @@ public class groupEditActivity extends Activity {
         body.put("user_id", String.valueOf(user_id));
         body.put("tag_id", groupId);
 
+        // プロフィール取得用API通信のコールバック
+        AsyncPost groupSetter = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                if(!isDestroy){
+                    // グループメンバー登録(更新)と画像セーブを行う
+                    if( clsJson2Objects.isOK(result) ){
+                        if( groupId.isEmpty() ){
+                            groupId = clsJson2Objects.getElement(result, "tag_id");
+                        }else{
+                            removeGroupMember();
+                        }
+                        for( int i = 0 ; i < groupMember.size() ; i++ ){
+                            addGroupMember(groupMember.get(i).getFriendId());
+                        }
+
+                        Bitmap bm = ((BitmapDrawable)groupImageView.getDrawable()).getBitmap();
+                        commonFucntion.createBitmapCache(getApplicationContext(), bm, "group"+groupId+".jpg");
+                    }
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_CANCELED, intent);
+                    intent.putExtra("isUpdate", false);
+                    finish();
+                }
+            }
+        });
         // API通信のPOST処理
         groupSetter.setParams(strURL, body);
-        groupSetter.execute();
+        groupSetter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     private void drawGroupMemberInfo(ArrayList<clsFriendInfo> list){
@@ -315,8 +359,6 @@ public class groupEditActivity extends Activity {
 
         adapter.notifyDataSetChanged();
         scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-
-        this.setGroupMemberGetter();
     }
 
     // リスト部の配列連結アダプタ
@@ -347,13 +389,41 @@ public class groupEditActivity extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = layoutInflater.inflate(R.layout.group_view_cell01,parent,false);
-            //convertView = layoutInflater.inflate(R.layout.group_view_cell02,parent,false);
+            convertView = layoutInflater.inflate(R.layout.group_view_cell02,parent,false);
 
-            ((HttpImageView)convertView.findViewById(R.id.member_image)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
-            ((TextView)convertView.findViewById(R.id.cell_member_name)).setText(groupMember.get(position).getName());
+            ((HttpImageView)convertView.findViewById(R.id.cellFriendProfileImage)).setImageUrl(groupMember.get(position).getImageURL(), getResources().getDimensionPixelSize(R.dimen.group_cell_height), parent.getContext(),true);
+            //((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
             ((TextView)convertView.findViewById(R.id.cellHiddenIndex)).setText(Integer.toString(position));
 
+            if( groupMember.get(position).getNickName().equals("") ){
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getName());
+            }else{
+                ((TextView)convertView.findViewById(R.id.cellFriendName)).setText(groupMember.get(position).getNickName());
+            }
+
+            EffectImageView targetImage = (EffectImageView)convertView.findViewById(R.id.cellFriendHiButton);
+            targetImage.setSwitchEffect(R.drawable.loading_hi_small, 2000);
+
+            if( groupMember.get(position).getOnFlg().equals("1") ){
+                ImageView switchButton = (ImageView)convertView.findViewById(R.id.cellSwitchButton);
+                switchButton.setImageResource(R.drawable.list_button_on);
+            }
+
+            if( groupMember.get(position).getNotificationOffFlg().equals("00") ){
+                ImageView silentIcon = (ImageView)convertView.findViewById(R.id.cellIconSilent);
+                silentIcon.setVisibility(View.GONE);
+            }
+
+            convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+            /*
+            if( groupMember.get(position).getBlockFlg().equals("00") ){
+                convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.VISIBLE);
+                convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.GONE);
+            }else{
+                convertView.findViewById(R.id.cellSwitchButton).setVisibility(View.INVISIBLE);
+                convertView.findViewById(R.id.cellDeBlockButton).setVisibility(View.VISIBLE);
+            }
+            */
             return convertView;
         }
     }
@@ -406,32 +476,12 @@ public class groupEditActivity extends Activity {
 
 
     }
-    public void saveGroupFromBack() {
-        // メンバー・グループ名チェックが通ったら保存処理
-        EditText groupName = (EditText) findViewById(R.id.groupNameEdit);
-        SpannableStringBuilder sp = (SpannableStringBuilder)groupName.getText();
-        inputText = sp.toString();
-        if( groupMember.size() == 0 ){
-            Toast.makeText(this, getResources().getString(R.string.groupEditAct_noMemberWarning), Toast.LENGTH_LONG).show();
-            return;
-        }else if( inputText.isEmpty() ){
-            Toast.makeText(this, getResources().getString(R.string.groupEditAct_noTitleWarning), Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // グループIDの有無で新規・更新を分岐
-        if (groupId.isEmpty()) {
-            createGroup(inputText);
-        } else {
-            updateGroup(inputText);
-        }
-    }
 
     // 削除ボタン
     public void deleteGroup(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        alertDialogBuilder.setMessage( getResources().getString(R.string.groupEditAct_deleteConfirm) );
+        alertDialogBuilder.setMessage(getResources().getString(R.string.groupEditAct_deleteConfirm));
         alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -463,65 +513,280 @@ public class groupEditActivity extends Activity {
     // 戻るリンク
     public void groupEditClose(View view) {
 
-        if( isChanged ){
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-            alertDialogBuilder.setMessage(getResources().getString(R.string.groupEditAct_backSaveConfirm));
-            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            saveGroupFromBack();
-                        }
-                    });
-            alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            dialog = null;
-
-                            // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
-                            Intent intent = new Intent();
-                            setResult(RESULT_CANCELED, intent);
-                            intent.putExtra("isUpdate", false);
-                            finish();
-                        }
-                    });
-            alertDialogBuilder.setCancelable(false);
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-        }else{
-            // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
-            Intent intent = new Intent();
-            setResult(RESULT_CANCELED, intent);
-            intent.putExtra("isUpdate", false);
-            finish();
-        }
+        // アクティビティを終了させる事により、一つ前のアクティビティへ戻る事が出来る。
+        Intent intent = new Intent();
+        setResult(RESULT_CANCELED, intent);
+        intent.putExtra("isUpdate", false);
+        finish();
 
     }
 
-    // グループON・OFFボタン
-    public void memberOnOff(View view){
+    // ONボタン
+    private String profileComment;
+    public void sendON(View view){
 
         RelativeLayout cell = (RelativeLayout)view.getParent();
         String deleteIndex = "";
         for (int i = 0 ; i < cell.getChildCount() ; i++) {
             View childview = cell.getChildAt(i);
             if (childview instanceof TextView) {
-                if( i == 3 ){
+                if( i == 0 ){
                     TextView hiddenText = (TextView)childview;
-                    deleteIndex = hiddenText.getText().toString();
+                    sendIndex = hiddenText.getText().toString();
                     break;
                 }
             }
         }
 
-        // 画面表示用配列から選択インデックス分を削除して再描画
-        groupMember.remove(Integer.parseInt(deleteIndex));
-        adapter.notifyDataSetChanged();
+        eventTriggerView = view;
 
-        isChanged = true;
+        String onFlg = this.groupMember.get(Integer.parseInt(sendIndex)).getOnFlg();
+        if( onFlg.equals("1") ){
+            eventTriggerView = view;
+            sendON(sendIndex);
+            sendIndex = null;
+            profileComment = null;
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+            if( commonFucntion.getComment(getApplication()).equals("") ){
+                eventTriggerView = view;
+
+                //setViewにてビューを設定します。
+                final EditText editView = new EditText(groupEditActivity.this);
+                editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+                editView.setSingleLine();
+                alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+                alertDialogBuilder.setView(editView);
+
+                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                profileComment = editView.getText().toString();
+                                commonFucntion.setComment(getApplication(), profileComment);
+
+                                sendON(sendIndex);
+                                sendIndex = null;
+                                profileComment = null;
+
+                                //キーボードを隠す
+                                inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                                //背景にフォーカスを移す
+                                mainLayout.requestFocus();
+
+                                dialog.dismiss();
+                                dialog = null;
+
+                            }
+                        });
+                alertDialogBuilder.setCancelable(false);
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }else{
+                sendON(sendIndex);
+                sendIndex = null;
+            }
+        }
+    }
+    private void sendON(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendIndex)).getFriendId();
+        String onFlg = groupMember.get(Integer.parseInt(sendIndex)).getOnFlg();
+
+        if( onFlg.equals("0") ){
+            onFlg = "1";
+        }else{
+            onFlg = "0";
+        }
+
+        groupMember.get(Integer.parseInt(sendIndex)).setOnFlg(onFlg);
+        refreshOnFlg = onFlg;
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "SendOnPersonal");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+        body.put("on_flg", onFlg);
+        body.put("profile_comment", profileComment);
+
+        // ON送信用API通信のコールバック
+        AsyncPost onSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    // 変更したフラグに応じてトリガーのボタン画像を差し替え
+                    if( refreshOnFlg.equals("0") ){
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_off);
+                    }else{
+                        ((ImageView)eventTriggerView).setImageResource(R.drawable.list_button_on);
+                    }
+                    eventTriggerView = null;
+                    refreshOnFlg = null;
+                }
+
+            }
+        });
+        // API通信のPOST処理
+        onSender.setParams(strURL, body);
+        onSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    // ブロック解除ボタン
+    public void deBlock(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        sendDeBlock(sendIndex);
+        sendIndex = null;
+    }
+    private void sendDeBlock(String sendIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "blockOff");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+
+        // ON送信用API通信のコールバック
+        AsyncPost flgSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+                // JSON文字列をユーザ情報クラスに変換して画面書き換えをコールする
+                if(!isDestroy){
+                    getGroupMember();
+                }
+            }
+        });
+        // API通信のPOST処理
+        flgSender.setParams(strURL, body);
+        flgSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    // Hiボタン
+    public void sendHi(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        ((EffectImageView)view).doEffect();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if( commonFucntion.getComment(getApplication()).equals("") ){
+            eventTriggerView = view;
+
+            //setViewにてビューを設定します。
+            final EditText editView = new EditText(groupEditActivity.this);
+            editView.setHint(Html.fromHtml("<small><small>" + getResources().getString(R.string.homeAct_profileCommentHint) + "</small></small>"));
+            editView.setSingleLine();
+            alertDialogBuilder.setMessage("コメントを付けますか？\nあなたの居場所ややりたい事をコメントに(50文字以内)");
+            alertDialogBuilder.setView(editView);
+
+            alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileComment = editView.getText().toString();
+                            commonFucntion.setComment(getApplication(), profileComment);
+
+                            sendHi(sendIndex);
+                            sendIndex = null;
+                            profileComment = null;
+
+                            //キーボードを隠す
+                            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            //背景にフォーカスを移す
+                            mainLayout.requestFocus();
+
+                            dialog.dismiss();
+                            dialog = null;
+
+                        }
+                    });
+            alertDialogBuilder.setCancelable(false);
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }else{
+            sendHi(sendIndex);
+            sendIndex = null;
+        }
+    }
+    private void sendHi(String sendHiIndex){
+        int user_id = commonFucntion.getUserID(getApplicationContext());
+        String friendId = groupMember.get(Integer.parseInt(sendHiIndex)).getFriendId();
+
+        String strURL = getResources().getString(R.string.api_url);
+        HashMap<String,String> body = new HashMap<String,String>();
+
+        body.put("entity", "sendHiFronFL");
+        body.put("user_id", String.valueOf(user_id));
+        body.put("friend_id", friendId);
+        body.put("profile_comment", profileComment);
+
+        // プロフィール取得用API通信のコールバック
+        AsyncPost hiSender = new AsyncPost(new AsyncCallback() {
+            public void onPreExecute() {}
+            public void onProgressUpdate(int progress) {}
+            public void onCancelled() {}
+            public void onPostExecute(String result) {
+            }
+        });
+        // API通信のPOST処理
+        hiSender.setParams(strURL, body);
+        hiSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+    public void openProfile(View view){
+
+        RelativeLayout cell = (RelativeLayout)view.getParent();
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    break;
+                }
+            }
+        }
+
+        clsFriendInfo friendInfo = groupMember.get(Integer.parseInt(sendIndex));
+
+        onGlobal onGlobal = (onGlobal) getApplication();
+        onGlobal.setShareData("selectFrined", friendInfo);
+        sendIndex = null;
+
+        // 一方通行で開くだけ
+        Intent intent = new Intent(getApplicationContext(),friendProfileActivity.class);
+        startActivity(intent);
     }
 
     // 人から選ぶ
@@ -545,8 +810,6 @@ public class groupEditActivity extends Activity {
         // 一方通行で開くだけ
         Intent intent = new Intent(getApplicationContext(),groupMemberSelectActivity.class);
         startActivityForResult(intent, 0);
-
-        isChanged = true;
     }
 
     public void openLibrary(View view){
@@ -579,6 +842,43 @@ public class groupEditActivity extends Activity {
             groupImageView.setImageBitmap(bm);
         } catch (IOException e) {
             /* 例外処理 */
+        }
+    }
+
+    // セル全体
+    public void openTalk(View view){
+        RelativeLayout cell = (RelativeLayout)view;
+        Bitmap imageBitmap = null;
+
+        for (int i = 0 ; i < cell.getChildCount() ; i++) {
+            View childview = cell.getChildAt(i);
+            if (childview instanceof TextView) {
+                if( i == 0 ){
+                    TextView hiddenText = (TextView)childview;
+                    sendIndex = hiddenText.getText().toString();
+                    //break;
+                }
+            }else if(childview instanceof HttpImageView){
+                HttpImageView friendImage = (HttpImageView)childview;
+                imageBitmap = ((BitmapDrawable)friendImage.getDrawable()).getBitmap();
+            }
+        }
+
+        clsFriendInfo friendInfo = groupMember.get(Integer.parseInt(sendIndex));
+
+        if( friendInfo.getBlockFlg().equals("00") ){
+            // 友達リストは friend_id が逆向きなので、トーク用に整える
+            String temp = friendInfo.getFlagsFriendId();
+            friendInfo.setFlagsFriendId(friendInfo.getFriendId());
+            friendInfo.setFriendId(temp);
+
+            onGlobal onGlobal = (onGlobal) getApplication();
+            onGlobal.setShareData("selectFrined",friendInfo);
+            onGlobal.setShareData("friendImage",imageBitmap);
+            sendIndex = null;
+
+            Intent intent = new Intent(getApplicationContext(),talkActivity.class);
+            startActivity(intent);
         }
     }
 
@@ -667,15 +967,6 @@ public class groupEditActivity extends Activity {
                 }
                 istream.close();
 
-                // トリミングして正方形にする
-                int w = bitmap.getWidth();
-                int h = bitmap.getHeight();
-                float scale = Math.max((float)bitmap.getWidth()/w, (float)bitmap.getHeight()/h);
-                int size = Math.min(w, h);
-                Matrix matrix = new Matrix();
-                matrix.postScale(scale, scale);
-                bitmap = Bitmap.createBitmap(bitmap, (w - size) / 2, (h - size) / 2, size, size, matrix, true);
-
                 //groupImageView.setImageURI(result);
                 groupImageView.setImageBitmap(bitmap);
             } catch (IOException e) {
@@ -687,8 +978,6 @@ public class groupEditActivity extends Activity {
             // 縦幅に合わせる
             params.height = params.width;
             groupImageView.setLayoutParams(params);
-
-            isChanged = true;
         }
     }
 
@@ -735,12 +1024,4 @@ public class groupEditActivity extends Activity {
         return false;
     }
 
-    // EdeiText用のOverride
-    public class UITextWatcher implements TextWatcher {
-        public void afterTextChanged(Editable arg) {
-            isChanged = true;
-        }
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
-    }
 }

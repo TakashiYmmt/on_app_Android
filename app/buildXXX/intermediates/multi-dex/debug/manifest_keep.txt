@@ -1,0 +1,53 @@
+-keep class jp.co.webshark.on2.onGlobal {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+-keep class jp.co.webshark.on2.GcmIntentService { <init>(); }
+-keep class jp.co.webshark.on2.GcmBroadcastReceiver { <init>(); }
+-keep class jp.co.webshark.on2.RegistrationIntentService { <init>(); }
+-keep class com.facebook.FacebookActivity { <init>(); }
+-keep class com.facebook.FacebookContentProvider { <init>(); }
+-keep class jp.co.webshark.on2.startActivity { <init>(); }
+-keep class jp.co.webshark.on2.mainActivity { <init>(); }
+-keep class jp.co.webshark.on2.telephoneActivity { <init>(); }
+-keep class jp.co.webshark.on2.eulaActivity { <init>(); }
+-keep class jp.co.webshark.on2.verifyActivity { <init>(); }
+-keep class jp.co.webshark.on2.registProfileActivity { <init>(); }
+-keep class jp.co.webshark.on2.homeActivity { <init>(); }
+-keep class jp.co.webshark.on2.privacyPolicyActivity { <init>(); }
+-keep class jp.co.webshark.on2.onListActivity { <init>(); }
+-keep class jp.co.webshark.on2.hiListActivity { <init>(); }
+-keep class jp.co.webshark.on2.friendListActivity { <init>(); }
+-keep class jp.co.webshark.on2.home2Activity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditActivity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditNameActivity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditIdActivity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditDrawQrActivity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditReadQrActivity { <init>(); }
+-keep class jp.co.webshark.on2.groupEditActivity { <init>(); }
+-keep class jp.co.webshark.on2.groupMemberSelectActivity { <init>(); }
+-keep class jp.co.webshark.on2.inviteFriendsActivity { <init>(); }
+-keep class jp.co.webshark.on2.profileEditQrResult { <init>(); }
+-keep class jp.co.webshark.on2.friendProfileActivity { <init>(); }
+-keep class jp.co.webshark.on2.fbLoginActivity { <init>(); }
+-keep class jp.co.webshark.on2.on_list_view_cell01 { <init>(); }
+-keep class jp.co.webshark.on2.on_list_view_cell02 { <init>(); }
+-keep class jp.co.webshark.on2.searchFriendActivity { <init>(); }
+-keep class jp.co.webshark.on2.deletedFriendListActivity { <init>(); }
+-keep class jp.co.webshark.on2.searchFriendActivity2 { <init>(); }
+-keep class jp.co.webshark.on2.friendProfileEditNickNameActivity { <init>(); }
+-keep class jp.co.webshark.on2.talkActivity { <init>(); }
+-keep class com.google.android.gms.ads.AdActivity { <init>(); }
+-keep class com.google.android.gms.ads.purchase.InAppPurchaseActivity { <init>(); }
+-keep class com.google.android.gms.appinvite.PreviewActivity { <init>(); }
+-keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity { <init>(); }
+-keep class com.google.android.gms.auth.api.signin.RevocationBoundService { <init>(); }
+-keep class com.google.android.gms.measurement.AppMeasurementContentProvider { <init>(); }
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver { <init>(); }
+-keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+-keep public class * extends java.lang.annotation.Annotation {
+    *;
+}

@@ -12,16 +12,20 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.SpannableStringBuilder;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -34,12 +38,12 @@ import java.util.HashMap;
 import jp.co.webshark.on2.customViews.HttpImageView;
 
 
-public class registProfileActivity extends Activity {
+public class registProfileActivity extends commonActivity {
     private InputMethodManager inputMethodManager;
     private RelativeLayout mainLayout;
     private EditText nameInputEditText;
     private Uri mPictureUri;
-    private AsyncPost profileSender;
+    //private AsyncPost profileSender;
     private Context mContext;
     private String  picPath,ba1;
     private ImageView profileImageView;
@@ -53,6 +57,7 @@ public class registProfileActivity extends Activity {
         // 画面上のオブジェクト
         nameInputEditText = (EditText) findViewById(R.id.idInputEditText); // EditTextオブジェクト
         profileImageView = (ImageView) findViewById(R.id.imageButton); // ImageButtonオブジェクト
+        ((TextView)findViewById(R.id.turn_button)).setVisibility(View.INVISIBLE);
 
         Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
         BitmapTrim bitmapTrim = new BitmapTrim(bm.getWidth(), bm.getHeight());
@@ -72,27 +77,13 @@ public class registProfileActivity extends Activity {
 
         drawBitmap = false;
     }
-    // APIコールバック定義
-    private void setProfileSender(){
-        // プロフィール取得用API通信のコールバック
-        profileSender = new AsyncPost(new AsyncCallback() {
-            public void onPreExecute() {}
-            public void onProgressUpdate(int progress) {}
-            public void onCancelled() {}
-            public void onPostExecute(String result) {
-                // JSON文字列を確認してからローカル情報の作成と画面遷移をする
-                registCheck(clsJson2Objects.isOK(result));
-            }
-        });
-    }
-
     private void registCheck(boolean result){
 
         // resultから成否を確認してから
         if(result){
             // 仮で持っていたユーザIDをローカルに保存する
             onGlobal global = (onGlobal)getApplication();
-            commonFucntion.setUserID(this.getApplicationContext(),(String)global.getShareData("user_id"));
+            commonFucntion.setUserID(this.getApplicationContext(), (String) global.getShareData("user_id"));
 
             Intent intent = new Intent(getApplicationContext(),homeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -103,9 +94,6 @@ public class registProfileActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
-
-        // コールバックの初期化
-        this.setProfileSender();
 
         //キーボードを隠す
         inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -249,6 +237,8 @@ public class registProfileActivity extends Activity {
                 profileImageView.setImageBitmap(bitmap);
                 drawBitmap = true;
 
+                ((TextView)findViewById(R.id.turn_button)).setVisibility(View.VISIBLE);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -268,6 +258,14 @@ public class registProfileActivity extends Activity {
 
             //mPictureUri = null;
         }
+    }
+
+    public void rollImage(View view){
+        Bitmap base = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
+        Matrix mat = new Matrix();
+        mat.postRotate(90);
+        Bitmap result = Bitmap.createBitmap(base, 0, 0, base.getWidth(), base.getHeight(), mat, true);
+        profileImageView.setImageBitmap(result);
     }
 
 
@@ -303,7 +301,55 @@ public class registProfileActivity extends Activity {
             body.put("profile_comment","");
             body.put("user_id", (String)global.getShareData("user_id"));
 
-            if( drawBitmap ){
+            //サーバーにアップロード //action: updateUserinfo
+            /*
+            String[] pojo = { MediaStore.MediaColumns.DATA };
+
+            Cursor cursor = getApplicationContext().getContentResolver().query(mPictureUri, pojo, null, null, null);
+
+            if (cursor != null) {
+                int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
+                cursor.moveToFirst();
+                picPath = cursor.getString(columnIndex);
+            }
+            */
+
+            if( drawBitmap ){/*
+            if (picPath != null &&
+                    (
+                            picPath.endsWith(".png") ||
+                                    picPath.endsWith(".PNG") ||
+                                    picPath.endsWith(".jpg") ||
+                                    picPath.endsWith(".JPG") ||
+                                    picPath.endsWith(".webp") ||
+                                    picPath.endsWith(".WEBP")
+                    )
+                    )
+            {
+                Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
+                ByteArrayOutputStream bao = new ByteArrayOutputStream();
+                if(picPath.endsWith(".jpg")||picPath.endsWith(".JPG")) {
+
+                    bm.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+                }
+                else  if(picPath.endsWith(".png")||picPath.endsWith(".PNG"))
+                {
+
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, bao);
+
+                }
+                else if(picPath.endsWith(".webp")||picPath.endsWith(".WEBP"))
+                {
+                    bm.compress(Bitmap.CompressFormat.WEBP, 100, bao);
+
+                }
+                byte[] ba = bao.toByteArray();
+
+                // API通信のPOST処理
+                profileSender.setParams(strURL,body,"image.jpg",ba);
+                profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            */
+
                 Bitmap bm = ((BitmapDrawable)profileImageView.getDrawable()).getBitmap();
                 ByteArrayOutputStream bao = new ByteArrayOutputStream();
                 if( picPath == null ){
@@ -324,27 +370,65 @@ public class registProfileActivity extends Activity {
                 }
                 byte[] ba = bao.toByteArray();
 
+                // プロフィール取得用API通信のコールバック
+                AsyncPost profileSender = new AsyncPost(new AsyncCallback() {
+                    public void onPreExecute() {}
+                    public void onProgressUpdate(int progress) {}
+                    public void onCancelled() {}
+                    public void onPostExecute(String result) {
+                        if(!isDestroy){
+                            // JSON文字列を確認してからローカル情報の作成と画面遷移をする
+                            registCheck(clsJson2Objects.isOK(result));
+                        }
+
+                    }
+                });
                 // API通信のPOST処理
                 profileSender.setParams(strURL,body,"image.jpg",ba);
-                profileSender.execute();
+                profileSender.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                 drawBitmap = false;
             } else {
-                //Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-                alertDialogBuilder.setMessage(getResources().getString(R.string.profileAct_imageInputCheck));
-                alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                dialog = null;
-                            }
-                        });
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                Toast.makeText(this, "JPG, PNG, WEBP only", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getAction()==KeyEvent.ACTION_DOWN) {
+            switch (event.getKeyCode()) {
+                case KeyEvent.KEYCODE_BACK:
+                    // 戻すのではなく仕切り直す
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                    alertDialogBuilder.setMessage(getResources().getString(R.string.telAct_Restart));
+                    alertDialogBuilder.setPositiveButton(getResources().getString(R.string.ok),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(getApplication(), telephoneActivity.class);
+                                    startActivity(intent);
+                                    registProfileActivity.this.finish();
+
+                                    dialog.dismiss();
+                                    dialog = null;
+                                    finish();
+
+                                }
+                            });
+                    alertDialogBuilder.setNegativeButton(getResources().getString(R.string.cancel),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    dialog = null;
+                                }
+                            });
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                    return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
     }
 }

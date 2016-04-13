@@ -12,6 +12,7 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ public class GcmIntentService extends IntentService {
         super("GcmIntentService");
     }
     private Handler toaster = new Handler();
+    private Handler handler;
     private String toastValue;
 
     @Override
@@ -66,17 +68,31 @@ public class GcmIntentService extends IntentService {
                 String key;
                 String value = (String) extras.get("article");
 
-                // アプリ起動中ならトーストでメッセージを出す
-                if( isActive ){
-                    toastValue = value;
-                    if( toastValue != null ){
-                        Thread service_thread = new Thread(null, task, toastValue);
-                        service_thread.start();
-                    }
-                }else{
+                int user_id = commonFucntion.getUserID(this.getApplicationContext());
+                if( user_id > 0 ) {
+                    // アプリ起動中ならトーストでメッセージを出す
+                    if( isActive ){
+                        toastValue = value;
+                        if( toastValue != null ){
+                            Thread service_thread = new Thread(null, task, toastValue);
+                            service_thread.start();
+                        }
+                    }else{
+                        if (value.indexOf("TALK,") == 0) {
+                            String[] talkArray = value.split(",", -1);
+                            if( talkArray.length >= 5 ){
+                                if( talkArray[5].equals("00") ){
+                                    //通知バーに表示
+                                    //sendNotification("メッセージが届いています");
+                                    sendNotification(talkArray[6]);
+                                }
+                            }
+                        }else{
+                            //通知バーに表示
+                            sendNotification(value);
+                        }
 
-                    //通知バーに表示
-                    sendNotification(value);
+                    }
                 }
 
             }
@@ -89,9 +105,28 @@ public class GcmIntentService extends IntentService {
     private Runnable task = new Runnable() {
         @Override
         public void run() {
-            toaster.post(new Runnable(){
+            toaster.post(new Runnable() {
                 public void run() {
-                    Toast.makeText(GcmIntentService.this, toastValue, Toast.LENGTH_LONG).show();
+                    // 実行中のクラス名はここで取得できる
+                    ActivityManager activityManager = (ActivityManager) getSystemService(Service.ACTIVITY_SERVICE);
+                    String className = activityManager.getRunningTasks(3).get(0).topActivity.getClassName();
+
+                    if (toastValue.indexOf("TALK,") == 0) {
+                        // トーク画面を開いている時は読み込みイベントを発生させる
+                        if (className.equals("jp.co.webshark.on2.talkActivity")) {
+                            sendBroadCast(toastValue);
+                        }
+                    } else {
+                        Toast.makeText(GcmIntentService.this, toastValue, Toast.LENGTH_LONG).show();
+                    }
+
+                    // フッタメニューがある画面を開いている時は読み込みイベントを発生させる
+                    if (className.equals("jp.co.webshark.on2.homeActivity")
+                            || className.equals("jp.co.webshark.on2.onListActivity")
+                            || className.equals("jp.co.webshark.on2.hiListActivity")) {
+                        sendBroadCast(toastValue);
+                    }
+
                 }
             });
             stopSelf();
@@ -145,4 +180,16 @@ public class GcmIntentService extends IntentService {
 
     }
 
+    public void registerHandler(Handler UpdateHandler) {
+        handler = UpdateHandler;
+    }
+
+    protected void sendBroadCast(String message) {
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.putExtra("message", message);
+        broadcastIntent.setAction("UPDATE_ACTION");
+        getBaseContext().sendBroadcast(broadcastIntent);
+
+    }
 }
